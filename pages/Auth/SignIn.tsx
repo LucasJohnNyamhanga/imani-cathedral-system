@@ -7,7 +7,6 @@ import { BsGoogle } from 'react-icons/bs';
 import Loader from '../../components/tools/loader';
 import toast, { Toaster } from 'react-hot-toast';
 import axios from 'axios';
-import bcrypt from 'bcryptjs';
 //! insta @ johnsavanter
 const SignIn = ({}) => {
 	const [formData, setFormData] = useState({
@@ -162,10 +161,7 @@ const SignIn = ({}) => {
 			})
 			.catch(function (error) {
 				// handle error
-
-				bcrypt.hash(register.password, 10, function (err, hash) {
-					registration(hash);
-				});
+				registration(register.password);
 			});
 	};
 

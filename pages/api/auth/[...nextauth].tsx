@@ -2,7 +2,6 @@ import NextAuth from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { prisma } from '../../../db/prisma';
-import bcrypt from 'bcryptjs';
 
 export default NextAuth({
 	providers: [
@@ -36,10 +35,7 @@ export default NextAuth({
 				});
 				const userfound = await JSON.parse(JSON.stringify(userFromServer));
 
-				let comaparison = await bcrypt.compare(
-					credentials!.password,
-					userfound.password
-				);
+				let comaparison = credentials!.password === userfound.password;
 
 				if (comaparison) {
 					const user = {
