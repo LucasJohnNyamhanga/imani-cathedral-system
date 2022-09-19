@@ -13,6 +13,50 @@
 	justify-content: center;
 	align-items: center;
 
+	.NavHeaderDetails {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		background-color: $white;
+
+		.utangulizi {
+			width: 100%;
+			max-width: 1200px;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+
+			.logo {
+				width: 100%;
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				justify-content: space-between;
+
+				.kkkt {
+					font-weight: bolder;
+					font-size: 22px;
+					color: red;
+				}
+
+				.verse {
+					max-width: 300px;
+
+					.details {
+						padding: 10px 0px;
+					}
+
+					.number {
+						font-weight: 600;
+						color: red;
+					}
+				}
+			}
+		}
+	}
+
 	.NavDetails {
 		background-color: $lightkahawa;
 		height: fit-content;
@@ -75,12 +119,17 @@
 				color: $lightblue;
 
 				.icon {
-					padding-right: 10px;
-					padding-top: 2px;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					margin-right: 10px;
 				}
 
 				.shule {
 					color: $lightkahawa;
+					display: flex;
+					align-items: center;
+					justify-content: center;
 				}
 			}
 

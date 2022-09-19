@@ -1,138 +1,151 @@
-@import "index";
+@import 'index';
 
 .mainContainer {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
 }
 
 .innerContainerTop {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 
-  .NavDetails {
-    background-color: $lightkahawa;
-    height: fit-content;
-    min-height: 30px;
-    font-family: $fontHeader;
-    font-size: 15px;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    color: $ugoro;
+	.NavDetails {
+		background-color: $lightkahawa;
+		height: fit-content;
+		min-height: 30px;
+		font-family: $fontHeader;
+		font-size: 15px;
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+		color: $ugoro;
 
-    .topAdvatisment{
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+		.NavHeaderDetails {
+			width: 100%;
+			.utangulizi {
+				width: 100%;
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				justify-content: space-between;
+			}
+		}
 
-      p {
-        width: fit-content;
-        padding: 5px;
-        margin: 5px;
-        padding-left: 10px;
-        padding-right: 10px;
-        text-align: center;
-      }
-    }
-    
+		.topAdvatisment {
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
 
-   
-  }
+			p {
+				width: fit-content;
+				padding: 5px;
+				margin: 5px;
+				padding-left: 10px;
+				padding-right: 10px;
+				text-align: center;
+			}
+		}
+	}
 
-  .NavHeader {
-    background-color: $ugoro;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    width: 100%;
-    padding-left: 2rem;
-    padding-right: 2rem;
+	.NavHeader {
+		background-color: $ugoro;
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		width: 100%;
+		padding-left: 2rem;
+		padding-right: 2rem;
 
-    .nav {
-      font-family: $fontHeader;
-      font-weight: 400;
-      background-color: $ugoro;
-      width: 100%;
-      height: 60px;
-      max-width: 1200px;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
+		.nav {
+			font-family: $fontHeader;
+			font-weight: 400;
+			background-color: $ugoro;
+			width: 100%;
+			height: 60px;
+			max-width: 1200px;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: space-between;
 
-      .logo {
-        font-family: "Montserrat";
-        font-weight: 500;
-        font-size: 24px;
-        display: flex;
-        flex-direction: row;
-        cursor: pointer;
-        color: $lightblue;
+			.logo {
+				font-family: $fontHeader;
+				font-weight: 500;
+				font-size: 24px;
+				display: flex;
+				flex-direction: row;
+				cursor: pointer;
+				color: $lightblue;
 
-        .icon {
-          padding-right: 10px;
-          padding-top: 2px;
-        }
+				.icon {
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					margin-right: 10px;
+				}
 
-        .shule {
-          color: $lightkahawa;
-        }
-      }
+				.shule {
+					color: $lightkahawa;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+				}
+			}
 
-      .buttonsNav {
-        display: block;
-        position: relative;
-        z-index: 1;
-        user-select: none;
-        appearance: none;
-        border: none;
-        outline: none;
-        background: none;
-        cursor: pointer;
+			.buttonsNav {
+				display: block;
+				position: relative;
+				z-index: 1;
+				user-select: none;
+				appearance: none;
+				border: none;
+				outline: none;
+				background: none;
+				cursor: pointer;
 
-        span {
-          display: block;
-          width: 33px;
-          height: 4px;
-          margin-bottom: 5px;
-          position: relative;
-          background-color: $lightblue;
-          border-radius: 6px;
-          z-index: 1;
-          transform-origin: 0 0;
-          transition: 0.7s;
-        }
+				span {
+					display: block;
+					width: 33px;
+					height: 4px;
+					margin-bottom: 5px;
+					position: relative;
+					background-color: $lightblue;
+					border-radius: 6px;
+					z-index: 1;
+					transform-origin: 0 0;
+					transition: 0.7s;
+				}
 
-        &.isActive span {
-          background-color: $lightkahawa;
-        }
+				&.isActive span {
+					background-color: $lightkahawa;
+				}
 
-        &.isactive span:nth-child(2) {
-          background-color: $lightkahawa;
-          transform: translateX(10px);
-        }
+				&.isactive span:nth-child(2) {
+					background-color: $lightkahawa;
+					transform: translateX(10px);
+				}
 
-        &.isActive span:nth-child(1) {
-          transform: translate(0px, -2px) rotate(45deg);
-        }
+				&.isActive span:nth-child(1) {
+					transform: translate(0px, -2px) rotate(45deg);
+				}
 
-        &.isActive span:nth-child(2) {
-          opacity: 0;
-          transform: translate(15px);
-        }
+				&.isActive span:nth-child(2) {
+					opacity: 0;
+					transform: translate(15px);
+				}
 
-        &.isActive span:nth-child(3) {
-          transform: translate(-3px, 3px) rotate(-45deg);
-        }
-      }
-    }
-  }
+				&.isActive span:nth-child(3) {
+					transform: translate(-3px, 3px) rotate(-45deg);
+				}
+			}
+		}
+	}
 }
