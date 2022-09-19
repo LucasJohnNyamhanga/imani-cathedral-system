@@ -43,13 +43,14 @@
 
 				.verse {
 					max-width: 300px;
+					font-weight: 500;
 
 					.details {
-						padding: 10px 0px;
+						padding: 5px 0px;
 					}
 
 					.number {
-						font-weight: 600;
+						font-weight: 500;
 						color: red;
 					}
 				}
@@ -76,6 +77,7 @@
 			flex-direction: column;
 			align-items: center;
 			justify-content: center;
+			font-weight: 600;
 
 			p {
 				text-align: center;
@@ -149,7 +151,7 @@
 				border-radius: 4px;
 				border: 2px solid transparent;
 				font-family: $fontHeader;
-				font-weight: 500;
+				font-weight: 600;
 				font-size: 16px;
 				margin: 0px 1.5px;
 			}
@@ -165,7 +167,7 @@
 			.buttonsNav {
 				color: $lightkahawa;
 				font-family: $fontHeader;
-				font-weight: 500;
+				font-weight: 600;
 				font-size: 16px;
 				display: flex;
 				flex-direction: row;
@@ -182,9 +184,11 @@
 					border-radius: 4px;
 					border: 2px solid transparent;
 					font-family: $fontHeader;
-					font-weight: 500;
+					font-weight: 600;
 					font-size: 16px;
 					margin: 0px 1.5px;
+					background-color: $white;
+					color: $ugoro;
 				}
 
 				.Sign:hover {
@@ -193,6 +197,7 @@
 					color: $ugoro;
 					border-radius: 4px;
 					cursor: pointer;
+					color: $ugoro;
 				}
 
 				.Register {
@@ -201,7 +206,7 @@
 					border: 2px solid $lightblue;
 					background-color: $ugoro;
 					font-family: $fontHeader;
-					font-weight: 500;
+					font-weight: 600;
 					font-size: 16px;
 					margin: 0px 1.5px;
 					color: $lightkahawa;
