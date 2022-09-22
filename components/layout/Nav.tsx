@@ -6,12 +6,13 @@ import { useSession, getSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import User from '../layout/User';
 import Image from 'next/image';
+import Toggle from './Toggle';
 
 const Nav = () => {
 	const { setNavActive, navActive } = useContext(NavContext);
 	const { data: session, status } = useSession();
 	const [limt, setLimit] = useState(0);
-
+	const [hover, setHover] = useState('');
 	const { push, asPath } = useRouter();
 
 	let handleSignIn = () => {
@@ -24,6 +25,42 @@ const Nav = () => {
 			push('/');
 		});
 	};
+
+	let handleHover = (neno: string) => {
+		setHover(neno);
+	};
+
+	const vikundiList = [
+		{ name: 'Kwaya ya Uinjilist', link: '/#' },
+		{ name: 'Kwaya ya Agape', link: '/#' },
+		{ name: 'Kwaya ya Tumaini', link: '/#' },
+		{ name: 'Kwaya ya Vijana', link: '/#' },
+		{ name: 'Umoja wa vijana', link: '/#' },
+		{ name: 'Umoja wa wakinamama', link: '/#' },
+	];
+
+	const hudumaList = [
+		{ name: 'Ratiba za Ibada', link: '/#' },
+		{ name: 'Ibada za Kusifu na Kuabudu', link: '/#' },
+
+		{ name: 'Semina', link: '/#' },
+		{ name: 'Fellowship', link: '/#' },
+		{ name: 'Darasa la Ubatizo', link: '/#' },
+		{ name: 'Darasa la Kipaimara', link: '/#' },
+		{ name: 'Darasa la Ndoa', link: '/#' },
+	];
+
+	const sisi = [
+		{ name: 'Historia ya Kanisa', link: '/#' },
+		{ name: 'Uongozi', link: '/#' },
+		{ name: 'Jumuiya', link: '/#' },
+		{ name: 'Baraza la Wazee', link: '/#' },
+	];
+
+	const habariList = [
+		{ name: 'Matangazo', link: '/#' },
+		{ name: 'Habari na Matukio', link: '/#' },
+	];
 
 	useEffect(() => {}, [navActive]);
 
@@ -68,96 +105,68 @@ const Nav = () => {
 									<a>
 										<div
 											onClick={() => {
-												setNavActive('Notes');
+												setNavActive('Mwanzo');
 											}}>
 											<li
 												className={
-													'Notes' == navActive ? Styles.active : Styles.links
+													'Mwanzo' == navActive ? Styles.active : Styles.links
 												}>
 												Mwanzo
 											</li>
 										</div>
 									</a>
 								</Link>
-								<Link href='/Review'>
+								<div>
+									<li className={Styles.toggle}>
+										<Toggle
+											name='Kanisa'
+											action={handleHover}
+											nameList={sisi}
+										/>
+									</li>
+								</div>
+								<div>
+									<li className={Styles.toggle}>
+										<Toggle
+											name='Huduma'
+											action={handleHover}
+											nameList={hudumaList}
+										/>
+									</li>
+								</div>
+								<div>
+									<li className={Styles.toggle}>
+										<Toggle
+											name='Vikundi'
+											action={handleHover}
+											nameList={vikundiList}
+										/>
+									</li>
+								</div>
+								<Link href='/Miradi'>
 									<a>
 										<div
 											onClick={() => {
-												setNavActive('Review');
+												setNavActive('Miradi');
 											}}>
 											<li
 												className={
-													'Review' == navActive ? Styles.active : Styles.links
-												}>
-												Kuhusu Sisi
-											</li>
-										</div>
-									</a>
-								</Link>
-								<Link href='/Review'>
-									<a>
-										<div
-											onClick={() => {
-												setNavActive('Review');
-											}}>
-											<li
-												className={
-													'Review' == navActive ? Styles.active : Styles.links
-												}>
-												Huduma
-											</li>
-										</div>
-									</a>
-								</Link>
-								<Link href='/Exams'>
-									<a>
-										<div
-											onClick={() => {
-												setNavActive('Exams');
-											}}>
-											<li
-												className={
-													'Exams' == navActive ? Styles.active : Styles.links
-												}>
-												Vikundi
-											</li>
-										</div>
-									</a>
-								</Link>
-								<Link href='/References'>
-									<a>
-										<div
-											onClick={() => {
-												setNavActive('References');
-											}}>
-											<li
-												className={
-													'References' == navActive
-														? Styles.active
-														: Styles.links
+													'Miradi' == navActive ? Styles.active : Styles.links
 												}>
 												Miradi
 											</li>
 										</div>
 									</a>
 								</Link>
-								<Link href='/References'>
-									<a>
-										<div
-											onClick={() => {
-												setNavActive('References');
-											}}>
-											<li
-												className={
-													'References' == navActive
-														? Styles.active
-														: Styles.links
-												}>
-												Matangazo
-											</li>
-										</div>
-									</a>
-								</Link>
+								<div>
+									<li className={Styles.toggle}>
+										<Toggle
+											name='Habari'
+											action={handleHover}
+											nameList={habariList}
+										/>
+									</li>
+								</div>
 							</ul>
 						</div>
 						<div className={Styles.buttonsNav}>

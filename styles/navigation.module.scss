@@ -38,7 +38,7 @@
 				.kkkt {
 					font-weight: bolder;
 					font-size: 22px;
-					color: red;
+					color: $lightblue;
 				}
 
 				.verse {
@@ -51,7 +51,7 @@
 
 					.number {
 						font-weight: 500;
-						color: red;
+						color: $lightblue;
 					}
 				}
 			}
@@ -154,6 +154,7 @@
 				font-weight: 600;
 				font-size: 16px;
 				margin: 0px 1.5px;
+				z-index: 14;
 			}
 
 			.links ul li:hover {
@@ -162,6 +163,21 @@
 				color: $ugoro;
 				border-radius: 4px;
 				cursor: pointer;
+			}
+
+			.links ul div li:hover {
+				border: 2px solid transparent !important;
+				cursor: default !important;
+			}
+
+			.toggle {
+				margin: 0rem !important;
+				padding: 0rem !important;
+				border: 2px solid transparent !important;
+			}
+
+			.toggle:hover {
+				cursor: default;
 			}
 
 			.buttonsNav {

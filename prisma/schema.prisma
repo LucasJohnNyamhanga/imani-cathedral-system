@@ -1,11 +1,38 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
+// generator client {
+//   provider = "prisma-client-js"
+// }
+
+// datasource db {
+//   provider = "postgresql"
+//   url      = env("DATABASE_URL")
+// }
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "fullTextIndex"]
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
+  // shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+model users {
+  id          Int      @id @default(autoincrement())
+  image       String?
+  username    String   @db.Text
+  password    String
+  isAdmin     Boolean  @default(false)
+  isSuperUser Boolean  @default(false)
+  dateJoined  DateTime @default(now())
+  name        String   @db.Text
+  updatedAt   DateTime @updatedAt
+  isOnline    Boolean  @default(false)
+
+  @@fulltext([username])
+  @@fulltext([name])
+  @@fulltext([username, name])
 }

@@ -1,0 +1,116 @@
+@import 'index';
+
+.container {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	font-family: 'Montserrat';
+	margin: 0px;
+	padding: 0px;
+
+	* {
+		transition: 0.1s linear;
+	}
+}
+
+.section {
+	width: 100%;
+	// max-width: 1400px;
+	padding: 0px;
+	margin: 0px;
+	display: flex;
+	flex-direction: row;
+}
+
+.hero {
+	width: 100%;
+	margin: 0px 0px 0px 0px;
+	display: flex;
+	flex-direction: row;
+	gap: 0.5rem;
+	justify-content: center;
+	position: relative;
+	height: 600px;
+	.image {
+		width: 100%;
+		height: auto;
+		position: relative;
+		top: 0;
+	}
+	.info {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		padding-right: 20px;
+		// flex: 1 1 100%;
+		position: absolute;
+		bottom: 50px;
+		background-color: rgba($color: $ugoro, $alpha: 0.5);
+		width: fit-content;
+		margin: 0px 20px;
+		z-index: 999;
+
+		.details {
+			p {
+				width: 100%;
+				font-size: 22px;
+				font-family: $fontHeader;
+				font-weight: 700;
+				line-height: 1;
+				color: $white;
+				margin: 12px;
+				line-height: 2rem;
+			}
+		}
+	}
+}
+
+@media only screen and (max-width: 1150px) {
+	.hero {
+		.info {
+			.details {
+				h1 {
+					font-size: 1.8rem;
+				}
+			}
+		}
+	}
+}
+
+@media only screen and (max-width: 858px) {
+	.hero {
+		.info {
+			.details {
+				h1 {
+					font-size: 1.6rem;
+				}
+			}
+		}
+	}
+}
+
+@media only screen and (max-width: 608px) {
+	.hero {
+		.info {
+			.details {
+				h1 {
+					font-size: 1.5rem;
+				}
+			}
+		}
+	}
+}
+
+@media only screen and (max-width: 458px) {
+	.hero {
+		.info {
+			.details {
+				h1 {
+					font-size: 1.3rem;
+				}
+			}
+		}
+	}
+}
