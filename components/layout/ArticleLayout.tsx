@@ -22,8 +22,20 @@ const ArticleLayout = () => {
 				</div>
 				<div className={Styles.containerRight}>
 					<div className={Styles.headerText}>Matangazo</div>
-					<Matangazo />
-					<Matangazo />
+					<Matangazo
+						title={'Nafasi Ya Kazi'}
+						message={
+							'Muhudumu wa kanisa ambaye atafanya kazi za ndani na nje ya kanisa'
+						}
+						date={'22 Sep 2022'}
+					/>
+					<Matangazo
+						title={'Matayarisho Siku ya Mikaeli na Watoto'}
+						message={
+							'Matayarisho ya Siku ya Mikaeli na Watoto yataendela kila jumapili jioni kuanzia saa tisa alasili.'
+						}
+						date={'17 Sep 2022'}
+					/>
 				</div>
 			</div>
 		</div>

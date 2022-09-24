@@ -1,19 +1,22 @@
+import { type } from 'os';
 import Styles from '../../styles/matangazo.module.scss';
 
-const Matangazo = () => {
+type dataType = {
+	title: string;
+	message: string;
+	date: string;
+};
+
+const Matangazo = ({ title, message, date }: dataType) => {
 	return (
 		<div className={Styles.wrapper}>
 			<div className={Styles.notifications}>
 				<div className={Styles.notificationsItem}>
 					<div className={Styles.notificationsItemcontent}>
-						<span className={Styles.notificationsItemtitle}>
-							Nafasi ya kazi
-						</span>
-						<span className={Styles.notificationsItemmessage}>
-							Muhudumu wa kanisa atakaesimamia kazi mbalimbali za kanisa.
-						</span>
+						<span className={Styles.notificationsItemtitle}>{title}</span>
+						<span className={Styles.notificationsItemmessage}>{message}</span>
 						<span className={Styles.notificationsItemFooter}>
-							Posted: Feb 12 2022
+							Posted: {date}
 						</span>
 					</div>
 				</div>

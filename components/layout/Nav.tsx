@@ -117,30 +117,39 @@ const Nav = () => {
 									</a>
 								</Link>
 								<div>
-									<li className={Styles.toggle}>
-										<Toggle
-											name='Kanisa'
-											action={handleHover}
-											nameList={sisi}
-										/>
+									<li>
+										Kuhusu Sisi
+										<ul>
+											{sisi.map((value) => (
+												<Link href={value.link}>
+													<li>{value.name}</li>
+												</Link>
+											))}
+										</ul>
 									</li>
 								</div>
 								<div>
-									<li className={Styles.toggle}>
-										<Toggle
-											name='Huduma'
-											action={handleHover}
-											nameList={hudumaList}
-										/>
+									<li>
+										Huduma
+										<ul>
+											{hudumaList.map((value) => (
+												<Link href={value.link}>
+													<li>{value.name}</li>
+												</Link>
+											))}
+										</ul>
 									</li>
 								</div>
 								<div>
-									<li className={Styles.toggle}>
-										<Toggle
-											name='Vikundi'
-											action={handleHover}
-											nameList={vikundiList}
-										/>
+									<li>
+										Vikundi
+										<ul>
+											{vikundiList.map((value) => (
+												<Link href={value.link}>
+													<li>{value.name}</li>
+												</Link>
+											))}
+										</ul>
 									</li>
 								</div>
 								<Link href='/Miradi'>
@@ -159,12 +168,15 @@ const Nav = () => {
 									</a>
 								</Link>
 								<div>
-									<li className={Styles.toggle}>
-										<Toggle
-											name='Habari'
-											action={handleHover}
-											nameList={habariList}
-										/>
+									<li>
+										Habari
+										<ul>
+											{habariList.map((value) => (
+												<Link href={value.link}>
+													<li>{value.name}</li>
+												</Link>
+											))}
+										</ul>
 									</li>
 								</div>
 							</ul>

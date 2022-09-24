@@ -47,7 +47,7 @@
 		// flex: 1 1 100%;
 		position: absolute;
 		bottom: 50px;
-		background-color: rgba($color: $ugoro, $alpha: 0.5);
+		background-color: rgba($color: $ugoro, $alpha: 0.7);
 		width: fit-content;
 		margin: 0px 20px;
 		z-index: 999;
@@ -55,13 +55,11 @@
 		.details {
 			p {
 				width: 100%;
-				font-size: 22px;
+				font-size: 18px;
 				font-family: $fontHeader;
-				font-weight: 700;
-				line-height: 1;
+				font-weight: 600;
 				color: $white;
 				margin: 12px;
-				line-height: 2rem;
 			}
 		}
 	}
@@ -71,8 +69,8 @@
 	.hero {
 		.info {
 			.details {
-				h1 {
-					font-size: 1.8rem;
+				p {
+					font-size: 16px;
 				}
 			}
 		}
@@ -81,10 +79,11 @@
 
 @media only screen and (max-width: 858px) {
 	.hero {
+		height: 500px;
 		.info {
 			.details {
-				h1 {
-					font-size: 1.6rem;
+				p {
+					font-size: 14px;
 				}
 			}
 		}
@@ -93,10 +92,11 @@
 
 @media only screen and (max-width: 608px) {
 	.hero {
+		height: 400px;
 		.info {
 			.details {
-				h1 {
-					font-size: 1.5rem;
+				p {
+					font-size: 14px;
 				}
 			}
 		}
@@ -109,6 +109,7 @@
 			.details {
 				h1 {
 					font-size: 1.3rem;
+					font-weight: 500;
 				}
 			}
 		}

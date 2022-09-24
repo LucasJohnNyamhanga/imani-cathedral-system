@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import Styles from '../../styles/drawerMobile.module.scss';
 import { useSession } from 'next-auth/react';
+import Toggle from '../layout/Toggle';
 
 type dataType = {
 	handleMenu: (linkValue: string) => void;
@@ -37,11 +38,37 @@ export const MuiDrawer = ({
 		humberger.current.classList.toggle(Styles.isActive);
 	};
 
-	const notes = useRef<HTMLDivElement>(null!);
-	const review = useRef<HTMLDivElement>(null!);
-	const exam = useRef<HTMLDivElement>(null!);
-	const reference = useRef<HTMLDivElement>(null!);
-	const admin = useRef<HTMLDivElement>(null!);
+	const vikundiList = [
+		{ name: 'Kwaya ya Uinjilist', link: '/#' },
+		{ name: 'Kwaya ya Agape', link: '/#' },
+		{ name: 'Kwaya ya Tumaini', link: '/#' },
+		{ name: 'Kwaya ya Vijana', link: '/#' },
+		{ name: 'Umoja wa vijana', link: '/#' },
+		{ name: 'Umoja wa wakinamama', link: '/#' },
+	];
+
+	const hudumaList = [
+		{ name: 'Ratiba za Ibada', link: '/#' },
+		{ name: 'Ibada za Kusifu na Kuabudu', link: '/#' },
+
+		{ name: 'Semina', link: '/#' },
+		{ name: 'Fellowship', link: '/#' },
+		{ name: 'Darasa la Ubatizo', link: '/#' },
+		{ name: 'Darasa la Kipaimara', link: '/#' },
+		{ name: 'Darasa la Ndoa', link: '/#' },
+	];
+
+	const sisi = [
+		{ name: 'Historia ya Kanisa', link: '/#' },
+		{ name: 'Uongozi', link: '/#' },
+		{ name: 'Jumuiya', link: '/#' },
+		{ name: 'Baraza la Wazee', link: '/#' },
+	];
+
+	const habariList = [
+		{ name: 'Matangazo', link: '/#' },
+		{ name: 'Habari na Matukio', link: '/#' },
+	];
 
 	return (
 		<>
@@ -57,69 +84,60 @@ export const MuiDrawer = ({
 			</div>
 			<Drawer anchor='left' open={isDrawerOpen} onClose={handleClose}>
 				<Box p={2} width='250px' textAlign='center' role='presentation'>
-					<ListItemText primary={`SHULE MENU`} />
+					<ListItemText primary={`KKKT IMANI`} />
 
 					<List>
 						<Divider />
 						<Link href={'/'}>
 							<a>
 								<div
-									ref={notes}
 									className={
-										'Notes' == navActive ? Styles.active : Styles.setCenter
+										'Mwanzo' == navActive ? Styles.active : Styles.setCenter
 									}
 									onClick={() => {
-										handleMenuClick('Notes');
+										handleMenuClick('Mwanzo');
 									}}>
-									Notes
+									Mwanzo
 								</div>
 							</a>
 						</Link>
 						<Divider />
-						<Link href={'/Review'}>
+
+						<Toggle list={sisi} name={'Kuhusu sisi'} action={handleMenuClick} />
+						<Divider />
+
+						<Toggle
+							list={hudumaList}
+							name={'Huduma'}
+							action={handleMenuClick}
+						/>
+						<Divider />
+						<Toggle
+							list={vikundiList}
+							name={'Vikundi'}
+							action={handleMenuClick}
+						/>
+
+						<Divider />
+						<Link href={'/Miradi'}>
 							<a>
 								<div
-									ref={review}
 									className={
-										'Review' == navActive ? Styles.active : Styles.setCenter
+										'Miradi' == navActive ? Styles.active : Styles.setCenter
 									}
 									onClick={() => {
-										handleMenuClick('Review');
+										handleMenuClick('Miradi');
 									}}>
-									Quiz
+									Miradi
 								</div>
 							</a>
 						</Link>
 						<Divider />
-						<Link href={'/Exams'}>
-							<a>
-								<div
-									ref={exam}
-									className={
-										'Exams' == navActive ? Styles.active : Styles.setCenter
-									}
-									onClick={() => {
-										handleMenuClick('Exams');
-									}}>
-									Exams
-								</div>
-							</a>
-						</Link>
-						<Divider />
-						<Link href={'/References'}>
-							<a>
-								<div
-									ref={reference}
-									className={
-										'References' == navActive ? Styles.active : Styles.setCenter
-									}
-									onClick={() => {
-										handleMenuClick('References');
-									}}>
-									Library
-								</div>
-							</a>
-						</Link>
+						<Toggle
+							list={habariList}
+							name={'Habari'}
+							action={handleMenuClick}
+						/>
 						<Divider />
 					</List>
 					<ListItemText primary={`ACCOUNT`} />
@@ -135,18 +153,6 @@ export const MuiDrawer = ({
 											}}
 											className={Styles.setCenter}>
 											My Account
-										</div>
-									</a>
-								</Link>
-								<Divider />
-								<Link href={'/Pricing'}>
-									<a>
-										<div
-											onClick={() => {
-												handleMenuClick('');
-											}}
-											className={Styles.setCenter}>
-											Pricing
 										</div>
 									</a>
 								</Link>
@@ -169,7 +175,16 @@ export const MuiDrawer = ({
 										handleSighIn();
 										handleMenuClick('');
 									}}>
-									Sign In
+									Jisajili
+								</div>
+								<Divider />
+								<div
+									className={Styles.activeCredential}
+									onClick={() => {
+										handleSighIn();
+										handleMenuClick('');
+									}}>
+									Ingia
 								</div>
 								<Divider />
 							</>

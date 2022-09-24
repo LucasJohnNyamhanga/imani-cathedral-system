@@ -1,29 +1,60 @@
 @import 'index';
-.huduma {
+.container {
+	font-family: $fontHeader;
+
+	width: fit-content;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	padding: 0.5rem 1rem;
-	margin: 0px;
-	font-size: 16px;
+	color: $nyeupe;
+	align-items: flex-start;
 	width: 100%;
-	height: 100%;
-	color: $lightkahawa;
-	font-weight: 600;
-	font-family: $fontHeader;
-	z-index: 99999;
-	border-radius: 4px;
-	border: 2px solid transparent;
-}
+	.toggle {
+		width: 100%;
+		padding: 15px;
+		background-color: $nyeupe;
+		color: $ugoro;
+		text-align: start;
+		font-weight: 500;
+	}
 
-.huduma:hover {
-	color: $ugoro;
-	background-color: $lightkahawa;
-	border: 2px solid transparent;
-	cursor: pointer;
-}
+	.toggle:hover {
+		background-color: $ugoro;
+		color: $nyeupe;
+	}
 
-.checked {
-	border: 2px solid $lightkahawa;
+	.innerContainer {
+		width: 100%;
+		padding-left: 10px;
+		display: flex;
+		flex-direction: column;
+		justify-items: flex-start;
+		align-items: flex-start;
+
+		.itemHolder {
+			width: 100%;
+			background-color: red;
+		}
+
+		.item {
+			width: 100%;
+			padding: 10px 15px;
+			background-color: $lightkahawa;
+			color: $ugoro;
+			text-align: start;
+		}
+		.item:hover {
+			background-color: $nyeupe;
+			color: $ugoro;
+		}
+	}
+
+	.active {
+		background-color: $ugoro;
+		color: $lightblue;
+	}
+
+	.active:hover {
+		background-color: $ugoro !important;
+		color: $lightblue !important;
+	}
 }

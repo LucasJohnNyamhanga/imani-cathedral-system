@@ -13,7 +13,7 @@
 
 	&:hover {
 		background-color: $ugoro;
-		color: $white;
+		color: $nyeupe;
 	}
 }
 
@@ -28,12 +28,12 @@
 	color: $ugoro;
 	cursor: pointer;
 	background-color: $lightblue;
-	color: $white;
+	color: $nyeupe;
 }
 
 .active:hover {
 	background-color: $lightblue !important;
-	color: $white !important;
+	color: $nyeupe !important;
 }
 
 .activeCredential {
@@ -46,7 +46,7 @@
 	font-weight: 500;
 	color: $lightblue;
 	cursor: pointer;
-	background-color: $white;
+	background-color: $nyeupe;
 }
 
 .buttonsNav {
