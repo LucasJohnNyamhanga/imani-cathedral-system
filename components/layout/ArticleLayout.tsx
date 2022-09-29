@@ -5,6 +5,77 @@ import Card from '../tools/Card';
 import Matangazo from '../tools/Matangazo';
 
 const ArticleLayout = () => {
+	const habari = [
+		{
+			title: 'Ushirika wa Imani wazindua website.',
+			subTitle: 'Kuelekea mabadiliko ya kidijitali.',
+			image: '/kkkt.jpg',
+			content: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad eum
+						dolorum architecto obcaecati enim dicta praesentium, quam nobis!
+						Neque ad aliquam facilis numquam. Veritatis, sit.`,
+			mwandishi: 'KKKT IMANI Admin',
+			tarehe: 'Aug. 24, 2015',
+			tag: '',
+		},
+		{
+			title: 'Semina na mafundisho yaendelea.',
+			subTitle: 'Mwezi wa kumjua Mungu.',
+			image: '/semina.jpg',
+			content: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad eum
+						dolorum architecto obcaecati enim dicta praesentium, quam nobis!
+						Neque ad aliquam facilis numquam. Veritatis, sit.`,
+			mwandishi: 'KKKT IMANI Admin',
+			tarehe: 'Aug. 24, 2015',
+			tag: '',
+		},
+		{
+			title: 'Askofu Shoo aongezewa majukumu kimataifa.',
+			subTitle: 'Awa Mjumbe wa Kamati Kuu ya Baraza la Makanisa Duniani (WCC).',
+			image: '/shoo.jpg',
+			content: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad eum
+						dolorum architecto obcaecati enim dicta praesentium, quam nobis!
+						Neque ad aliquam facilis numquam. Veritatis, sit.`,
+			mwandishi: 'KKKT IMANI Admin',
+			tarehe: 'Aug. 24, 2015',
+			tag: '',
+		},
+		{
+			title: 'Wachungaji wanawake wa kwanza na mazito waliyokutana nayo.',
+			subTitle: 'Changamoto za wachungaji wanawake na magumu waliopitia.',
+			image: '/wachungaji.jpg',
+			content: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad eum
+						dolorum architecto obcaecati enim dicta praesentium, quam nobis!
+						Neque ad aliquam facilis numquam. Veritatis, sit.`,
+			mwandishi: 'KKKT IMANI Admin',
+			tarehe: 'Aug. 24, 2015',
+			tag: '',
+		},
+	];
+
+	const mahubiri = [
+		{
+			title: 'Maisha ndani ya Kristo Yesu.',
+			subTitle: 'Tumjue Kristo na jinsi anavyoishi ndani yetu.',
+			image: '/worship2.jpg',
+			content: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad eum
+						dolorum architecto obcaecati enim dicta praesentium, quam nobis!
+						Neque ad aliquam facilis numquam. Veritatis, sit.`,
+			mwandishi: 'KKKT IMANI Admin',
+			tarehe: 'Aug. 24, 2015',
+			tag: '',
+		},
+		{
+			title: 'Jinsi baraka zinavyofanya kazi kupitia sadaka.',
+			subTitle: 'Sadaka inavyofungua maisha na kuleta baraka.',
+			image: '/worship3.jpg',
+			content: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad eum
+						dolorum architecto obcaecati enim dicta praesentium, quam nobis!
+						Neque ad aliquam facilis numquam. Veritatis, sit.`,
+			mwandishi: 'KKKT IMANI Admin',
+			tarehe: 'Aug. 24, 2015',
+			tag: '',
+		},
+	];
 	return (
 		<div className={Styles.container}>
 			<div className={Styles.innerContainer}>
@@ -17,7 +88,16 @@ const ArticleLayout = () => {
 					</div>
 					<div>
 						<div className={Styles.headerText}>Habari Na Matukio</div>
-						<BlogCard />
+						<BlogCard data={habari} />
+						<div className={Styles.headerTextEndelea}>
+							<div>Endelea Habari Na Matukio</div>
+						</div>
+						<div className={Styles.headerText}>Mahubiri Na Mafundisho</div>
+						<BlogCard data={mahubiri} />
+
+						<div className={Styles.headerTextEndelea}>
+							<div>Endelea Mahubiri Na Mafundisho</div>
+						</div>
 					</div>
 				</div>
 				<div className={Styles.containerRight}>

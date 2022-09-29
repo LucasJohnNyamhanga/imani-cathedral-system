@@ -16,7 +16,16 @@ const Nav = () => {
 	const { push, asPath } = useRouter();
 
 	let handleSignIn = () => {
-		push(`/Auth/SignIn?callbackUrl=${asPath}`);
+		push({
+			pathname: '/Auth/SignIn',
+			query: { callbackUrl: asPath.trim() },
+		});
+	};
+
+	let handleRegister = () => {
+		push({
+			pathname: '/Auth/Sajili',
+		});
 	};
 
 	let handleLogOut = () => {
@@ -32,7 +41,7 @@ const Nav = () => {
 
 	const vikundiList = [
 		{ name: 'Kwaya ya Uinjilist', link: '/#' },
-		{ name: 'Kwaya ya Agape', link: '/#' },
+		{ name: 'Kwaya ya Imani', link: '/#' },
 		{ name: 'Kwaya ya Tumaini', link: '/#' },
 		{ name: 'Kwaya ya Vijana', link: '/#' },
 		{ name: 'Umoja wa vijana', link: '/#' },
@@ -59,7 +68,8 @@ const Nav = () => {
 
 	const habariList = [
 		{ name: 'Matangazo', link: '/#' },
-		{ name: 'Habari na Matukio', link: '/#' },
+		{ name: 'Habari Na Matukio', link: '/#' },
+		{ name: 'Mahubiri Na Mafundisho', link: '/#' },
 	];
 
 	useEffect(() => {}, [navActive]);
@@ -120,8 +130,8 @@ const Nav = () => {
 									<li>
 										Kuhusu Sisi
 										<ul>
-											{sisi.map((value) => (
-												<Link href={value.link}>
+											{sisi.map((value, index) => (
+												<Link href={value.link} key={value.name}>
 													<li>{value.name}</li>
 												</Link>
 											))}
@@ -132,8 +142,8 @@ const Nav = () => {
 									<li>
 										Huduma
 										<ul>
-											{hudumaList.map((value) => (
-												<Link href={value.link}>
+											{hudumaList.map((value, index) => (
+												<Link href={value.link} key={value.name}>
 													<li>{value.name}</li>
 												</Link>
 											))}
@@ -145,7 +155,7 @@ const Nav = () => {
 										Vikundi
 										<ul>
 											{vikundiList.map((value) => (
-												<Link href={value.link}>
+												<Link href={value.link} key={value.name}>
 													<li>{value.name}</li>
 												</Link>
 											))}
@@ -171,8 +181,8 @@ const Nav = () => {
 									<li>
 										Habari
 										<ul>
-											{habariList.map((value) => (
-												<Link href={value.link}>
+											{habariList.map((value, index) => (
+												<Link href={value.link} key={value.name}>
 													<li>{value.name}</li>
 												</Link>
 											))}
@@ -190,7 +200,9 @@ const Nav = () => {
 								</>
 							) : (
 								<>
-									<div className={Styles.Sign}>Jisajili</div>
+									<div className={Styles.Sign} onClick={handleRegister}>
+										Jisajili
+									</div>
 									<div onClick={handleSignIn} className={Styles.Register}>
 										Ingia
 									</div>

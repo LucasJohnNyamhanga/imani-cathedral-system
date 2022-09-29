@@ -20,19 +20,61 @@ datasource db {
   // shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
-model users {
-  id          Int      @id @default(autoincrement())
-  image       String?
-  username    String   @db.Text
-  password    String
-  isAdmin     Boolean  @default(false)
-  isSuperUser Boolean  @default(false)
-  dateJoined  DateTime @default(now())
-  name        String   @db.Text
-  updatedAt   DateTime @updatedAt
-  isOnline    Boolean  @default(false)
+model user {
+  id           Int           @id @default(autoincrement())
+  image        String?
+  name         String        @db.Text
+  nambaBahasha String?       @db.Text
+  jinsia       String
+  ndoa         String
+  ainaYaNdoa   String?
+  tareheYaNdoa DateTime?
+  jinaMwenza   String?
+  simu         Int?
+  simuMwenza   Int?
+  jumuiyaId    Int
+  jumuiya      jumuiya?      @relation(fields: [jumuiyaId], references: [id])
+  mtaa         String
+  kata         String
+  wilaya       String
+  mkoa         String
+  kazi         String?
+  elimu        String?
+  fani         String?
+  ubatizo      Boolean
+  kipaimara    Boolean
+  mezaYaBwana  Boolean
+  ahadi        Int
+  cheo         cheo[]
+  dateJoined   DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  cheoHistory  cheoHistory[]
 
-  @@fulltext([username])
+  @@fulltext([nambaBahasha])
   @@fulltext([name])
-  @@fulltext([username, name])
+  @@fulltext([nambaBahasha, name])
+}
+
+model jumuiya {
+  id          Int     @id @default(autoincrement())
+  description String  @db.LongText
+  name        String?
+  user        user[]
+}
+
+model cheo {
+  id          Int           @id @default(autoincrement())
+  name        String
+  user        user[]
+  cheoHistory cheoHistory[]
+}
+
+model cheoHistory {
+  id     Int       @id @default(autoincrement())
+  cheoId Int
+  cheo   cheo      @relation(fields: [cheoId], references: [id])
+  userId Int
+  user   user      @relation(fields: [userId], references: [id])
+  start  DateTime?
+  end    DateTime?
 }

@@ -18,6 +18,12 @@ export const NavMobile = () => {
 		push(`/Auth/SignIn?callbackUrl=${asPath}`);
 	};
 
+	let handleRegister = () => {
+		push({
+			pathname: '/Auth/Sajili',
+		});
+	};
+
 	let handleLogOut = () => {
 		signOut({ redirect: false }).then(() => {
 			setLimit(0);
@@ -63,6 +69,7 @@ export const NavMobile = () => {
 							navActive={navActive}
 							handleSignOut={handleLogOut}
 							handleSighIn={handleSignIn}
+							handleJisajili={handleRegister}
 						/>
 					</nav>
 				</div>

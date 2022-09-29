@@ -9,6 +9,7 @@ type dataType = {
 	handleMenu: (linkValue: string) => void;
 	handleSignOut: () => void;
 	handleSighIn: () => void;
+	handleJisajili: () => void;
 	navActive: string;
 };
 
@@ -17,12 +18,18 @@ export const MuiDrawer = ({
 	navActive,
 	handleSignOut,
 	handleSighIn,
+	handleJisajili,
 }: dataType) => {
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 	const humberger = useRef<HTMLDivElement>(null!);
 	const { data: session, status } = useSession();
+	const [activeName, setactiveName] = useState('');
 
 	useEffect(() => {}, [navActive]);
+
+	const handleSetActiveName = (name: string) => {
+		setactiveName(name);
+	};
 
 	let handleMenuClick = (linkValue: string) => {
 		humberger.current.classList.toggle(Styles.isActive);
@@ -31,16 +38,19 @@ export const MuiDrawer = ({
 		if (linkValue != '') {
 			handleMenu(linkValue);
 		}
+
+		setactiveName('');
 	};
 
 	let handleClose = () => {
 		setIsDrawerOpen(!isDrawerOpen);
 		humberger.current.classList.toggle(Styles.isActive);
+		setactiveName('');
 	};
 
 	const vikundiList = [
 		{ name: 'Kwaya ya Uinjilist', link: '/#' },
-		{ name: 'Kwaya ya Agape', link: '/#' },
+		{ name: 'Kwaya ya Imani', link: '/#' },
 		{ name: 'Kwaya ya Tumaini', link: '/#' },
 		{ name: 'Kwaya ya Vijana', link: '/#' },
 		{ name: 'Umoja wa vijana', link: '/#' },
@@ -68,6 +78,7 @@ export const MuiDrawer = ({
 	const habariList = [
 		{ name: 'Matangazo', link: '/#' },
 		{ name: 'Habari na Matukio', link: '/#' },
+		{ name: 'Mahubiri Na Mafundisho', link: '/#' },
 	];
 
 	return (
@@ -103,19 +114,29 @@ export const MuiDrawer = ({
 						</Link>
 						<Divider />
 
-						<Toggle list={sisi} name={'Kuhusu sisi'} action={handleMenuClick} />
+						<Toggle
+							list={sisi}
+							name={'Kuhusu sisi'}
+							action={handleMenuClick}
+							activeName={activeName}
+							setActiveName={handleSetActiveName}
+						/>
 						<Divider />
 
 						<Toggle
 							list={hudumaList}
 							name={'Huduma'}
 							action={handleMenuClick}
+							activeName={activeName}
+							setActiveName={handleSetActiveName}
 						/>
 						<Divider />
 						<Toggle
 							list={vikundiList}
 							name={'Vikundi'}
 							action={handleMenuClick}
+							activeName={activeName}
+							setActiveName={handleSetActiveName}
 						/>
 
 						<Divider />
@@ -137,6 +158,8 @@ export const MuiDrawer = ({
 							list={habariList}
 							name={'Habari'}
 							action={handleMenuClick}
+							activeName={activeName}
+							setActiveName={handleSetActiveName}
 						/>
 						<Divider />
 					</List>
@@ -172,7 +195,7 @@ export const MuiDrawer = ({
 								<div
 									className={Styles.activeCredential}
 									onClick={() => {
-										handleSighIn();
+										handleJisajili();
 										handleMenuClick('');
 									}}>
 									Jisajili

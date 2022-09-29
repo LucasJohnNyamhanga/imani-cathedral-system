@@ -78,11 +78,13 @@
 							font-weight: 600;
 							border-left: 2px solid $lightblue;
 							border-right: 2px solid $lightblue;
+							z-index: 0;
 						}
 
 						&:valid,
 						&:focus {
 							border: 2px solid $lightblue;
+							z-index: 0;
 						}
 					}
 
@@ -98,7 +100,7 @@
 						// text-transform: uppercase;
 						font-family: $fontHeader;
 						transition: 0.5s;
-						z-index: 3399;
+						z-index: 0;
 					}
 				}
 

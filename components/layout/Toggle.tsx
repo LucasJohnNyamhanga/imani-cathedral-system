@@ -2,30 +2,52 @@ type dataType = {
 	name: string;
 	list: { name: string; link: string }[];
 	action: (action: string) => void;
+	setActiveName: (name: string) => void;
+	activeName: string;
 };
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Styles from '../../styles/toggle.module.scss';
 
-const Toggle = ({ name, list, action }: dataType) => {
+const Toggle = ({
+	name,
+	list,
+	action,
+	setActiveName,
+	activeName,
+}: dataType) => {
 	const [submenu, setSubmenu] = useState(false);
+
 	const handleMenu = () => {
 		setSubmenu(!submenu);
 	};
+
+	useEffect(() => {
+		if (activeName == name) {
+			setSubmenu(true);
+		} else {
+			setSubmenu(false);
+		}
+	}, [name, activeName]);
 	return (
 		<div className={Styles.container}>
 			<div
 				className={
-					submenu ? `${Styles.toggle} ${Styles.active}` : Styles.toggle
+					activeName == name
+						? `${Styles.toggle} ${Styles.active}`
+						: Styles.toggle
 				}
-				onClick={handleMenu}>
+				onClick={() => {
+					//handleMenu();
+					setActiveName(name);
+				}}>
 				{name}
 			</div>
-			{submenu && (
+			{submenu && activeName == name && (
 				<div className={Styles.innerContainer}>
-					{list.map((item) => (
-						<div className={Styles.itemHolder}>
+					{list.map((item, index) => (
+						<div className={Styles.itemHolder} key={index}>
 							<Link href={item.link}>
 								<a>
 									<div

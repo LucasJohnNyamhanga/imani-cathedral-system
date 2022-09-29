@@ -4,6 +4,7 @@ html,
 body {
 	--scrollbarBG: black;
 	--thumbBG: #007aff;
+	background-color: $white;
 	padding: 0;
 	margin: 0;
 	font-family: -apple-system, Montserrat, BlinkMacSystemFont, Segoe UI, Roboto,
@@ -41,40 +42,39 @@ a {
 }
 
 .container {
-	background-image: url('/background.jpg');
-	background-color: #cccccc;
-	background-repeat: repeat;
-	// background-attachment: fixed;
-	background-size: cover;
-	-webkit-animation: backgroundScroll 30s linear infinite;
-	-webkit-animation-fill-mode: forwards;
-	animation: backgroundScroll 30s linear infinite;
-	animation-fill-mode: forwards;
+	// background-color: #cccccc;
+	// background-repeat: repeat;
+	// // background-attachment: fixed;
+	// background-size: cover;
+	// -webkit-animation: backgroundScroll 30s linear infinite;
+	// -webkit-animation-fill-mode: forwards;
+	// animation: backgroundScroll 30s linear infinite;
+	// animation-fill-mode: forwards;
 }
 
-@keyframes backgroundScroll {
-	0% {
-		background-position: 0 0;
-	}
-	50% {
-		background-position: -360px -180px;
-	}
-	100% {
-		background-position: 0 0;
-	}
-}
+// @keyframes backgroundScroll {
+// 	0% {
+// 		background-position: 0 0;
+// 	}
+// 	50% {
+// 		background-position: -360px -180px;
+// 	}
+// 	100% {
+// 		background-position: 0 0;
+// 	}
+// }
 
-@-webkit-keyframes backgroundScroll {
-	0% {
-		background-position: 0 0;
-	}
-	50% {
-		background-position: -360px -180px;
-	}
-	100% {
-		background-position: 0 0;
-	}
-}
+// @-webkit-keyframes backgroundScroll {
+// 	0% {
+// 		background-position: 0 0;
+// 	}
+// 	50% {
+// 		background-position: -360px -180px;
+// 	}
+// 	100% {
+// 		background-position: 0 0;
+// 	}
+// }
 
 @media (prefers-color-scheme: dark) {
 	html {

@@ -22,10 +22,45 @@
 			font-weight: 600;
 			width: fit-content;
 			background-color: $ugoro;
-			color: $white;
+			color: $nyeupe;
 			text-align: center;
 			margin-top: 15px;
 			margin-bottom: 10px;
+		}
+
+		.headerTextEndelea {
+			width: 100%;
+
+			font-family: $fontHeader;
+			font-size: 16px;
+			font-weight: 500;
+			background-color: $white;
+			color: $ugoro;
+			margin-top: 10px;
+			margin-bottom: 15px;
+			display: flex;
+			flex-direction: column;
+			justify-content: flex-end;
+			align-content: flex-end;
+		}
+
+		.headerTextEndelea > div {
+			cursor: pointer;
+			width: fit-content;
+			align-self: flex-end;
+			padding: 10px 10px;
+			transition: 0.3s;
+			color: $lightblue;
+			font-size: 18px;
+
+			@media only screen and (max-width: 948px) {
+				font-size: 16px;
+			}
+		}
+
+		.headerTextEndelea > div:hover {
+			color: $ugoro;
+			margin-right: 10px;
 		}
 
 		.containerLeft {

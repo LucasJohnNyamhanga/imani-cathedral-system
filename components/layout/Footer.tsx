@@ -7,12 +7,12 @@ const Footer = () => {
 			<div className={Styles.innerContainer}>
 				<div className={Styles.footerDetails}>
 					<div className={Styles.header}>KKKT IMANI MAELEZO</div>
-					<Link href='/AboutUs'>
+					<Link href='/#'>
 						<a>
 							<div className={Styles.body}>Kuhusu Sisi</div>
 						</a>
 					</Link>
-					<Link href='/ContactUs'>
+					<Link href='/#'>
 						<a>
 							<div className={Styles.body}>Wasiliana Nasi</div>
 						</a>
@@ -28,20 +28,20 @@ const Footer = () => {
 					</Link>
 				</div>
 				<div className={Styles.footerDetails}>
-					<div className={Styles.header}>Guide lines</div>
-					<Link href='/TermsAndConditions'>
+					<div className={Styles.header}>MAFUNDISHO</div>
+					<Link href='/#'>
 						<a>
-							<div className={Styles.body}>Terms and Conditions </div>
+							<div className={Styles.body}>Ubatizo</div>
 						</a>
 					</Link>
-					<Link href='/PrivacyPolicy'>
+					<Link href='/#'>
 						<a>
-							<div className={Styles.body}>Privacy Policy </div>
+							<div className={Styles.body}>Kipaimara </div>
 						</a>
 					</Link>
-					<Link href='/Disclaimer'>
+					<Link href='/#'>
 						<a>
-							<div className={Styles.body}>Disclaimer</div>
+							<div className={Styles.body}>Ndoa</div>
 						</a>
 					</Link>
 				</div>
