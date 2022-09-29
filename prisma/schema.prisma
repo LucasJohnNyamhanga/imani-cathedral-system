@@ -49,6 +49,7 @@ model user {
   dateJoined   DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
   cheoHistory  cheoHistory[]
+  kwaya        kwaya[]
 
   @@fulltext([nambaBahasha])
   @@fulltext([name])
@@ -56,9 +57,9 @@ model user {
 }
 
 model jumuiya {
-  id          Int     @id @default(autoincrement())
-  description String  @db.LongText
-  name        String?
+  id          Int    @id @default(autoincrement())
+  name        String
+  description String @db.LongText
   user        user[]
 }
 
@@ -71,10 +72,17 @@ model cheo {
 
 model cheoHistory {
   id     Int       @id @default(autoincrement())
+  start  DateTime?
+  end    DateTime?
   cheoId Int
   cheo   cheo      @relation(fields: [cheoId], references: [id])
   userId Int
   user   user      @relation(fields: [userId], references: [id])
-  start  DateTime?
-  end    DateTime?
+}
+
+model kwaya {
+  id          Int    @id @default(autoincrement())
+  name        String
+  description String @db.LongText
+  user        user[]
 }
