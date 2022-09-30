@@ -81,7 +81,7 @@ const SignIn = ({}) => {
 							signInWithCredentials();
 						}}>
 						<div className={Styles.logInHeader}>
-							<div>
+							{/* <div>
 								<Image
 									alt=''
 									src={'/imani.png'}
@@ -91,7 +91,7 @@ const SignIn = ({}) => {
 									width={150}
 									height={150}
 								/>
-							</div>
+							</div> */}
 							<div className={Styles.text}>Ingia Kwenye Akaunti</div>
 						</div>
 						<div className={Styles.credential}>
