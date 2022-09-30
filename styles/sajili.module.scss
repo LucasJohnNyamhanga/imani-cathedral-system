@@ -120,6 +120,10 @@
             margin-left: 5px;
           }
         }
+
+        @media only screen and (max-width: 448px) {
+          grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+        }
       }
 
       .checkToggle {
