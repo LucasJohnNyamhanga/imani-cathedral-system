@@ -9,11 +9,13 @@ const steps = [
   'Mawasiliano Na Makazi',
   'Huduma Za Kiroho',
 ];
-
-export default function HorizontalLabelPositionBelowStepper() {
+type dataType = {
+  value:number
+}
+export default function HorizontalLabelPositionBelowStepper({value}:dataType) {
   return (
     <Box sx={{ width: '100%' }}>
-      <Stepper activeStep={0} alternativeLabel>
+      <Stepper activeStep={value} alternativeLabel>
         {steps.map((label) => (
           <Step key={label}>
             <StepLabel>{label}</StepLabel>
