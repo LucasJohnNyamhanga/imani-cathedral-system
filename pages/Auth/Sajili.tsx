@@ -57,7 +57,29 @@ const SignIn = ({}) => {
 
   const password1 = useRef<HTMLInputElement>(null!);
   const password2 = useRef<HTMLInputElement>(null!);
-  const username = useRef<HTMLInputElement>(null!);
+  const jinaKwanza = useRef<HTMLInputElement>(null!);
+  const jinaKati = useRef<HTMLInputElement>(null!);
+  const jinaMwisho = useRef<HTMLInputElement>(null!);
+  const tareheYaKuzaliwa = useRef<HTMLInputElement>(null!);
+  const jinsia = useRef<HTMLInputElement>(null!);
+  const haliYaNdoa = useRef<HTMLInputElement>(null!);
+  const ainaYaNdoa = useRef<HTMLInputElement>(null!);
+  const tareheYaNdoa = useRef<HTMLInputElement>(null!);
+  const jinaLaMwenza = useRef<HTMLInputElement>(null!);
+  const nambaYaSimu = useRef<HTMLInputElement>(null!);
+  const nambaYaSimuMwenza = useRef<HTMLInputElement>(null!);
+  const jumuiya = useRef<HTMLInputElement>(null!);
+  const wilaya = useRef<HTMLInputElement>(null!);
+  const kata = useRef<HTMLInputElement>(null!);
+  const mtaa = useRef<HTMLInputElement>(null!);
+  const elimu = useRef<HTMLInputElement>(null!);
+  const kazi = useRef<HTMLInputElement>(null!);
+  const fani = useRef<HTMLInputElement>(null!);
+  const ubatizo = useRef<HTMLInputElement>(null!);
+  const kipaimara = useRef<HTMLInputElement>(null!);
+  const mezaYaBwana = useRef<HTMLInputElement>(null!);
+  const bahasha = useRef<HTMLInputElement>(null!);
+  const ahadi = useRef<HTMLInputElement>(null!);
 
   const { push } = useRouter();
 
@@ -69,10 +91,10 @@ const SignIn = ({}) => {
   let handletextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value;
     let name = e.target.name;
-    setRegister({ ...register, [name]: value });
-    username.current.style.color = "black";
-    password1.current.style.color = "black";
-    password2.current.style.color = "black";
+    setUserDetails({ ...userDetails, [name]: value });
+    // username.current.style.color = "black";
+    // password1.current.style.color = "black";
+    // password2.current.style.color = "black";
   };
   //! insta @ johnsavanter
 
@@ -103,8 +125,8 @@ const SignIn = ({}) => {
         setLoadingDisplay(false);
         if (Object.keys(userData).length > 0) {
           notifyError("Username already taken");
-          username.current.focus();
-          username.current.style.color = "red";
+          // username.current.focus();
+          // username.current.style.color = "red";
         }
       })
       .catch(function (error) {
@@ -284,11 +306,11 @@ const SignIn = ({}) => {
     console.log(value);
   };
 
-  const jinsia: formData = [
+  const jinsiaList: formData = [
     { label: "Mwanamme", value: "Mwanamme" },
     { label: "Mwanamke", value: "Mwanamke" },
   ];
-  const haliYaNdoaMke: formData = [
+  const haliYaNdoaMkeList: formData = [
     { label: "Umeolewa", value: "Umeolewa" },
     { label: "Humeolewa", value: "Hujaolewa" },
     { label: "Mjane", value: "Mjane" },
@@ -296,7 +318,7 @@ const SignIn = ({}) => {
     { label: "Tengana", value: "Tengana" },
   ];
 
-  const haliYaNdoaMume: formData = [
+  const haliYaNdoaMumeList: formData = [
     { label: "Umeoa", value: "Umeolewa" },
     { label: "Hujaoa", value: "Hujaolewa" },
     { label: "Mgane", value: "Mgane" },
@@ -304,13 +326,13 @@ const SignIn = ({}) => {
     { label: "Tengana", value: "Tengana" },
   ];
 
-  const haliYaNdoa: formData = [];
+  const haliYaNdoaList: formData = [];
 
-  const ainaYaNdoa: formData = [
+  const ainaYaNdoaList: formData = [
     { label: "Ndoa Ya Kikristo", value: "Ndoa ya kikristo" },
     { label: "Ndoa Isiyo Ya Kikristo", value: "Ndoa Isiyo Ya Kikristo" },
   ];
-  const jumuiya: formData = [
+  const jumuiyaList: formData = [
     { label: "Ufunuo", value: "Ufunuo" },
     { label: "Agape", value: "Agape" },
     { label: "Neema Nyamanoro", value: "Neema Nyamanoro" },
@@ -319,30 +341,30 @@ const SignIn = ({}) => {
     { label: "Sina Jumuiya", value: "Sina Jumuiya" },
   ];
 
-  const wilaya: formData = [
+  const wilayaList: formData = [
     { label: "Ilemela", value: "Ilemela" },
     { label: "Nyamagana", value: "Nyamagana" },
   ];
-  const kata: formData = [
+  const kataList: formData = [
     { label: "Ndoa Ya Kikristo", value: "Ndoa ya kikristo" },
     { label: "Ndoa Isiyo Ya Kikristo", value: "Ndoa Isiyo Ya Kikristo" },
   ];
-  const mtaa: formData = [
+  const mtaaList: formData = [
     { label: "Ndoa Ya Kikristo", value: "Ndoa ya kikristo" },
     { label: "Ndoa Isiyo Ya Kikristo", value: "Ndoa Isiyo Ya Kikristo" },
   ];
-  const elimu: formData = [
+  const elimuList: formData = [
     { label: "Darasa la saba", value: "Ndoa ya kikristo" },
     { label: "Kidato cha nne", value: "Ndoa ya kikristo" },
     { label: "Kidato cha sita", value: "Ndoa ya kikristo" },
     { label: "Elimu ya chuo", value: "Ndoa ya kikristo" },
   ];
-  const ndioHapana: formData = [
+  const ndioHapanaList: formData = [
     { label: "Ndio", value: "True" },
     { label: "Hapana", value: "False" },
   ];
 
-  const ilemela: formData = [
+  const ilemelaList: formData = [
     { label: "Bugogwa", value: "Bugogwa" },
     { label: "Buswelu", value: "Buswelu" },
     { label: "Ilemela", value: "Ilemela" },
@@ -354,7 +376,7 @@ const SignIn = ({}) => {
     { label: "Sangabuye", value: "Sangabuye" },
   ];
 
-  const nyamagana: formData = [
+  const nyamaganaList: formData = [
     { label: "Buhongwa", value: "Buhongwa" },
     { label: "Butimba", value: "Butimba" },
     { label: "Igogo", value: "Igogo" },
@@ -402,7 +424,7 @@ const SignIn = ({}) => {
                       required
                       value={userDetails.jinaKwanza}
                       placeholder={``}
-                      name={"firstName"}
+                      name={"jinaKwanza"}
                       onChange={(event) => {
                         handletextChange(event);
                       }}
@@ -418,7 +440,7 @@ const SignIn = ({}) => {
                       required
                       value={userDetails.jinaKati}
                       placeholder={``}
-                      name={"firstName"}
+                      name={"jinaKati"}
                       onChange={(event) => {
                         handletextChange(event);
                       }}
@@ -434,7 +456,7 @@ const SignIn = ({}) => {
                       required
                       value={userDetails.jinaMwisho}
                       placeholder={``}
-                      name={"lastName"}
+                      name={"jinaMwisho"}
                       onChange={(event) => {
                         handletextChange(event);
                       }}
@@ -446,14 +468,14 @@ const SignIn = ({}) => {
                   </div>
                   <div className={Styles.inputBox}>
                     <input
-                      ref={username}
+                      ref={tareheYaKuzaliwa}
                       required
                       type="date"
                       placeholder="dd-mm-yyyy"
                       min="1925-01-01"
                       max={currentDate}
                       value={userDetails.tareheYaKuzaliwa}
-                      name={"username"}
+                      name={"tareheYaKuzaliwa"}
                       onChange={(event) => {
                         handletextChange(event);
                       }}
@@ -466,34 +488,34 @@ const SignIn = ({}) => {
                   <SelectMiu
                     show={true}
                     displayLabel="Jinsia"
-                    forms={jinsia}
+                    forms={jinsiaList}
                     handlechange={handleSelectForm}
                     value={userDetails.jinsia}
                   />
                   <SelectMiu
                     show={true}
                     displayLabel="Hali Ya Ndoa"
-                    forms={haliYaNdoa}
+                    forms={haliYaNdoaList}
                     handlechange={handleSelectForm}
                     value={userDetails.haliYaNdoa}
                   />
                   <SelectMiu
                     show={true}
                     displayLabel="Aina Ya Ndoa"
-                    forms={ainaYaNdoa}
+                    forms={ainaYaNdoaList}
                     handlechange={handleSelectForm}
                     value={userDetails.ainaYaNdoa}
                   />
                   <div className={Styles.inputBox}>
                     <input
-                      ref={username}
+                      ref={tareheYaNdoa}
                       required
                       type="date"
                       placeholder="dd-mm-yyyy"
                       min="1925-01-01"
                       max={currentDate}
                       value={userDetails.tareheYaNdoa}
-                      name={"username"}
+                      name={"tareheYaNdoa"}
                       onChange={(event) => {
                         handletextChange(event);
                       }}
@@ -505,12 +527,12 @@ const SignIn = ({}) => {
                   </div>
                   <div className={Styles.inputBox}>
                     <input
-                      ref={username}
+                      ref={jinaLaMwenza}
                       required
                       type="text"
                       value={userDetails.jinaLaMwenza}
                       placeholder={``}
-                      name={"username"}
+                      name={"jinaLaMwenza"}
                       onChange={(event) => {
                         handletextChange(event);
                       }}
@@ -526,12 +548,12 @@ const SignIn = ({}) => {
                 <>
                   <div className={Styles.inputBox}>
                     <input
-                      ref={username}
+                      ref={nambaYaSimu}
                       required
                       type="number"
                       value={userDetails.nambaYaSimu}
                       placeholder={``}
-                      name={"username"}
+                      name={"nambaYaSimu"}
                       onChange={(event) => {
                         handletextChange(event);
                       }}
@@ -543,12 +565,12 @@ const SignIn = ({}) => {
                   </div>
                   <div className={Styles.inputBox}>
                     <input
-                      ref={username}
+                      ref={nambaYaSimuMwenza}
                       required
                       type="number"
                       value={userDetails.nambaYaSimuMwenza}
                       placeholder={``}
-                      name={"username"}
+                      name={"nambaYaSimuMwenza"}
                       onChange={(event) => {
                         handletextChange(event);
                       }}
@@ -561,32 +583,32 @@ const SignIn = ({}) => {
                   <SelectMiu
                     show={true}
                     displayLabel="Jina La Jumuiya Yako"
-                    forms={jumuiya}
+                    forms={jumuiyaList}
                     handlechange={handleSelectForm}
                     value={userDetails.jumuiya}
                   />
                   <SelectMiu
                     show={true}
                     displayLabel="Wilaya Yako"
-                    forms={wilaya}
+                    forms={wilayaList}
                     handlechange={handleSelectForm}
                     value={userDetails.wilaya}
                   />
                   <SelectMiu
                     show={true}
                     displayLabel="Kata Yako"
-                    forms={kata}
+                    forms={kataList}
                     handlechange={handleSelectForm}
                     value={userDetails.kata}
                   />
                   <div className={Styles.inputBox}>
                     <input
-                      ref={username}
+                      ref={mtaa}
                       required
                       type="text"
                       value={userDetails.mtaa}
                       placeholder={``}
-                      name={"username"}
+                      name={"mtaa"}
                       onChange={(event) => {
                         handletextChange(event);
                       }}
@@ -599,18 +621,18 @@ const SignIn = ({}) => {
                   <SelectMiu
                     show={true}
                     displayLabel="Elimu Yako"
-                    forms={elimu}
+                    forms={elimuList}
                     handlechange={handleSelectForm}
                     value={userDetails.elimu}
                   />
                   <div className={Styles.inputBox}>
                     <input
-                      ref={username}
+                      ref={kazi}
                       required
                       type="text"
                       value={userDetails.kazi}
                       placeholder={``}
-                      name={"username"}
+                      name={"kazi"}
                       onChange={(event) => {
                         handletextChange(event);
                       }}
@@ -623,12 +645,12 @@ const SignIn = ({}) => {
 
                   <div className={Styles.inputBox}>
                     <input
-                      ref={username}
+                      ref={fani}
                       required
                       type="text"
                       value={userDetails.fani}
                       placeholder={``}
-                      name={"username"}
+                      name={"fani"}
                       onChange={(event) => {
                         handletextChange(event);
                       }}
@@ -645,32 +667,32 @@ const SignIn = ({}) => {
                   <SelectMiu
                     show={true}
                     displayLabel="Je umebatizwa?"
-                    forms={ndioHapana}
+                    forms={ndioHapanaList}
                     handlechange={handleSelectForm}
                     value={userDetails.ubatizo}
                   />
                   <SelectMiu
                     show={true}
                     displayLabel="Je umeshapata kipaimara?"
-                    forms={ndioHapana}
+                    forms={ndioHapanaList}
                     handlechange={handleSelectForm}
                     value={userDetails.kipaimara}
                   />
                   <SelectMiu
                     show={true}
                     displayLabel="Je unashiriki meza ya bwana?"
-                    forms={ndioHapana}
+                    forms={ndioHapanaList}
                     handlechange={handleSelectForm}
                     value={userDetails.mezaYaBwana}
                   />
                   <div className={Styles.inputBox}>
                     <input
-                      ref={username}
+                      ref={bahasha}
                       required
                       type="number"
                       value={userDetails.bahasha}
                       placeholder={``}
-                      name={"username"}
+                      name={"bahasha"}
                       onChange={(event) => {
                         handletextChange(event);
                       }}
@@ -687,12 +709,12 @@ const SignIn = ({}) => {
                   </div>
                   <div className={Styles.inputBox}>
                     <input
-                      ref={username}
+                      ref={ahadi}
                       required
                       type="number"
                       value={userDetails.ahadi}
                       placeholder={``}
-                      name={"username"}
+                      name={"ahadi"}
                       onChange={(event) => {
                         handletextChange(event);
                       }}
@@ -725,7 +747,7 @@ const SignIn = ({}) => {
                       type="password"
                       value={userDetails.password1}
                       placeholder={``}
-                      name={`password`}
+                      name={`password1`}
                       onChange={(event) => {
                         handletextChange(event);
                       }}
