@@ -1,0 +1,66 @@
+@import "index";
+
+.container {
+  width: 100%;
+}
+
+.innerContainer {
+  margin: 15px;
+  width: 100%;
+}
+
+.show {
+  display: flex;
+  width: 100%;
+  max-width: 215px;
+  height: 250px;
+  object-fit: cover;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.hide {
+  display: none;
+}
+
+.imageSelect {
+  width: fit-content;
+  height: 40px;
+  background-color: $lightblue;
+  color: $white;
+  border: 2px solid transparent;
+  margin-bottom: 15px;
+  margin-left: 0px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  transition: 0.2s linear;
+  font-weight: 500;
+  white-space: nowrap;
+  padding: 0px 20px;
+}
+
+.imageSelect:hover {
+  background-color: $lightkahawa;
+  color: $ugoro;
+  border: 2px solid $lightblue;
+  cursor: pointer;
+}
+
+.imageSelectText {
+  margin-left: 10px;
+}
+
+.displayFile {
+  padding: 10px 25px;
+  width: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba($kahawa, 0.2);
+  font-family: $fontHeader;
+  color: $ugoro;
+  border: 2px solid $kahawa;
+}

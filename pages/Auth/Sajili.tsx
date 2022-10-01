@@ -6,7 +6,15 @@ import axios from "axios";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import Stepper from "../../components/tools/Stepper";
+import ImageUpload from "../../components/tools/ImageUpload";
+import SelectMiu from "../../components/tools/SelectMui";
 //! insta @ johnsavanter
+
+type formData = {
+  label: string;
+  value: string;
+}[];
+
 const SignIn = ({}) => {
   const [register, setRegister] = useState({
     firstName: "",
@@ -23,6 +31,16 @@ const SignIn = ({}) => {
   const [mwisho, setMwisho] = useState(false);
   const [step, setStep] = useState(0);
   const [taarifa, setTaarifa] = useState("Taarifa Binafsi");
+  const [showUpload, setShowUpload] = useState(false);
+  const [image, setImage] = useState<string | Blob>("");
+  const imageUrl = process.env.IMAGE_URL;
+  const [uploadData, setUploadData] = useState(0);
+  const [userDetails, setUserDetails] = useState({
+    jinaKwanza: "",
+    jinaKati: "",
+    jinaMwisho: "",
+    dob: "",
+  });
 
   const password1 = useRef<HTMLInputElement>(null!);
   const password2 = useRef<HTMLInputElement>(null!);
@@ -161,17 +179,17 @@ const SignIn = ({}) => {
       changer(step - 1);
       setTaarifa(headerTaarifa[step - 1]);
       smoothScroll();
-      setStep(step-1)
+      setStep(step - 1);
     }
   };
 
   let handleMbele = () => {
-    if(step < 3) {
+    if (step < 3) {
       setStep(step + 1);
-    setTaarifa(headerTaarifa[step + 1]);
-    smoothScroll();
-    changer(step + 1);
-  }
+      setTaarifa(headerTaarifa[step + 1]);
+      smoothScroll();
+      changer(step + 1);
+    }
   };
 
   useEffect(() => {}, [step]);
@@ -189,31 +207,165 @@ const SignIn = ({}) => {
         setBinafsi(true);
         setMawasiliano(false);
         setKiroho(false);
-        setMwisho(false)
+        setMwisho(false);
         break;
       case 1:
         setBinafsi(false);
         setMawasiliano(true);
         setKiroho(false);
-        setMwisho(false)
+        setMwisho(false);
         break;
       case 2:
         setBinafsi(false);
         setMawasiliano(false);
         setKiroho(true);
-        setMwisho(false)
+        setMwisho(false);
         break;
       case 3:
         setBinafsi(false);
         setMawasiliano(false);
         setKiroho(false);
-        setMwisho(true)
+        setMwisho(true);
         break;
 
       default:
         break;
     }
   };
+
+  let uploadForServer = (image: string | Blob) => {
+    setImage(image);
+    //!TO BE CALLED FOR UPLOAD
+    // uploadToServer();
+  };
+
+  //! for uploading
+  const uploadToServer = async () => {
+    setShowUpload(true);
+    const body = new FormData();
+    body.append("file", image);
+    axios
+      .post(imageUrl + "/api/upload", body, {
+        onUploadProgress: (progressEvent) => {
+          // console.log('Upload Progress: ' + Math.round(progressEvent.loaded / progressEvent.total * 100) + "%");
+          setUploadData(
+            Math.round((progressEvent.loaded / progressEvent.total) * 100)
+          );
+        },
+      })
+      .then(
+        (res) => {
+          let location = res.data;
+          sendToDatabase(location);
+        },
+        (err) => {
+          //some error
+        }
+      );
+  };
+
+  let sendToDatabase = (location: string) => {
+    console.log(location);
+  };
+
+  let handleSelectForm = (value: string) => {
+    console.log(value);
+  };
+
+  let handleSelectJinsia = (value: string) => {
+    console.log(value);
+  };
+
+  const jinsia: formData = [
+    { label: "Mwanamme", value: "Mwanamme" },
+    { label: "Mwanamke", value: "Mwanamke" },
+  ];
+  const haliYaNdoaMke: formData = [
+    { label: "Umeolewa", value: "Umeolewa" },
+    { label: "Humeolewa", value: "Hujaolewa" },
+    { label: "Mjane", value: "Mjane" },
+    { label: "Talikiwa", value: "Talikiwa" },
+    { label: "Tengana", value: "Tengana" },
+  ];
+
+  const haliYaNdoaMume: formData = [
+    { label: "Umeoa", value: "Umeolewa" },
+    { label: "Hujaoa", value: "Hujaolewa" },
+    { label: "Mgane", value: "Mgane" },
+    { label: "Talikiwa", value: "Talikiwa" },
+    { label: "Tengana", value: "Tengana" },
+  ];
+
+  const haliYaNdoa: formData = [];
+
+  const ainaYaNdoa: formData = [
+    { label: "Ndoa Ya Kikristo", value: "Ndoa ya kikristo" },
+    { label: "Ndoa Isiyo Ya Kikristo", value: "Ndoa Isiyo Ya Kikristo" },
+  ];
+  const jumuiya: formData = [
+    { label: "Ufunuo", value: "Ufunuo" },
+    { label: "Agape", value: "Agape" },
+    { label: "Neema Nyamanoro", value: "Neema Nyamanoro" },
+    { label: "Israeli", value: "Israeli" },
+    { label: "Sinai", value: "Sinai" },
+    { label: "Sina Jumuiya", value: "Sina Jumuiya" },
+  ];
+
+  const wilaya: formData = [
+    { label: "Ilemela", value: "Ilemela" },
+    { label: "Nyamagana", value: "Nyamagana" },
+  ];
+  const kata: formData = [
+    { label: "Ndoa Ya Kikristo", value: "Ndoa ya kikristo" },
+    { label: "Ndoa Isiyo Ya Kikristo", value: "Ndoa Isiyo Ya Kikristo" },
+  ];
+  const mtaa: formData = [
+    { label: "Ndoa Ya Kikristo", value: "Ndoa ya kikristo" },
+    { label: "Ndoa Isiyo Ya Kikristo", value: "Ndoa Isiyo Ya Kikristo" },
+  ];
+  const elimu: formData = [
+    { label: "Darasa la saba", value: "Ndoa ya kikristo" },
+    { label: "Kidato cha nne", value: "Ndoa ya kikristo" },
+    { label: "Kidato cha sita", value: "Ndoa ya kikristo" },
+    { label: "Elimu ya chuo", value: "Ndoa ya kikristo" },
+  ];
+  const ndioHapana: formData = [
+    { label: "Ndio", value: "True" },
+    { label: "Hapana", value: "False" },
+  ];
+
+  const ilemela: formData = [
+    { label: "Bugogwa", value: "Bugogwa" },
+    { label: "Buswelu", value: "Buswelu" },
+    { label: "Ilemela", value: "Ilemela" },
+    { label: "Kirumba", value: "Kirumba" },
+    { label: "Kitangiri", value: "Kitangiri" },
+    { label: "Nyakato", value: "Nyakato" },
+    { label: "Nyamanoro", value: "Nyamanoro" },
+    { label: "Pasiansi", value: "Pasiansi" },
+    { label: "Sangabuye", value: "Sangabuye" },
+  ];
+
+  const nyamagana: formData = [
+    { label: "Buhongwa", value: "Buhongwa" },
+    { label: "Butimba", value: "Butimba" },
+    { label: "Igogo", value: "Igogo" },
+    { label: "Igoma", value: "Igoma" },
+    { label: "Isamilo", value: "Isamilo" },
+    { label: "Kishili", value: "Kishili" },
+    { label: "Luchelele", value: "Luchelele" },
+    { label: "Lwanhima", value: "Lwanhima" },
+    { label: "Mabatini", value: "Mabatini" },
+    { label: "Mahina", value: "Mahina" },
+    { label: "Mbugani", value: "Mbugani" },
+    { label: "Mhandu", value: "Mhandu" },
+    { label: "Mikuyuni", value: "Mikuyuni" },
+    { label: "Mirongo", value: "Mirongo" },
+    { label: "Mkolani", value: "Mkolani" },
+    { label: "Nyamagana", value: "Nyamagana" },
+    { label: "Nyegezi", value: "Nyegezi" },
+    { label: "Pamba", value: "Pamba" },
+  ];
 
   return (
     <div className={Styles.container}>
@@ -303,47 +455,36 @@ const SignIn = ({}) => {
                     />
                     <span>Tarehe Ya Kuzaliwa</span>
                   </div>
+                  <SelectMiu
+                    show={true}
+                    displayLabel="Jinsia"
+                    forms={jinsia}
+                    handlechange={handleSelectForm}
+                    value={""}
+                  />
+                  <SelectMiu
+                    show={true}
+                    displayLabel="Hali Ya Ndoa"
+                    forms={haliYaNdoa}
+                    handlechange={handleSelectForm}
+                    value={""}
+                  />
+                  <SelectMiu
+                    show={true}
+                    displayLabel="Aina Ya Ndoa"
+                    forms={ainaYaNdoa}
+                    handlechange={handleSelectForm}
+                    value={""}
+                  />
                   <div className={Styles.inputBox}>
                     <input
                       ref={username}
                       required
-                      type="number"
+                      type="date"
+                      placeholder="dd-mm-yyyy"
+                      min="1925-01-01"
+                      max={currentDate}
                       value={register.username}
-                      placeholder={``}
-                      name={"username"}
-                      onChange={(event) => {
-                        handletextChange(event);
-                      }}
-                      autoComplete="off"
-                      autoCorrect="off"
-                      spellCheck={false}
-                    />
-                    <span>Hali Ya Ndoa</span>
-                  </div>
-                  <div className={Styles.inputBox}>
-                    <input
-                      ref={username}
-                      required
-                      type="number"
-                      value={register.username}
-                      placeholder={``}
-                      name={"username"}
-                      onChange={(event) => {
-                        handletextChange(event);
-                      }}
-                      autoComplete="off"
-                      autoCorrect="off"
-                      spellCheck={false}
-                    />
-                    <span>Aina Ya Ndoa</span>
-                  </div>
-                  <div className={Styles.inputBox}>
-                    <input
-                      ref={username}
-                      required
-                      type="number"
-                      value={register.username}
-                      placeholder={``}
                       name={"username"}
                       onChange={(event) => {
                         handletextChange(event);
@@ -358,7 +499,7 @@ const SignIn = ({}) => {
                     <input
                       ref={username}
                       required
-                      type="number"
+                      type="text"
                       value={register.username}
                       placeholder={``}
                       name={"username"}
@@ -409,11 +550,32 @@ const SignIn = ({}) => {
                     />
                     <span>Namba Ya Simu Ya Mwenza</span>
                   </div>
+                  <SelectMiu
+                    show={true}
+                    displayLabel="Jina La Jumuiya Yako"
+                    forms={jumuiya}
+                    handlechange={handleSelectForm}
+                    value={""}
+                  />
+                  <SelectMiu
+                    show={true}
+                    displayLabel="Wilaya Yako"
+                    forms={wilaya}
+                    handlechange={handleSelectForm}
+                    value={""}
+                  />
+                  <SelectMiu
+                    show={true}
+                    displayLabel="Kata Yako"
+                    forms={kata}
+                    handlechange={handleSelectForm}
+                    value={""}
+                  />
                   <div className={Styles.inputBox}>
                     <input
                       ref={username}
                       required
-                      type="number"
+                      type="text"
                       value={register.username}
                       placeholder={``}
                       name={"username"}
@@ -424,81 +586,20 @@ const SignIn = ({}) => {
                       autoCorrect="off"
                       spellCheck={false}
                     />
-                    <span>Jina La Jumuiya Yako</span>
+                    <span>Mtaa Wako</span>
                   </div>
+                  <SelectMiu
+                    show={true}
+                    displayLabel="Elimu Yako"
+                    forms={elimu}
+                    handlechange={handleSelectForm}
+                    value={""}
+                  />
                   <div className={Styles.inputBox}>
                     <input
                       ref={username}
                       required
-                      type="number"
-                      value={register.username}
-                      placeholder={``}
-                      name={"username"}
-                      onChange={(event) => {
-                        handletextChange(event);
-                      }}
-                      autoComplete="off"
-                      autoCorrect="off"
-                      spellCheck={false}
-                    />
-                    <span>Mtaa Unapoishi</span>
-                  </div>
-                  <div className={Styles.inputBox}>
-                    <input
-                      ref={username}
-                      required
-                      type="number"
-                      value={register.username}
-                      placeholder={``}
-                      name={"username"}
-                      onChange={(event) => {
-                        handletextChange(event);
-                      }}
-                      autoComplete="off"
-                      autoCorrect="off"
-                      spellCheck={false}
-                    />
-                    <span>Kata</span>
-                  </div>
-                  <div className={Styles.inputBox}>
-                    <input
-                      ref={username}
-                      required
-                      type="number"
-                      value={register.username}
-                      placeholder={``}
-                      name={"username"}
-                      onChange={(event) => {
-                        handletextChange(event);
-                      }}
-                      autoComplete="off"
-                      autoCorrect="off"
-                      spellCheck={false}
-                    />
-                    <span>Wilaya</span>
-                  </div>
-                  <div className={Styles.inputBox}>
-                    <input
-                      ref={username}
-                      required
-                      type="number"
-                      value={register.username}
-                      placeholder={``}
-                      name={"username"}
-                      onChange={(event) => {
-                        handletextChange(event);
-                      }}
-                      autoComplete="off"
-                      autoCorrect="off"
-                      spellCheck={false}
-                    />
-                    <span>Mkoa</span>
-                  </div>
-                  <div className={Styles.inputBox}>
-                    <input
-                      ref={username}
-                      required
-                      type="number"
+                      type="text"
                       value={register.username}
                       placeholder={``}
                       name={"username"}
@@ -511,28 +612,12 @@ const SignIn = ({}) => {
                     />
                     <span>Kazi Unayofanya</span>
                   </div>
+
                   <div className={Styles.inputBox}>
                     <input
                       ref={username}
                       required
-                      type="number"
-                      value={register.username}
-                      placeholder={``}
-                      name={"username"}
-                      onChange={(event) => {
-                        handletextChange(event);
-                      }}
-                      autoComplete="off"
-                      autoCorrect="off"
-                      spellCheck={false}
-                    />
-                    <span>Elimu Yako</span>
-                  </div>
-                  <div className={Styles.inputBox}>
-                    <input
-                      ref={username}
-                      required
-                      type="number"
+                      type="text"
                       value={register.username}
                       placeholder={``}
                       name={"username"}
@@ -549,6 +634,27 @@ const SignIn = ({}) => {
               )}
               {kiroho && (
                 <>
+                  <SelectMiu
+                    show={true}
+                    displayLabel="Je umebatizwa?"
+                    forms={ndioHapana}
+                    handlechange={handleSelectForm}
+                    value={""}
+                  />
+                  <SelectMiu
+                    show={true}
+                    displayLabel="Je umeshapata kipaimara?"
+                    forms={ndioHapana}
+                    handlechange={handleSelectForm}
+                    value={""}
+                  />
+                  <SelectMiu
+                    show={true}
+                    displayLabel="Je unashiriki meza ya bwana?"
+                    forms={ndioHapana}
+                    handlechange={handleSelectForm}
+                    value={""}
+                  />
                   <div className={Styles.inputBox}>
                     <input
                       ref={username}
@@ -564,75 +670,12 @@ const SignIn = ({}) => {
                       autoCorrect="off"
                       spellCheck={false}
                     />
-                    <span>Jina La Mzee Wa Kanisa</span>
-                  </div>
-                  <div className={Styles.inputBox}>
-                    <input
-                      ref={username}
-                      required
-                      type="number"
-                      value={register.username}
-                      placeholder={``}
-                      name={"username"}
-                      onChange={(event) => {
-                        handletextChange(event);
-                      }}
-                      autoComplete="off"
-                      autoCorrect="off"
-                      spellCheck={false}
-                    />
-                    <span>Je umebatizwa?</span>
-                  </div>
-                  <div className={Styles.inputBox}>
-                    <input
-                      ref={username}
-                      required
-                      type="number"
-                      value={register.username}
-                      placeholder={``}
-                      name={"username"}
-                      onChange={(event) => {
-                        handletextChange(event);
-                      }}
-                      autoComplete="off"
-                      autoCorrect="off"
-                      spellCheck={false}
-                    />
-                    <span>Je umeshapata kipaimara?</span>
-                  </div>
-                  <div className={Styles.inputBox}>
-                    <input
-                      ref={username}
-                      required
-                      type="number"
-                      value={register.username}
-                      placeholder={``}
-                      name={"username"}
-                      onChange={(event) => {
-                        handletextChange(event);
-                      }}
-                      autoComplete="off"
-                      autoCorrect="off"
-                      spellCheck={false}
-                    />
-                    <span>Je unashiriki meza ya bwana?</span>
-                  </div>
-                  <div className={Styles.inputBox}>
-                    <input
-                      ref={username}
-                      required
-                      type="number"
-                      value={register.username}
-                      placeholder={``}
-                      name={"username"}
-                      onChange={(event) => {
-                        handletextChange(event);
-                      }}
-                      autoComplete="off"
-                      autoCorrect="off"
-                      spellCheck={false}
-                    />
-                    <span>Namba Yako Ya Bahasha</span>
+                    <span>
+                      {" "}
+                      <div className={Styles.notImpotantPointer}>*</div>Namba
+                      Yako Ya Bahasha
+                      <div className={Styles.notImpotantPointer}>*</div>
+                    </span>
                   </div>
                   <div className={Styles.inputBox}>
                     <input
@@ -654,10 +697,21 @@ const SignIn = ({}) => {
                 </>
               )}
             </div>
+            {kiroho && (
+              <div className={Styles.notImpotant}>
+                <div className={Styles.notImpotantPointer}>*</div>Acha wazi kama
+                hujapata namba ya bahasha.
+                <div className={Styles.notImpotantPointer}>*</div>
+              </div>
+            )}
             {mwisho && (
               <>
-              <div className={Styles.credential}>
- <div className={Styles.inputBox}>
+                <ImageUpload
+                  uploadToServer={uploadForServer}
+                  imageReady={image}
+                />
+                <div className={Styles.credential}>
+                  <div className={Styles.inputBox}>
                     <input
                       ref={password1}
                       type="password"
@@ -701,14 +755,12 @@ const SignIn = ({}) => {
                     />
                     Onyesha Neno La Siri
                   </div>
-              </div>
+                </div>
                 <div className={Styles.buttonHolderCreate}>
                   <div onClick={createAccount} className={Styles.button}>
-                  Tengeneza Akaunti
+                    Tengeneza Akaunti
+                  </div>
                 </div>
-                </div>
-
-               
               </>
             )}
           </form>
@@ -722,21 +774,22 @@ const SignIn = ({}) => {
             )}
           </div>
           <div>
-            {step < 3 && 
-            <div className={Styles.button} onClick={handleMbele}>
-            Mbele
-          </div>}
+            {step < 3 && (
+              <div className={Styles.button} onClick={handleMbele}>
+                Mbele
+              </div>
+            )}
           </div>
         </div>
         <div>
-           <div className={Styles.separator}>
-                  <hr className={Styles.line} />
-                  <div className={Styles.or}>Tayari Mtumiaji?</div>
-                  <hr className={Styles.line} />
-                </div>
-                <div className={Styles.buttonSignUp} onClick={signTo}>
-                  <div>Ingia Kwenye Akaunti Yako</div>
-                </div>
+          <div className={Styles.separator}>
+            <hr className={Styles.line} />
+            <div className={Styles.or}>Tayari Mtumiaji?</div>
+            <hr className={Styles.line} />
+          </div>
+          <div className={Styles.buttonSignUp} onClick={signTo}>
+            <div>Ingia Kwenye Akaunti Yako</div>
+          </div>
         </div>
         <div className={Styles.loader}>{loadingDisplay && <Loader />}</div>
       </div>
