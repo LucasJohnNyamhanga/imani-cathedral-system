@@ -16,14 +16,6 @@ type formData = {
 }[];
 
 const SignIn = ({}) => {
-  const [register, setRegister] = useState({
-    firstName: "",
-    lastName: "",
-    username: "",
-    password: "",
-    password2: "",
-  });
-
   const [loadingDisplay, setLoadingDisplay] = useState(false);
   const [binafsi, setBinafsi] = useState(true);
   const [mawasiliano, setMawasiliano] = useState(false);
@@ -39,7 +31,28 @@ const SignIn = ({}) => {
     jinaKwanza: "",
     jinaKati: "",
     jinaMwisho: "",
-    dob: "",
+    tareheYaKuzaliwa: "",
+    jinsia: "",
+    haliYaNdoa: "",
+    ainaYaNdoa: "",
+    tareheYaNdoa: "",
+    jinaLaMwenza: "",
+    nambaYaSimu: "",
+    nambaYaSimuMwenza: "",
+    jumuiya: "",
+    wilaya: "",
+    kata: "",
+    mtaa: "",
+    elimu: "",
+    kazi: "",
+    fani: "",
+    ubatizo: "",
+    kipaimara: "",
+    mezaYaBwana: "",
+    bahasha: "",
+    ahadi: "",
+    password1: "",
+    password2: "",
   });
 
   const password1 = useRef<HTMLInputElement>(null!);
@@ -77,33 +90,7 @@ const SignIn = ({}) => {
     push(`/Auth/SignIn`);
   };
 
-  let createAccount = () => {
-    if (
-      register.firstName != "" &&
-      register.lastName != "" &&
-      register.password != "" &&
-      register.password2 != "" &&
-      register.username != ""
-    ) {
-      if (register.password === register.password2) {
-        if (register.password.length > 6 && register.password2.length > 6) {
-          checkUser({ username: register.username });
-        } else {
-          notifyError("Password should exceed 6 characters.");
-          password1.current.focus();
-          password1.current.style.color = "red";
-          password2.current.style.color = "red";
-        }
-      } else {
-        notifyError("Password does not match");
-        password1.current.focus();
-        password1.current.style.color = "red";
-        password2.current.style.color = "red";
-      }
-    } else {
-      notifyError(`Fill In All Fields`);
-    }
-  };
+  let createAccount = () => {};
 
   let checkUser = (data: {}) => {
     setLoadingDisplay(true);
@@ -122,22 +109,43 @@ const SignIn = ({}) => {
       })
       .catch(function (error) {
         // handle error
-        registration(register.password);
+        registration();
       });
   };
 
-  let registration = (password: string) => {
+  let registration = () => {
     let dataUser = {
       name: `${
-        register.firstName.charAt(0).toUpperCase() +
-        register.firstName.toLowerCase().slice(1)
+        userDetails.jinaKwanza.charAt(0).toUpperCase() +
+        userDetails.jinaKwanza.toLowerCase().slice(1)
       } ${
-        register.lastName.charAt(0).toUpperCase() +
-        register.lastName.toLowerCase().slice(1)
+        userDetails.jinaKati.charAt(0).toUpperCase() +
+        userDetails.jinaKati.toLowerCase().slice(1)
+      } ${
+        userDetails.jinaMwisho.charAt(0).toUpperCase() +
+        userDetails.jinaMwisho.toLowerCase().slice(1)
       }`,
-      image: null,
-      username: register.username,
-      password,
+      picha: location,
+      jinsia: userDetails.jinsia,
+      tareheYaKuzaliwa: userDetails.tareheYaKuzaliwa,
+      haliYaNdoa: userDetails.haliYaNdoa,
+      ainaYaNdoa: userDetails.ainaYaNdoa,
+      tareheYaNdoa: userDetails.tareheYaNdoa,
+      jinaLaMwenza: userDetails.jinaLaMwenza,
+      nambaYaSimu: userDetails.nambaYaSimu,
+      nambaYaSimuMwenza: userDetails.nambaYaSimuMwenza,
+      jumuiya: userDetails.jumuiya,
+      wilaya: userDetails.wilaya,
+      kata: userDetails.kata,
+      mtaa: userDetails.mtaa,
+      elimu: userDetails.elimu,
+      kazi: userDetails.kazi,
+      fani: userDetails.fani,
+      ubatizo: userDetails.ubatizo,
+      kipaimara: userDetails.kipaimara,
+      mezaYaBwana: userDetails.mezaYaBwana,
+      bahasha: userDetails.bahasha,
+      ahadi: userDetails.ahadi,
     };
 
     axios
@@ -392,7 +400,7 @@ const SignIn = ({}) => {
                     <input
                       type="text"
                       required
-                      value={register.firstName}
+                      value={userDetails.jinaKwanza}
                       placeholder={``}
                       name={"firstName"}
                       onChange={(event) => {
@@ -408,7 +416,7 @@ const SignIn = ({}) => {
                     <input
                       type="text"
                       required
-                      value={register.firstName}
+                      value={userDetails.jinaKati}
                       placeholder={``}
                       name={"firstName"}
                       onChange={(event) => {
@@ -424,7 +432,7 @@ const SignIn = ({}) => {
                     <input
                       type="text"
                       required
-                      value={register.lastName}
+                      value={userDetails.jinaMwisho}
                       placeholder={``}
                       name={"lastName"}
                       onChange={(event) => {
@@ -444,7 +452,7 @@ const SignIn = ({}) => {
                       placeholder="dd-mm-yyyy"
                       min="1925-01-01"
                       max={currentDate}
-                      value={register.username}
+                      value={userDetails.tareheYaKuzaliwa}
                       name={"username"}
                       onChange={(event) => {
                         handletextChange(event);
@@ -460,21 +468,21 @@ const SignIn = ({}) => {
                     displayLabel="Jinsia"
                     forms={jinsia}
                     handlechange={handleSelectForm}
-                    value={""}
+                    value={userDetails.jinsia}
                   />
                   <SelectMiu
                     show={true}
                     displayLabel="Hali Ya Ndoa"
                     forms={haliYaNdoa}
                     handlechange={handleSelectForm}
-                    value={""}
+                    value={userDetails.haliYaNdoa}
                   />
                   <SelectMiu
                     show={true}
                     displayLabel="Aina Ya Ndoa"
                     forms={ainaYaNdoa}
                     handlechange={handleSelectForm}
-                    value={""}
+                    value={userDetails.ainaYaNdoa}
                   />
                   <div className={Styles.inputBox}>
                     <input
@@ -484,7 +492,7 @@ const SignIn = ({}) => {
                       placeholder="dd-mm-yyyy"
                       min="1925-01-01"
                       max={currentDate}
-                      value={register.username}
+                      value={userDetails.tareheYaNdoa}
                       name={"username"}
                       onChange={(event) => {
                         handletextChange(event);
@@ -500,7 +508,7 @@ const SignIn = ({}) => {
                       ref={username}
                       required
                       type="text"
-                      value={register.username}
+                      value={userDetails.jinaLaMwenza}
                       placeholder={``}
                       name={"username"}
                       onChange={(event) => {
@@ -521,7 +529,7 @@ const SignIn = ({}) => {
                       ref={username}
                       required
                       type="number"
-                      value={register.username}
+                      value={userDetails.nambaYaSimu}
                       placeholder={``}
                       name={"username"}
                       onChange={(event) => {
@@ -538,7 +546,7 @@ const SignIn = ({}) => {
                       ref={username}
                       required
                       type="number"
-                      value={register.username}
+                      value={userDetails.nambaYaSimuMwenza}
                       placeholder={``}
                       name={"username"}
                       onChange={(event) => {
@@ -555,28 +563,28 @@ const SignIn = ({}) => {
                     displayLabel="Jina La Jumuiya Yako"
                     forms={jumuiya}
                     handlechange={handleSelectForm}
-                    value={""}
+                    value={userDetails.jumuiya}
                   />
                   <SelectMiu
                     show={true}
                     displayLabel="Wilaya Yako"
                     forms={wilaya}
                     handlechange={handleSelectForm}
-                    value={""}
+                    value={userDetails.wilaya}
                   />
                   <SelectMiu
                     show={true}
                     displayLabel="Kata Yako"
                     forms={kata}
                     handlechange={handleSelectForm}
-                    value={""}
+                    value={userDetails.kata}
                   />
                   <div className={Styles.inputBox}>
                     <input
                       ref={username}
                       required
                       type="text"
-                      value={register.username}
+                      value={userDetails.mtaa}
                       placeholder={``}
                       name={"username"}
                       onChange={(event) => {
@@ -593,14 +601,14 @@ const SignIn = ({}) => {
                     displayLabel="Elimu Yako"
                     forms={elimu}
                     handlechange={handleSelectForm}
-                    value={""}
+                    value={userDetails.elimu}
                   />
                   <div className={Styles.inputBox}>
                     <input
                       ref={username}
                       required
                       type="text"
-                      value={register.username}
+                      value={userDetails.kazi}
                       placeholder={``}
                       name={"username"}
                       onChange={(event) => {
@@ -618,7 +626,7 @@ const SignIn = ({}) => {
                       ref={username}
                       required
                       type="text"
-                      value={register.username}
+                      value={userDetails.fani}
                       placeholder={``}
                       name={"username"}
                       onChange={(event) => {
@@ -639,28 +647,28 @@ const SignIn = ({}) => {
                     displayLabel="Je umebatizwa?"
                     forms={ndioHapana}
                     handlechange={handleSelectForm}
-                    value={""}
+                    value={userDetails.ubatizo}
                   />
                   <SelectMiu
                     show={true}
                     displayLabel="Je umeshapata kipaimara?"
                     forms={ndioHapana}
                     handlechange={handleSelectForm}
-                    value={""}
+                    value={userDetails.kipaimara}
                   />
                   <SelectMiu
                     show={true}
                     displayLabel="Je unashiriki meza ya bwana?"
                     forms={ndioHapana}
                     handlechange={handleSelectForm}
-                    value={""}
+                    value={userDetails.mezaYaBwana}
                   />
                   <div className={Styles.inputBox}>
                     <input
                       ref={username}
                       required
                       type="number"
-                      value={register.username}
+                      value={userDetails.bahasha}
                       placeholder={``}
                       name={"username"}
                       onChange={(event) => {
@@ -682,7 +690,7 @@ const SignIn = ({}) => {
                       ref={username}
                       required
                       type="number"
-                      value={register.username}
+                      value={userDetails.ahadi}
                       placeholder={``}
                       name={"username"}
                       onChange={(event) => {
@@ -715,7 +723,7 @@ const SignIn = ({}) => {
                     <input
                       ref={password1}
                       type="password"
-                      value={register.password}
+                      value={userDetails.password1}
                       placeholder={``}
                       name={`password`}
                       onChange={(event) => {
@@ -733,7 +741,7 @@ const SignIn = ({}) => {
                       required
                       ref={password2}
                       type="password"
-                      value={register.password2}
+                      value={userDetails.password2}
                       placeholder={``}
                       name={`password2`}
                       onChange={(event) => {
