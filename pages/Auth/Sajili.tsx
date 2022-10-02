@@ -27,6 +27,8 @@ const SignIn = ({}) => {
   const [image, setImage] = useState<string | Blob>("");
   const imageUrl = process.env.IMAGE_URL;
   const [uploadData, setUploadData] = useState(0);
+  const [haliNdoaList, setHaliNdoaList] = useState<formData>([]);
+  const [kataList, setKataList] = useState<formData>([]);
   const [userDetails, setUserDetails] = useState({
     jinaKwanza: "",
     jinaKati: "",
@@ -298,12 +300,46 @@ const SignIn = ({}) => {
     console.log(location);
   };
 
-  let handleSelectForm = (value: string) => {
-    console.log(value);
+  let handleSelectAinaNdoa = (value: string) => {
+    setUserDetails({ ...userDetails, ainaYaNdoa: value });
+  };
+
+  let handleSelectElimu = (value: string) => {
+    setUserDetails({ ...userDetails, elimu: value });
   };
 
   let handleSelectJinsia = (value: string) => {
-    console.log(value);
+    setUserDetails({ ...userDetails, jinsia: value });
+    value == "Mwanamme"
+      ? setHaliNdoaList(haliYaNdoaMumeList)
+      : setHaliNdoaList(haliYaNdoaMkeList);
+  };
+
+  let handleSelectJumuia = (value: string) => {
+    setUserDetails({ ...userDetails, jumuiya: value });
+  };
+  let handleSelectKata = (value: string) => {
+    setUserDetails({ ...userDetails, kata: value });
+  };
+
+  let handleSelectKipaimara = (value: string) => {
+    setUserDetails({ ...userDetails, kipaimara: value });
+  };
+  let handleSelectMeza = (value: string) => {
+    setUserDetails({ ...userDetails, mezaYaBwana: value });
+  };
+
+  let handleSelectUbatizo = (value: string) => {
+    setUserDetails({ ...userDetails, ubatizo: value });
+  };
+
+  let handleSelectWilaya = (value: string) => {
+    setUserDetails({ ...userDetails, wilaya: value });
+    value == "Ilemela" ? setKataList(ilemelaList) : setKataList(nyamaganaList);
+  };
+
+  let handleSelectNdoa = (value: string) => {
+    setUserDetails({ ...userDetails, haliYaNdoa: value });
   };
 
   const jinsiaList: formData = [
@@ -326,8 +362,6 @@ const SignIn = ({}) => {
     { label: "Tengana", value: "Tengana" },
   ];
 
-  const haliYaNdoaList: formData = [];
-
   const ainaYaNdoaList: formData = [
     { label: "Ndoa Ya Kikristo", value: "Ndoa ya kikristo" },
     { label: "Ndoa Isiyo Ya Kikristo", value: "Ndoa Isiyo Ya Kikristo" },
@@ -338,27 +372,20 @@ const SignIn = ({}) => {
     { label: "Neema Nyamanoro", value: "Neema Nyamanoro" },
     { label: "Israeli", value: "Israeli" },
     { label: "Sinai", value: "Sinai" },
-    { label: "Sina Jumuiya", value: "Sina Jumuiya" },
   ];
 
   const wilayaList: formData = [
     { label: "Ilemela", value: "Ilemela" },
     { label: "Nyamagana", value: "Nyamagana" },
   ];
-  const kataList: formData = [
-    { label: "Ndoa Ya Kikristo", value: "Ndoa ya kikristo" },
-    { label: "Ndoa Isiyo Ya Kikristo", value: "Ndoa Isiyo Ya Kikristo" },
-  ];
-  const mtaaList: formData = [
-    { label: "Ndoa Ya Kikristo", value: "Ndoa ya kikristo" },
-    { label: "Ndoa Isiyo Ya Kikristo", value: "Ndoa Isiyo Ya Kikristo" },
-  ];
+
   const elimuList: formData = [
-    { label: "Darasa la saba", value: "Ndoa ya kikristo" },
-    { label: "Kidato cha nne", value: "Ndoa ya kikristo" },
-    { label: "Kidato cha sita", value: "Ndoa ya kikristo" },
-    { label: "Elimu ya chuo", value: "Ndoa ya kikristo" },
+    { label: "Darasa la saba", value: "Darasa la saba" },
+    { label: "Kidato cha nne", value: "Kidato cha nne" },
+    { label: "Kidato cha sita", value: "Kidato cha sita" },
+    { label: "Elimu ya chuo", value: "Elimu ya chuo" },
   ];
+
   const ndioHapanaList: formData = [
     { label: "Ndio", value: "True" },
     { label: "Hapana", value: "False" },
@@ -420,6 +447,7 @@ const SignIn = ({}) => {
                 <>
                   <div className={Styles.inputBox}>
                     <input
+                      ref={jinaKwanza}
                       type="text"
                       required
                       value={userDetails.jinaKwanza}
@@ -436,6 +464,7 @@ const SignIn = ({}) => {
                   </div>
                   <div className={Styles.inputBox}>
                     <input
+                      ref={jinaKati}
                       type="text"
                       required
                       value={userDetails.jinaKati}
@@ -452,6 +481,7 @@ const SignIn = ({}) => {
                   </div>
                   <div className={Styles.inputBox}>
                     <input
+                      ref={jinaMwisho}
                       type="text"
                       required
                       value={userDetails.jinaMwisho}
@@ -489,21 +519,21 @@ const SignIn = ({}) => {
                     show={true}
                     displayLabel="Jinsia"
                     forms={jinsiaList}
-                    handlechange={handleSelectForm}
+                    handlechange={handleSelectJinsia}
                     value={userDetails.jinsia}
                   />
                   <SelectMiu
                     show={true}
                     displayLabel="Hali Ya Ndoa"
-                    forms={haliYaNdoaList}
-                    handlechange={handleSelectForm}
+                    forms={haliNdoaList}
+                    handlechange={handleSelectNdoa}
                     value={userDetails.haliYaNdoa}
                   />
                   <SelectMiu
                     show={true}
                     displayLabel="Aina Ya Ndoa"
                     forms={ainaYaNdoaList}
-                    handlechange={handleSelectForm}
+                    handlechange={handleSelectAinaNdoa}
                     value={userDetails.ainaYaNdoa}
                   />
                   <div className={Styles.inputBox}>
@@ -584,21 +614,21 @@ const SignIn = ({}) => {
                     show={true}
                     displayLabel="Jina La Jumuiya Yako"
                     forms={jumuiyaList}
-                    handlechange={handleSelectForm}
+                    handlechange={handleSelectJumuia}
                     value={userDetails.jumuiya}
                   />
                   <SelectMiu
                     show={true}
                     displayLabel="Wilaya Yako"
                     forms={wilayaList}
-                    handlechange={handleSelectForm}
+                    handlechange={handleSelectWilaya}
                     value={userDetails.wilaya}
                   />
                   <SelectMiu
                     show={true}
                     displayLabel="Kata Yako"
                     forms={kataList}
-                    handlechange={handleSelectForm}
+                    handlechange={handleSelectKata}
                     value={userDetails.kata}
                   />
                   <div className={Styles.inputBox}>
@@ -622,7 +652,7 @@ const SignIn = ({}) => {
                     show={true}
                     displayLabel="Elimu Yako"
                     forms={elimuList}
-                    handlechange={handleSelectForm}
+                    handlechange={handleSelectElimu}
                     value={userDetails.elimu}
                   />
                   <div className={Styles.inputBox}>
@@ -668,21 +698,21 @@ const SignIn = ({}) => {
                     show={true}
                     displayLabel="Je umebatizwa?"
                     forms={ndioHapanaList}
-                    handlechange={handleSelectForm}
+                    handlechange={handleSelectUbatizo}
                     value={userDetails.ubatizo}
                   />
                   <SelectMiu
                     show={true}
                     displayLabel="Je umeshapata kipaimara?"
                     forms={ndioHapanaList}
-                    handlechange={handleSelectForm}
+                    handlechange={handleSelectKipaimara}
                     value={userDetails.kipaimara}
                   />
                   <SelectMiu
                     show={true}
                     displayLabel="Je unashiriki meza ya bwana?"
                     forms={ndioHapanaList}
-                    handlechange={handleSelectForm}
+                    handlechange={handleSelectMeza}
                     value={userDetails.mezaYaBwana}
                   />
                   <div className={Styles.inputBox}>
