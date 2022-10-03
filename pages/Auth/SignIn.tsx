@@ -3,7 +3,7 @@ import Styles from "../../styles/auth.module.scss";
 import { useSession, getSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import { BsGoogle } from "react-icons/bs";
-import Loader from "../../components/tools/loader";
+import Loader from "../../components/tools/loaderWait";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import Image from "next/image";
@@ -39,10 +39,9 @@ const SignIn = ({}) => {
         ...formData,
       }).then((responce) => {
         if (responce?.status === 401) {
-          notifyError("Incorrect Username Or Password");
+          notifyError("Umekosea namba ya bahasha au neno la siri");
           setLoadingDisplay(false);
         } else if (responce?.status === 200) {
-          setLoadingDisplay(false);
           if (typeof callback != "undefined") {
             if (callback.includes("/Auth")) {
               push(`/`);
@@ -55,7 +54,7 @@ const SignIn = ({}) => {
         }
       });
     } else {
-      notifyError("Fill in all fields.");
+      notifyError("Jaza nafasi zote zilizo wazi.");
     }
   };
 
@@ -139,16 +138,22 @@ const SignIn = ({}) => {
                 Onyesha Neno La Siri
               </div>
             </div>
-            <div
-              onSubmit={(e) => {
-                e.preventDefault();
-                signInWithCredentials();
-              }}
-              onClick={signInWithCredentials}
-              className={Styles.button}
-            >
-              Ingia
-            </div>
+            {loadingDisplay ? (
+              <div className={Styles.buttonSajili}>
+                <Loader sms={"Uhakiki"} />
+              </div>
+            ) : (
+              <div
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  signInWithCredentials();
+                }}
+                onClick={signInWithCredentials}
+                className={Styles.button}
+              >
+                Ingia
+              </div>
+            )}
             <div className={Styles.separator}>
               <hr className={Styles.line} />
               <div className={Styles.or}>Mtumiaji Mpya</div>
@@ -159,7 +164,6 @@ const SignIn = ({}) => {
             </div>
           </form>
         </div>
-        <div className={Styles.loader}>{loadingDisplay && <Loader />}</div>
       </div>
     </div>
   );

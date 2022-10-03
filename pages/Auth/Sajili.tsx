@@ -1,6 +1,5 @@
 import { ChangeEvent, ReactNode, useEffect, useRef, useState } from "react";
 import Styles from "../../styles/sajili.module.scss";
-import Loader from "../../components/tools/loader";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import Image from "next/image";
@@ -8,6 +7,7 @@ import { useRouter } from "next/router";
 import Stepper from "../../components/tools/Stepper";
 import ImageUpload from "../../components/tools/ImageUpload";
 import SelectMiu from "../../components/tools/SelectMui";
+import Loader from "../../components/tools/loaderWait";
 //! insta @ johnsavanter
 
 type formData = {
@@ -137,6 +137,7 @@ const SignIn = ({}) => {
         setLoadingDisplay(false);
         if (Object.keys(userData).length > 0) {
           notifyError("Tayari kuna akaunti yenye jina hili.");
+          setLoadingDisplay(false);
           // username.current.focus();
           // username.current.style.color = "red";
         }
@@ -162,10 +163,10 @@ const SignIn = ({}) => {
 
       image: location,
       jinsia: userDetails.jinsia,
-      tareheYaKuzaliwa: userDetails.tareheYaKuzaliwa,
+      tareheYaKuzaliwa: new Date(userDetails.tareheYaKuzaliwa),
       haliYaNdoa: userDetails.haliYaNdoa,
       ainaYaNdoa: userDetails.ainaYaNdoa,
-      tareheYaNdoa: userDetails.tareheYaNdoa,
+      tareheYaNdoa: new Date(userDetails.tareheYaNdoa),
       jinaLaMwenza: userDetails.jinaLaMwenza,
       nambaYaSimu: userDetails.nambaYaSimu,
       nambaYaSimuMwenza: userDetails.nambaYaSimuMwenza,
@@ -180,7 +181,7 @@ const SignIn = ({}) => {
       kipaimara: userDetails.kipaimara == "True" ? true : false,
       mezaYaBwana: userDetails.mezaYaBwana == "True" ? true : false,
       bahasha: userDetails.bahasha,
-      ahadi: userDetails.ahadi,
+      ahadi: parseInt(userDetails.ahadi),
       nenoLaSiri: userDetails.password1,
     };
 
@@ -244,9 +245,11 @@ const SignIn = ({}) => {
         checkUser();
       } else {
         notifyError("Ingiza neno la siri linalofanana");
+        setLoadingDisplay(false);
       }
     } else {
       notifyError("Hakikisha umepakia picha na kuandika neno la siri");
+      setLoadingDisplay(false);
     }
   };
 
@@ -420,8 +423,7 @@ const SignIn = ({}) => {
       })
       .then(
         (res) => {
-          let location = res.data;
-          console.log(location);
+          let location = res.data.file;
           registration(location);
         },
         (err) => {
@@ -970,9 +972,15 @@ const SignIn = ({}) => {
                   </div>
                 </div>
                 <div className={Styles.buttonHolderCreate}>
-                  <div onClick={verfyAndSubmit} className={Styles.button}>
-                    Tengeneza Akaunti
-                  </div>
+                  {loadingDisplay ? (
+                    <div className={Styles.buttonSajili}>
+                      <Loader sms={"Akaunti Inatengenezwa"} />
+                    </div>
+                  ) : (
+                    <div onClick={verfyAndSubmit} className={Styles.button}>
+                      Tengeneza Akaunti
+                    </div>
+                  )}
                 </div>
               </>
             )}
@@ -1004,7 +1012,6 @@ const SignIn = ({}) => {
             <div>Ingia Kwenye Akaunti Yako</div>
           </div>
         </div>
-        <div className={Styles.loader}>{loadingDisplay && <Loader />}</div>
       </div>
     </div>
   );

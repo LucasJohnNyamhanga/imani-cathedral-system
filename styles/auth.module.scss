@@ -1,276 +1,289 @@
-@import 'index';
+@import "index";
 
 .container {
-	display: flex;
-	flex-direction: column;
-	width: 100%;
-	justify-content: flex-start;
-	align-items: center;
-	padding: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 10px;
 
-	.innerContainer {
-		width: 100%;
-		min-height: 70vh;
-		max-width: 1200px;
-		margin-top: 10px;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
+  .innerContainer {
+    width: 100%;
+    min-height: 70vh;
+    max-width: 1200px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
-		.form {
-			width: 100%;
-			display: flex;
-			flex-direction: column;
-			max-width: 350px;
+    .form {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      max-width: 350px;
 
-			.logInHeader {
-				width: 100%;
-				display: flex;
-				flex-direction: column;
-				justify-content: center;
-				align-items: center;
+      .logInHeader {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
 
-				margin-bottom: 15px;
+        margin-bottom: 15px;
 
-				.icon {
-					font-size: 65px;
-					margin-bottom: 15px;
-					color: $lightblue;
-				}
+        .icon {
+          font-size: 65px;
+          margin-bottom: 15px;
+          color: $lightblue;
+        }
 
-				.text {
-					font-family: $fontHeader;
-					font-weight: 600;
-					font-size: 25px;
-					color: $ugoro;
-					width: fit-content;
-					align-self: center;
-				}
-			}
-			.credential {
-				margin-bottom: 15px;
+        .text {
+          font-family: $fontHeader;
+          font-weight: 600;
+          font-size: 25px;
+          color: $ugoro;
+          width: fit-content;
+          align-self: center;
+        }
+      }
+      .credential {
+        margin-bottom: 15px;
 
-				.inputBox {
-					position: relative;
-					width: 100%;
+        .inputBox {
+          position: relative;
+          width: 100%;
 
-					input {
-						border: 2px solid $ugoro;
-						padding: 10px;
-						font-size: 18px;
-						font-weight: 400;
-						border-radius: 5px;
-						width: 100%;
-						outline: none;
-						font-family: $fontBody;
-						margin-bottom: 10px;
-						color: $black;
-						z-index: 1;
+          input {
+            border: 2px solid $ugoro;
+            padding: 10px;
+            font-size: 18px;
+            font-weight: 400;
+            border-radius: 5px;
+            width: 100%;
+            outline: none;
+            font-family: $fontBody;
+            margin-bottom: 10px;
+            color: $black;
+            z-index: 1;
 
-						&:valid ~ span,
-						&:focus ~ span {
-							color: $lightblue;
-							transform: translateX(10px) translateY(-8px);
-							font-size: 0.65em;
-							padding: 0 10px;
-							background-color: $white;
-							font-weight: 600;
-							border-left: 2px solid $lightblue;
-							border-right: 2px solid $lightblue;
-							z-index: 0;
-						}
+            &:valid ~ span,
+            &:focus ~ span {
+              color: $lightblue;
+              transform: translateX(10px) translateY(-8px);
+              font-size: 0.65em;
+              padding: 0 10px;
+              background-color: $white;
+              font-weight: 600;
+              border-left: 2px solid $lightblue;
+              border-right: 2px solid $lightblue;
+              z-index: 0;
+            }
 
-						&:valid,
-						&:focus {
-							border: 2px solid $lightblue;
-							z-index: 0;
-						}
-					}
+            &:valid,
+            &:focus {
+              border: 2px solid $lightblue;
+              z-index: 0;
+            }
+          }
 
-					span {
-						position: absolute;
-						left: 0;
-						top: 3px;
-						padding: 10px;
-						pointer-events: none;
-						font-size: 1em;
-						font-weight: 500;
-						color: $ugoro;
-						// text-transform: uppercase;
-						font-family: $fontHeader;
-						transition: 0.5s;
-						z-index: 0;
-					}
-				}
+          span {
+            position: absolute;
+            left: 0;
+            top: 3px;
+            padding: 10px;
+            pointer-events: none;
+            font-size: 1em;
+            font-weight: 500;
+            color: $ugoro;
+            // text-transform: uppercase;
+            font-family: $fontHeader;
+            transition: 0.5s;
+            z-index: 0;
+          }
+        }
 
-				.check {
-					display: flex;
-					flex-direction: row;
-					font-size: 18px;
-					font-weight: 400;
-					justify-content: flex-start;
-					align-items: center;
+        .check {
+          display: flex;
+          flex-direction: row;
+          font-size: 18px;
+          font-weight: 400;
+          justify-content: flex-start;
+          align-items: center;
 
-					input {
-						width: 20px;
-						height: 20px;
-						align-self: center;
-						margin: 0px;
-						margin-right: 10px;
-						margin-left: 5px;
-					}
-				}
-			}
+          input {
+            width: 20px;
+            height: 20px;
+            align-self: center;
+            margin: 0px;
+            margin-right: 10px;
+            margin-left: 5px;
+          }
+        }
+      }
 
-			.button {
-				width: 100%;
-				background-color: $ugoro;
-				color: $white;
-				border: 2px solid transparent;
-				padding: 10px 25px;
-				display: flex;
-				flex-direction: row;
-				justify-content: center;
-				align-items: center;
-				border-radius: 5px;
-				transition: 0.2s linear;
-				font-weight: 500;
+      .button {
+        width: 100%;
+        background-color: $ugoro;
+        color: $white;
+        border: 2px solid transparent;
+        padding: 10px 25px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        border-radius: 5px;
+        transition: 0.2s linear;
+        font-weight: 500;
 
-				.google {
-					margin-right: 10px;
-				}
-			}
+        .google {
+          margin-right: 10px;
+        }
+      }
 
-			.button:hover {
-				background-color: $lightkahawa;
-				color: $ugoro;
-				border: 2px solid $lightblue;
-				cursor: pointer;
-			}
+      .button:hover {
+        background-color: $lightkahawa;
+        color: $ugoro;
+        border: 2px solid $lightblue;
+        cursor: pointer;
+      }
+      .buttonSajili {
+        width: 100%;
+        background-color: $ugoro;
+        color: $white;
+        border: 2px solid transparent;
+        padding: 3px 15px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        border-radius: 5px;
+        transition: 0.2s linear;
+        font-weight: 500;
+      }
+      .buttonSignUp {
+        width: 100%;
+        background-color: $answerBackground;
+        margin-top: 5px;
+        color: $ugoro;
+        border: 1px solid $ugoro;
+        padding: 10px 25px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        border-radius: 3px;
+        transition: 0.2s linear;
+        font-weight: 500;
+      }
 
-			.buttonSignUp {
-				width: 100%;
-				background-color: $answerBackground;
-				margin-top: 5px;
-				color: $ugoro;
-				border: 1px solid $ugoro;
-				padding: 10px 25px;
-				display: flex;
-				flex-direction: row;
-				justify-content: center;
-				align-items: center;
-				border-radius: 3px;
-				transition: 0.2s linear;
-				font-weight: 500;
-			}
+      .buttonSignUp:hover {
+        background-color: $lightblue;
+        color: $white;
+        border: 2px solid $lightblue;
+        cursor: pointer;
+      }
 
-			.buttonSignUp:hover {
-				background-color: $lightblue;
-				color: $white;
-				border: 2px solid $lightblue;
-				cursor: pointer;
-			}
+      .separator {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin: 15px 0px;
+      }
 
-			.separator {
-				display: flex;
-				flex-direction: row;
-				justify-content: space-between;
-				margin: 15px 0px;
-			}
+      .line {
+        display: flex;
+        flex: 1;
+        background-color: $black;
+        height: 1px;
+      }
 
-			.line {
-				display: flex;
-				flex: 1;
-				background-color: $black;
-				height: 1px;
-			}
+      .line:first-child {
+        margin-left: 15px;
+      }
 
-			.line:first-child {
-				margin-left: 15px;
-			}
+      .line:last-child {
+        margin-right: 15px;
+      }
 
-			.line:last-child {
-				margin-right: 15px;
-			}
+      .or {
+        width: fit-content;
+        margin-left: 10px;
+        margin-right: 10px;
+      }
+    }
 
-			.or {
-				width: fit-content;
-				margin-left: 10px;
-				margin-right: 10px;
-			}
-		}
+    .loader {
+      height: fit-content;
+      margin: 20px;
+      height: 80px;
+    }
 
-		.loader {
-			height: fit-content;
-			margin: 20px;
-			height: 80px;
-		}
+    @media only screen and (max-width: 848px) {
+      .form {
+        .logInHeader {
+          margin-bottom: 10px;
 
-		@media only screen and (max-width: 848px) {
-			.form {
-				.logInHeader {
-					margin-bottom: 10px;
+          .icon {
+            font-size: 45px;
+            margin-bottom: 10px;
+          }
 
-					.icon {
-						font-size: 45px;
-						margin-bottom: 10px;
-					}
+          .text {
+            font-size: 20px;
+          }
+        }
+        .credential {
+          margin-bottom: 10px;
 
-					.text {
-						font-size: 20px;
-					}
-				}
-				.credential {
-					margin-bottom: 10px;
+          input {
+            font-size: 16px;
+          }
 
-					input {
-						font-size: 16px;
-					}
+          .check {
+            font-size: 16px;
+            font-weight: 400;
 
-					.check {
-						font-size: 16px;
-						font-weight: 400;
+            input {
+              width: 15px;
+              height: 15px;
+            }
+          }
+        }
 
-						input {
-							width: 15px;
-							height: 15px;
-						}
-					}
-				}
+        .button {
+          padding: 10px 20px;
 
-				.button {
-					padding: 10px 20px;
+          .google {
+            margin-right: 10px;
+          }
+        }
 
-					.google {
-						margin-right: 10px;
-					}
-				}
+        .buttonSignUp {
+          padding: 10px 20px;
+        }
 
-				.buttonSignUp {
-					padding: 10px 20px;
-				}
+        .separator {
+          margin: 10px 0px;
+        }
+        .line:first-child {
+          margin-left: 10px;
+        }
 
-				.separator {
-					margin: 10px 0px;
-				}
-				.line:first-child {
-					margin-left: 10px;
-				}
+        .line:last-child {
+          margin-right: 10px;
+        }
 
-				.line:last-child {
-					margin-right: 10px;
-				}
-
-				.or {
-					margin-left: 10px;
-					margin-right: 10px;
-				}
-			}
-			.loader {
-				height: fit-content;
-				height: 40px;
-			}
-		}
-	}
+        .or {
+          margin-left: 10px;
+          margin-right: 10px;
+        }
+      }
+      .loader {
+        height: fit-content;
+        height: 40px;
+      }
+    }
+  }
 }

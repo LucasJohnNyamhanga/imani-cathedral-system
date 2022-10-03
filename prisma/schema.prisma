@@ -28,11 +28,11 @@ model user {
   bahasha           String?       @db.Text
   jinsia            String
   haliYaNdoa        String
-  ainaYaNdoa        String
+  ainaYaNdoa        String?
   tareheYaNdoa      DateTime?
   jinaLaMwenza      String?
-  nambaYaSimu       Int
-  nambaYaSimuMwenza Int?
+  nambaYaSimu       String
+  nambaYaSimuMwenza String?
   jumuiyaId         Int
   jumuiya           jumuiya       @relation(fields: [jumuiyaId], references: [id])
   mtaa              String
