@@ -159,6 +159,7 @@ const SignIn = ({}) => {
         userDetails.jinaMwisho.charAt(0).toUpperCase() +
         userDetails.jinaMwisho.toLowerCase().slice(1)
       }`,
+
       image: location,
       jinsia: userDetails.jinsia,
       tareheYaKuzaliwa: userDetails.tareheYaKuzaliwa,
@@ -168,18 +169,19 @@ const SignIn = ({}) => {
       jinaLaMwenza: userDetails.jinaLaMwenza,
       nambaYaSimu: userDetails.nambaYaSimu,
       nambaYaSimuMwenza: userDetails.nambaYaSimuMwenza,
-      jumuiya: userDetails.jumuiya,
+      jumuiyaId: 1,
       wilaya: userDetails.wilaya,
       kata: userDetails.kata,
       mtaa: userDetails.mtaa,
       elimu: userDetails.elimu,
       kazi: userDetails.kazi,
       fani: userDetails.fani,
-      ubatizo: userDetails.ubatizo,
-      kipaimara: userDetails.kipaimara,
-      mezaYaBwana: userDetails.mezaYaBwana,
+      ubatizo: userDetails.ubatizo == "True" ? true : false,
+      kipaimara: userDetails.kipaimara == "True" ? true : false,
+      mezaYaBwana: userDetails.mezaYaBwana == "True" ? true : false,
       bahasha: userDetails.bahasha,
       ahadi: userDetails.ahadi,
+      nenoLaSiri: userDetails.password1,
     };
 
     axios
@@ -404,7 +406,7 @@ const SignIn = ({}) => {
     const body = new FormData();
     body.append("file", image);
     axios
-      .post(imageUrl + "/api/upload", body, {
+      .post("/api/upload", body, {
         onUploadProgress: (progressEvent) => {
           console.log(
             "Upload Progress: " +
@@ -419,6 +421,7 @@ const SignIn = ({}) => {
       .then(
         (res) => {
           let location = res.data;
+          console.log(location);
           registration(location);
         },
         (err) => {
