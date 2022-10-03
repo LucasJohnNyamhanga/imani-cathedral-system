@@ -116,6 +116,13 @@
             &:focus {
               border: 1.5px solid $lightblue;
               z-index: 0;
+              color: $black;
+            }
+
+            &:valid ~ span {
+              border-left: 1.5px solid $gray;
+              border-right: 1.5px solid $gray;
+              color: $gray;
             }
           }
 

@@ -114,9 +114,19 @@ const SignIn = ({}) => {
     push(`/Auth/SignIn`);
   };
 
-  let createAccount = () => {};
-
-  let checkUser = (data: {}) => {
+  let checkUser = () => {
+    const data = {
+      name: `${
+        userDetails.jinaKwanza.charAt(0).toUpperCase() +
+        userDetails.jinaKwanza.toLowerCase().slice(1)
+      } ${
+        userDetails.jinaKati.charAt(0).toUpperCase() +
+        userDetails.jinaKati.toLowerCase().slice(1)
+      } ${
+        userDetails.jinaMwisho.charAt(0).toUpperCase() +
+        userDetails.jinaMwisho.toLowerCase().slice(1)
+      }`,
+    };
     setLoadingDisplay(true);
     axios
       .post("http://localhost:3000/api/getUser", data)
@@ -126,18 +136,18 @@ const SignIn = ({}) => {
         console.log(userData);
         setLoadingDisplay(false);
         if (Object.keys(userData).length > 0) {
-          notifyError("Username already taken");
+          notifyError("Tayari kuna akaunti yenye jina hili.");
           // username.current.focus();
           // username.current.style.color = "red";
         }
       })
       .catch(function (error) {
         // handle error
-        registration();
+        uploadToServer();
       });
   };
 
-  let registration = () => {
+  let registration = (location: string) => {
     let dataUser = {
       name: `${
         userDetails.jinaKwanza.charAt(0).toUpperCase() +
@@ -216,15 +226,132 @@ const SignIn = ({}) => {
   };
 
   let handleMbele = () => {
-    if (step < 3) {
-      setStep(step + 1);
-      setTaarifa(headerTaarifa[step + 1]);
-      smoothScroll();
-      changer(step + 1);
+    if (verify(step))
+      if (step < 3) {
+        setStep(step + 1);
+        setTaarifa(headerTaarifa[step + 1]);
+        smoothScroll();
+        changer(step + 1);
+      }
+  };
+
+  const verfyAndSubmit = () => {
+    const { password1, password2 } = userDetails;
+    if (password1 != "" && password2 != "" && image != "") {
+      if (password1 == password2) {
+        checkUser();
+      } else {
+        notifyError("Ingiza neno la siri linalofanana");
+      }
+    } else {
+      notifyError("Hakikisha umepakia picha na kuandika neno la siri");
     }
   };
 
-  useEffect(() => {}, [step]);
+  const verify = (step: number) => {
+    const {
+      jinaKwanza,
+      jinaKati,
+      jinaMwisho,
+      tareheYaKuzaliwa,
+      jinsia,
+      haliYaNdoa,
+      ainaYaNdoa,
+      tareheYaNdoa,
+      jinaLaMwenza,
+      nambaYaSimu,
+      nambaYaSimuMwenza,
+      jumuiya,
+      wilaya,
+      kata,
+      mtaa,
+      elimu,
+      kazi,
+      fani,
+      ubatizo,
+      kipaimara,
+      mezaYaBwana,
+      bahasha,
+      ahadi,
+    } = userDetails;
+    switch (step) {
+      case 0:
+        if (
+          jinaKwanza != "" &&
+          jinaKati != "" &&
+          jinaMwisho != "" &&
+          tareheYaKuzaliwa != "" &&
+          jinsia != "" &&
+          haliYaNdoa != ""
+        ) {
+          if (haliYaNdoa == "Umeolewa" || haliYaNdoa == "Umeoa") {
+            if (ainaYaNdoa != "") {
+              if (ainaYaNdoa == "Ndoa ya kikristo") {
+                if (tareheYaNdoa != "" && jinaLaMwenza != "") {
+                  //notifySuccess("verified, yupo kwenye ndoa");
+                  return true;
+                } else {
+                  notifyError(
+                    "Tafadhali jaza tarehe ya ndoa na jina la mwenza."
+                  );
+                  return false;
+                }
+              } else {
+                //notifySuccess("Ndoa si ya kikristo.");
+                return true;
+              }
+            } else {
+              notifyError("Tafadhali jaza aina ya ndoa.");
+              return false;
+            }
+          } else {
+            //notifySuccess("verified, hayupo kwenye ndoa" + ainaYaNdoa);
+            return true;
+          }
+        } else {
+          notifyError("Tafadhali jaza nafasi zote zilizo wazi.");
+          return false;
+        }
+
+        break;
+      case 1:
+        if (
+          nambaYaSimu != "" &&
+          nambaYaSimuMwenza != "" &&
+          jumuiya != "" &&
+          wilaya != "" &&
+          kata != "" &&
+          mtaa != "" &&
+          elimu != "" &&
+          kazi != "" &&
+          fani != ""
+        ) {
+          return true;
+        } else {
+          notifyError("Tafadhali jaza nafasi zote zilizo wazi.");
+          return false;
+        }
+        break;
+      case 2:
+        if (
+          ubatizo != "" &&
+          kipaimara != "" &&
+          mezaYaBwana != "" &&
+          ahadi != ""
+        ) {
+          return true;
+        } else {
+          notifyError("Tafadhali jaza nafasi zote zilizo wazi.");
+          return false;
+        }
+        return false;
+        break;
+
+      default:
+        return false;
+        break;
+    }
+  };
 
   let smoothScroll = () => {
     scroll({
@@ -288,16 +415,12 @@ const SignIn = ({}) => {
       .then(
         (res) => {
           let location = res.data;
-          sendToDatabase(location);
+          registration(location);
         },
         (err) => {
           //some error
         }
       );
-  };
-
-  let sendToDatabase = (location: string) => {
-    console.log(location);
   };
 
   let handleSelectAinaNdoa = (value: string) => {
@@ -309,7 +432,14 @@ const SignIn = ({}) => {
   };
 
   let handleSelectJinsia = (value: string) => {
-    setUserDetails({ ...userDetails, jinsia: value });
+    setUserDetails({
+      ...userDetails,
+      jinsia: value,
+      haliYaNdoa: "",
+      ainaYaNdoa: "",
+      tareheYaNdoa: "",
+      jinaLaMwenza: "",
+    });
     value == "Mwanamme"
       ? setHaliNdoaList(haliYaNdoaMumeList)
       : setHaliNdoaList(haliYaNdoaMkeList);
@@ -348,15 +478,15 @@ const SignIn = ({}) => {
   ];
   const haliYaNdoaMkeList: formData = [
     { label: "Umeolewa", value: "Umeolewa" },
-    { label: "Humeolewa", value: "Hujaolewa" },
+    { label: "Hujaolewa", value: "Hujaolewa" },
     { label: "Mjane", value: "Mjane" },
     { label: "Talikiwa", value: "Talikiwa" },
     { label: "Tengana", value: "Tengana" },
   ];
 
   const haliYaNdoaMumeList: formData = [
-    { label: "Umeoa", value: "Umeolewa" },
-    { label: "Hujaoa", value: "Hujaolewa" },
+    { label: "Umeoa", value: "Umeoa" },
+    { label: "Hujaoa", value: "Hujaoa" },
     { label: "Mgane", value: "Mgane" },
     { label: "Talikiwa", value: "Talikiwa" },
     { label: "Tengana", value: "Tengana" },
@@ -364,14 +494,18 @@ const SignIn = ({}) => {
 
   const ainaYaNdoaList: formData = [
     { label: "Ndoa Ya Kikristo", value: "Ndoa ya kikristo" },
-    { label: "Ndoa Isiyo Ya Kikristo", value: "Ndoa Isiyo Ya Kikristo" },
+    { label: "Ndoa Isiyo Ya Kikristo", value: "Ndoa isiyo ya kikristo" },
   ];
   const jumuiyaList: formData = [
+    { label: "Sijapata Jumuiya", value: "Sijapata Jumuiya" },
     { label: "Ufunuo", value: "Ufunuo" },
     { label: "Agape", value: "Agape" },
     { label: "Neema Nyamanoro", value: "Neema Nyamanoro" },
     { label: "Israeli", value: "Israeli" },
     { label: "Sinai", value: "Sinai" },
+    { label: "Jurusalem", value: "Jurusalem" },
+    { label: "Bethilehem", value: "Bethilehem" },
+    { label: "Warumi", value: "Warumi" },
   ];
 
   const wilayaList: formData = [
@@ -424,6 +558,8 @@ const SignIn = ({}) => {
     { label: "Pamba", value: "Pamba" },
   ];
 
+  useEffect(() => {}, [step, userDetails]);
+
   return (
     <div className={Styles.container}>
       <Toaster position="top-center" />
@@ -433,7 +569,7 @@ const SignIn = ({}) => {
             className={Styles.form}
             onSubmit={(e) => {
               e.preventDefault();
-              createAccount();
+              verfyAndSubmit();
             }}
           >
             <div className={Styles.logInHeader}>
@@ -529,49 +665,58 @@ const SignIn = ({}) => {
                     handlechange={handleSelectNdoa}
                     value={userDetails.haliYaNdoa}
                   />
-                  <SelectMiu
-                    show={true}
-                    displayLabel="Aina Ya Ndoa"
-                    forms={ainaYaNdoaList}
-                    handlechange={handleSelectAinaNdoa}
-                    value={userDetails.ainaYaNdoa}
-                  />
-                  <div className={Styles.inputBox}>
-                    <input
-                      ref={tareheYaNdoa}
-                      required
-                      type="date"
-                      placeholder="dd-mm-yyyy"
-                      min="1925-01-01"
-                      max={currentDate}
-                      value={userDetails.tareheYaNdoa}
-                      name={"tareheYaNdoa"}
-                      onChange={(event) => {
-                        handletextChange(event);
-                      }}
-                      autoComplete="off"
-                      autoCorrect="off"
-                      spellCheck={false}
-                    />
-                    <span>Tarehe Ya Ndoa</span>
-                  </div>
-                  <div className={Styles.inputBox}>
-                    <input
-                      ref={jinaLaMwenza}
-                      required
-                      type="text"
-                      value={userDetails.jinaLaMwenza}
-                      placeholder={``}
-                      name={"jinaLaMwenza"}
-                      onChange={(event) => {
-                        handletextChange(event);
-                      }}
-                      autoComplete="off"
-                      autoCorrect="off"
-                      spellCheck={false}
-                    />
-                    <span>Jina La Mwenza</span>
-                  </div>
+                  {(userDetails.haliYaNdoa == "Umeoa" ||
+                    userDetails.haliYaNdoa == "Umeolewa") && (
+                    <>
+                      <SelectMiu
+                        show={true}
+                        displayLabel="Aina Ya Ndoa"
+                        forms={ainaYaNdoaList}
+                        handlechange={handleSelectAinaNdoa}
+                        value={userDetails.ainaYaNdoa}
+                      />
+                      {userDetails.ainaYaNdoa == "Ndoa ya kikristo" && (
+                        <>
+                          <div className={Styles.inputBox}>
+                            <input
+                              ref={tareheYaNdoa}
+                              required
+                              type="date"
+                              placeholder="dd-mm-yyyy"
+                              min="1925-01-01"
+                              max={currentDate}
+                              value={userDetails.tareheYaNdoa}
+                              name={"tareheYaNdoa"}
+                              onChange={(event) => {
+                                handletextChange(event);
+                              }}
+                              autoComplete="off"
+                              autoCorrect="off"
+                              spellCheck={false}
+                            />
+                            <span>Tarehe Ya Ndoa</span>
+                          </div>
+                          <div className={Styles.inputBox}>
+                            <input
+                              ref={jinaLaMwenza}
+                              required
+                              type="text"
+                              value={userDetails.jinaLaMwenza}
+                              placeholder={``}
+                              name={"jinaLaMwenza"}
+                              onChange={(event) => {
+                                handletextChange(event);
+                              }}
+                              autoComplete="off"
+                              autoCorrect="off"
+                              spellCheck={false}
+                            />
+                            <span>Jina La Mwenza</span>
+                          </div>
+                        </>
+                      )}
+                    </>
+                  )}
                 </>
               )}
               {mawasiliano && (
@@ -817,7 +962,7 @@ const SignIn = ({}) => {
                   </div>
                 </div>
                 <div className={Styles.buttonHolderCreate}>
-                  <div onClick={createAccount} className={Styles.button}>
+                  <div onClick={verfyAndSubmit} className={Styles.button}>
                     Tengeneza Akaunti
                   </div>
                 </div>
