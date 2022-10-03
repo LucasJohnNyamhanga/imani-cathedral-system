@@ -159,7 +159,7 @@ const SignIn = ({}) => {
         userDetails.jinaMwisho.charAt(0).toUpperCase() +
         userDetails.jinaMwisho.toLowerCase().slice(1)
       }`,
-      picha: location,
+      image: location,
       jinsia: userDetails.jinsia,
       tareheYaKuzaliwa: userDetails.tareheYaKuzaliwa,
       haliYaNdoa: userDetails.haliYaNdoa,
@@ -406,7 +406,11 @@ const SignIn = ({}) => {
     axios
       .post(imageUrl + "/api/upload", body, {
         onUploadProgress: (progressEvent) => {
-          // console.log('Upload Progress: ' + Math.round(progressEvent.loaded / progressEvent.total * 100) + "%");
+          console.log(
+            "Upload Progress: " +
+              Math.round((progressEvent.loaded / progressEvent.total) * 100) +
+              "%"
+          );
           setUploadData(
             Math.round((progressEvent.loaded / progressEvent.total) * 100)
           );
@@ -514,6 +518,7 @@ const SignIn = ({}) => {
   ];
 
   const elimuList: formData = [
+    { label: "Sijasoma", value: "Sijasoma" },
     { label: "Darasa la saba", value: "Darasa la saba" },
     { label: "Kidato cha nne", value: "Kidato cha nne" },
     { label: "Kidato cha sita", value: "Kidato cha sita" },

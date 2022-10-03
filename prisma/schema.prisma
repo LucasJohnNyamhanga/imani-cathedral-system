@@ -21,39 +21,40 @@ datasource db {
 }
 
 model user {
-  id           Int           @id @default(autoincrement())
-  image        String?
-  name         String        @db.Text
-  nambaBahasha String?       @db.Text
-  jinsia       String
-  ndoa         String
-  ainaYaNdoa   String?
-  tareheYaNdoa DateTime?
-  jinaMwenza   String?
-  simu         Int?
-  simuMwenza   Int?
-  jumuiyaId    Int
-  jumuiya      jumuiya?      @relation(fields: [jumuiyaId], references: [id])
-  mtaa         String
-  kata         String
-  wilaya       String
-  mkoa         String
-  kazi         String?
-  elimu        String?
-  fani         String?
-  ubatizo      Boolean
-  kipaimara    Boolean
-  mezaYaBwana  Boolean
-  ahadi        Int
-  cheo         cheo[]
-  dateJoined   DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
-  cheoHistory  cheoHistory[]
-  kwaya        kwaya[]
+  id                Int           @id @default(autoincrement())
+  image             String
+  name              String        @db.Text
+  tareheYaKuzaliwa  DateTime
+  bahasha           String?       @db.Text
+  jinsia            String
+  haliYaNdoa        String
+  ainaYaNdoa        String
+  tareheYaNdoa      DateTime?
+  jinaLaMwenza      String?
+  nambaYaSimu       Int
+  nambaYaSimuMwenza Int?
+  jumuiyaId         Int
+  jumuiya           jumuiya       @relation(fields: [jumuiyaId], references: [id])
+  mtaa              String
+  kata              String
+  wilaya            String
+  kazi              String
+  elimu             String
+  fani              String
+  ubatizo           Boolean
+  kipaimara         Boolean
+  mezaYaBwana       Boolean
+  ahadi             Int
+  password          String
+  cheo              cheo[]
+  dateJoined        DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+  cheoHistory       cheoHistory[]
+  kwaya             kwaya[]
 
-  @@fulltext([nambaBahasha])
+  @@fulltext([bahasha])
   @@fulltext([name])
-  @@fulltext([nambaBahasha, name])
+  @@fulltext([bahasha, name])
 }
 
 model jumuiya {
