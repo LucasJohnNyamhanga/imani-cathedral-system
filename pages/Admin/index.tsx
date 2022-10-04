@@ -13,6 +13,7 @@ import { getSession } from "next-auth/react";
 import { FaUserTie as UserKamili } from "react-icons/fa";
 import { FaUserTimes as UserKasoro } from "react-icons/fa";
 import { FaQuoteRight } from "react-icons/fa";
+import axios from "axios";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context);
@@ -65,10 +66,12 @@ const Index = ({
       case "maombiYaliokamilika":
         maombiYaliokamilika.current.classList.add(Styles.Active);
         setActive("maombiYaliokamilika");
+        unverifiedUsers();
         break;
       case "maombiKasoro":
         maombiKasoro.current.classList.add(Styles.Active);
         setActive("maombiKasoro");
+        usersWithError();
         break;
       case "sadakaAhadi":
         sadakaAhadi.current.classList.add(Styles.Active);
@@ -92,6 +95,50 @@ const Index = ({
       top: 0,
       behavior: "smooth",
     });
+  };
+
+  let unverifiedUsers = () => {
+    setLoading(true);
+    axios
+      .get("/api/getUserListUnverified")
+      .then(function (response) {
+        const users = JSON.parse(JSON.stringify(response.data));
+        // handle success
+        console.log(users);
+
+        setLoading(false);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+        notifyError("Something went wrong.");
+        setLoading(false);
+      })
+      .then(function () {
+        // always executed
+      });
+  };
+
+  let usersWithError = () => {
+    setLoading(true);
+    axios
+      .get("/api/getUserListWithError")
+      .then(function (response) {
+        const users = JSON.parse(JSON.stringify(response.data));
+        // handle success
+        console.log(users);
+
+        setLoading(false);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+        notifyError("Something went wrong.");
+        setLoading(false);
+      })
+      .then(function () {
+        // always executed
+      });
   };
 
   function timeAgo(time: any) {
@@ -223,12 +270,34 @@ const Index = ({
                     </div>
                   </div>
                 )}
-                {navValue == "" && (
+                {navValue == "maombiYaliokamilika" && (
                   <div className={Styles.rightInnercontainerBody}>
                     <div className={Styles.subject}>
                       <div className={Styles.subjectHeader}>
                         <div className={Styles.subjectHeaderText}>
-                          Karibu Kwenye Akaunti Ya Usimamizi
+                          Maombi Washarika Yaliyokamilishwa Vigezo
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                {navValue == "maombiKasoro" && (
+                  <div className={Styles.rightInnercontainerBody}>
+                    <div className={Styles.subject}>
+                      <div className={Styles.subjectHeader}>
+                        <div className={Styles.subjectHeaderText}>
+                          Maombi Washarika Yasiyo Na Vigezo
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                {navValue == "sadakaAhadi" && (
+                  <div className={Styles.rightInnercontainerBody}>
+                    <div className={Styles.subject}>
+                      <div className={Styles.subjectHeader}>
+                        <div className={Styles.subjectHeaderText}>
+                          Karibu Kwenye Akaunti Ya Sadaka Ya Ahadi
                         </div>
                       </div>
                     </div>
