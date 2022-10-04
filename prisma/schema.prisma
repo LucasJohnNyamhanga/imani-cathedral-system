@@ -51,6 +51,9 @@ model user {
   updatedAt         DateTime      @updatedAt
   cheoHistory       cheoHistory[]
   kwaya             kwaya[]
+  missing           Boolean       @default(false)
+  verified          Boolean       @default(false)
+  sadaka            sadaka[]
 
   @@fulltext([bahasha])
   @@fulltext([name])
@@ -86,4 +89,12 @@ model kwaya {
   name        String
   description String @db.LongText
   user        user[]
+}
+
+model sadaka {
+  id     Int      @id @default(autoincrement())
+  tarehe DateTime
+  amount Int
+  userId Int
+  user   user     @relation(fields: [userId], references: [id])
 }

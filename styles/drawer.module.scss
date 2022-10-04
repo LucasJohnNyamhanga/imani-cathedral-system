@@ -1,0 +1,50 @@
+@import "index";
+
+.setCenter {
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 8px;
+  border-radius: 5px;
+  font-family: $fontHeader;
+  font-weight: 500;
+  color: $ugoro;
+  cursor: pointer;
+  margin-top: 5px;
+  background-color: $lightkahawa;
+  border: 2px solid $ugoro;
+}
+
+.normal {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  font-family: $fontHeader;
+  font-weight: 500;
+  color: $ugoro;
+}
+
+.active {
+  border: 2px solid $lightblue;
+  background-color: $lightblue;
+  color: $white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.active:hover {
+  border: 2px solid $lightkahawa;
+  background-color: $lightblue;
+}
+
+.headerDash {
+  display: flex;
+  width: 100%;
+  color: $ugoro;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 15px 0px 10px 0px;
+}

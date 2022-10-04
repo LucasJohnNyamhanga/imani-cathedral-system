@@ -1,0 +1,133 @@
+@import 'index';
+.card {
+	width: 100%;
+	height: fit-content;
+	margin-bottom: 15px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	box-shadow: $boxShadowRealBox;
+	font-family: $fontBody;
+	font-weight: 400;
+	font-size: 18px;
+	border-radius: 5px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	padding-left: 10px;
+	padding-right: 10px;
+
+	.controls {
+		width: 50px;
+		padding-right: 10px;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+
+		.icons {
+			cursor: pointer;
+		}
+	}
+
+	.labelText {
+		display: flex;
+		flex-direction: row;
+		width: 50%;
+		align-items: flex-start;
+		justify-content: space-between;
+
+		.labelTextInText {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.published {
+			font-size: 12px;
+			font-weight: 500;
+			font-family: $fontBody;
+			cursor: pointer;
+
+			.publisedPublised {
+				color: $lightblue;
+			}
+
+			.publisedUnPublised {
+				color: $ugoro;
+			}
+		}
+	}
+
+	.labelTextView {
+		display: flex;
+		flex-direction: row;
+		flex: 1;
+		justify-content: space-between;
+
+		.labelTextInText {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.published {
+			font-size: 12px;
+			font-weight: 500;
+			font-family: $fontBody;
+			cursor: wait;
+
+			.publisedPublised {
+				color: red;
+			}
+
+			.publisedUnPublised {
+				color: $lightblue;
+			}
+		}
+	}
+
+	.labelTextInTextOnly {
+		display: flex;
+		flex-direction: row;
+		width: 50%;
+		justify-content: flex-end;
+		align-items: center;
+
+		.published {
+			font-size: 12px;
+			font-weight: 500;
+			font-family: $fontBody;
+			cursor: pointer;
+
+			.publisedPublised {
+				color: $lightblue;
+			}
+		}
+	}
+
+	@media only screen and (max-width: 428px) {
+		.labelTextView {
+			width: 100%;
+			font-size: 14px;
+			padding: 10px 0px;
+			flex-direction: column;
+			align-items: flex-start;
+			justify-content: center;
+		}
+
+		.labelText {
+			display: flex;
+			flex-direction: column;
+			padding: 10px 0px;
+			width: 100%;
+			align-items: flex-start;
+			justify-content: center;
+		}
+	}
+}
+
+.card:hover {
+	background-color: $lightkahawa;
+}

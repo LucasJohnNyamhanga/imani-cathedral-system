@@ -55,6 +55,7 @@ const SignIn = ({}) => {
     ahadi: "",
     password1: "",
     password2: "",
+    missing: false,
   });
 
   const password1 = useRef<HTMLInputElement>(null!);
@@ -183,6 +184,7 @@ const SignIn = ({}) => {
       bahasha: userDetails.bahasha,
       ahadi: parseInt(userDetails.ahadi),
       nenoLaSiri: userDetails.password1,
+      missing: userDetails.missing,
     };
 
     axios
@@ -331,7 +333,12 @@ const SignIn = ({}) => {
           kazi != "" &&
           fani != ""
         ) {
-          return true;
+          if (jumuiya == "Sijapata Jumuiya") {
+            setUserDetails({ ...userDetails, missing: true });
+            return true;
+          } else {
+            return true;
+          }
         } else {
           notifyError("Tafadhali jaza nafasi zote zilizo wazi.");
           return false;
@@ -344,7 +351,12 @@ const SignIn = ({}) => {
           mezaYaBwana != "" &&
           ahadi != ""
         ) {
-          return true;
+          if (bahasha == "") {
+            setUserDetails({ ...userDetails, missing: true });
+            return true;
+          } else {
+            return true;
+          }
         } else {
           notifyError("Tafadhali jaza nafasi zote zilizo wazi.");
           return false;

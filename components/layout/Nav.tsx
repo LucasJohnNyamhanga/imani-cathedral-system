@@ -6,7 +6,7 @@ import { useSession, getSession, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 import User from "../layout/User";
 import Image from "next/image";
-import Toggle from "./Toggle";
+import Toggle from "../tools/Toggle";
 
 const Nav = () => {
   const { setNavActive, navActive } = useContext(NavContext);

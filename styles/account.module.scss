@@ -1,0 +1,606 @@
+@import "index";
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 70vh;
+  background-color: $nyeupe;
+
+  .innerContainer {
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+    flex: 1;
+    padding: 10px;
+    flex-direction: column;
+    margin-bottom: 50px;
+
+    .progress {
+      margin-top: 15px;
+      margin-bottom: 8px;
+    }
+
+    .progressText {
+      width: 100%;
+      text-align: center;
+      font-family: $fontBody;
+      color: $ugoro;
+      margin-bottom: 15px;
+      font-weight: 500;
+    }
+
+    .methali {
+      width: 100%;
+      max-width: 800px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      align-self: center;
+      color: rgba($color: $ugoro, $alpha: 1);
+      font-weight: 500;
+      margin-bottom: 15px;
+      margin-top: 5px;
+    }
+
+    .quote {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      font-family: $fontBody;
+      font-weight: 400;
+      font-size: 18px;
+      margin-top: 30px;
+
+      .kwanza {
+        margin-bottom: auto;
+      }
+
+      .mwisho {
+        margin-top: auto;
+      }
+
+      .quotation {
+        font-size: 18px;
+        color: $ugoro;
+      }
+
+      .words {
+        width: 100%;
+        max-width: 700px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        margin: 0px 10px;
+        line-height: 1.5rem;
+      }
+    }
+
+    .loading {
+      display: flex;
+      width: 100%;
+      height: 80vh;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .header {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      margin: 10px 20px;
+
+      .avatar {
+        width: 210px;
+        height: 210px;
+        font-size: 80px;
+        background-color: $ugoro;
+      }
+
+      .list {
+        margin-left: 10px;
+        padding-left: 10px;
+        ul {
+          width: 100%;
+
+          margin-bottom: 20px;
+          padding: 10px 20px;
+
+          li {
+            list-style: none;
+            font-family: $fontBody;
+            font-weight: 400;
+            font-size: 18px;
+            display: flex;
+            line-height: 25px;
+            padding-bottom: 3px;
+          }
+          .userName {
+            font-weight: $fontHeader;
+            font-weight: 500;
+            font-size: 20px;
+          }
+          .edit {
+            margin-top: 5px;
+            color: $ugoro;
+            cursor: pointer;
+            font-weight: 500;
+          }
+
+          .edit:hover {
+            color: $lightblue;
+          }
+        }
+      }
+    }
+
+    .account {
+      display: flex;
+      flex-direction: column;
+      padding-top: 15px;
+
+      .header {
+        font-size: 25px;
+        font-family: $fontHeader;
+        font-weight: 500;
+      }
+
+      .list {
+        .table {
+          display: flex;
+          flex-direction: column;
+          width: 100%;
+
+          table {
+            border-collapse: collapse;
+            margin: 10px 0;
+            font-size: 0.9em;
+            width: 100%;
+            border-radius: 5px 5px 0 0;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+
+            & thead tr {
+              background-color: $lightblue;
+              color: $white;
+              text-align: left;
+              font-weight: bold;
+            }
+
+            & th,
+            & td {
+              padding: 12px 15px;
+            }
+
+            & tbody tr {
+              border-bottom: 1px solid $lightblue;
+              display: table-row;
+              font-weight: 500;
+            }
+
+            & tbody tr:nth-of-type(even) {
+              background-color: #f3f3f3;
+            }
+
+            & tbody tr:last-of-type {
+              border-bottom: 2px solid $lightblue;
+            }
+          }
+        }
+      }
+    }
+
+    .headerOrder {
+      font-size: 25px;
+      font-family: $fontHeader;
+      font-weight: 500;
+      margin-top: 20px;
+      margin-bottom: 10px;
+      padding-left: 20px;
+    }
+
+    .order {
+      table {
+        border: 1px solid #ccc;
+        border-collapse: collapse;
+        margin: 0;
+        padding: 0;
+        table-layout: fixed;
+        width: 100%;
+        max-width: 800px;
+      }
+
+      table caption {
+        font-size: 1.5em;
+        margin: 0.5em 0 0.75em;
+        text-align: left;
+
+        font-weight: 500;
+      }
+
+      table tr {
+        background-color: #f8f8f8;
+        border: 1px solid #ddd;
+        padding: 0.35em;
+      }
+
+      table th,
+      table td {
+        padding: 0.625em;
+        font-family: $fontBody;
+        text-align: left;
+      }
+
+      table th {
+        font-size: 0.85em;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        font-family: $fontHeader;
+      }
+
+      @media screen and (max-width: 490px) {
+        table {
+          border: 0;
+          width: 100%;
+        }
+
+        table caption {
+          font-size: 1.3em;
+        }
+
+        table thead {
+          border: none;
+          clip: rect(0 0 0 0);
+          height: 1px;
+          margin: -1px;
+          overflow: hidden;
+          padding: 0;
+          position: absolute;
+          width: 1px;
+        }
+
+        table tr {
+          border-bottom: 3px solid #ddd;
+          display: block;
+          margin-bottom: 0.625em;
+        }
+
+        table td {
+          border-bottom: 1px solid #ddd;
+          display: block;
+          font-size: 1em;
+          text-align: center;
+        }
+
+        table td::before {
+          /*
+    * aria-label has no advantage, it won't be read inside a table
+    content: attr(aria-label);
+    */
+          content: attr(data-label);
+          float: left;
+          font-weight: bold;
+          text-transform: uppercase;
+        }
+
+        table td:last-child {
+          border-bottom: 0;
+        }
+      }
+    }
+
+    .resetPassword {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-top: 15px;
+
+      .form {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        max-width: 350px;
+
+        .logInHeader {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+
+          margin-bottom: 15px;
+
+          .icon {
+            font-size: 65px;
+            margin-bottom: 15px;
+            color: $lightblue;
+          }
+
+          .text {
+            font-family: $fontHeader;
+            font-weight: 600;
+            font-size: 25px;
+            color: $ugoro;
+            width: fit-content;
+            align-self: center;
+          }
+        }
+        .credential {
+          margin-bottom: 15px;
+
+          input {
+            border: 2px solid $ugoro;
+            padding: 10px;
+            font-size: 18px;
+            border-radius: 5px;
+            width: 100%;
+            outline: none;
+            font-family: $fontBody;
+            margin-bottom: 10px;
+            color: $black;
+          }
+
+          .check {
+            display: flex;
+            flex-direction: row;
+            font-size: 18px;
+            font-weight: 400;
+            justify-content: flex-start;
+            align-items: center;
+
+            input {
+              width: 20px;
+              height: 20px;
+              align-self: center;
+              margin: 0px;
+              margin-right: 10px;
+              margin-left: 5px;
+            }
+          }
+        }
+
+        .button {
+          width: 100%;
+          background-color: $ugoro;
+          color: $white;
+          border: 2px solid transparent;
+          padding: 10px 25px;
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          border-radius: 5px;
+          transition: 0.2s linear;
+          font-weight: 500;
+
+          .google {
+            margin-right: 10px;
+          }
+        }
+
+        .button:hover {
+          background-color: $lightkahawa;
+          color: $ugoro;
+          border: 2px solid $lightblue;
+          cursor: pointer;
+        }
+
+        .buttonSignUp {
+          width: 100%;
+          background-color: $answerBackground;
+          margin-top: 5px;
+          color: $ugoro;
+          border: 2px solid $ugoro;
+          padding: 10px 25px;
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          border-radius: 3px;
+          transition: 0.2s linear;
+          font-weight: 500;
+        }
+
+        .buttonSignUp:hover {
+          background-color: $lightblue;
+          color: $white;
+          border: 2px solid $lightblue;
+          cursor: pointer;
+        }
+
+        .separator {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          margin: 15px 0px;
+        }
+
+        .line {
+          display: flex;
+          flex: 1;
+          background-color: $black;
+          height: 1px;
+        }
+
+        .line:first-child {
+          margin-left: 15px;
+        }
+
+        .line:last-child {
+          margin-right: 15px;
+        }
+
+        .or {
+          width: fit-content;
+          margin-left: 10px;
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+
+  @media only screen and (max-width: 768px) {
+    .innerContainer {
+      .header {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        margin: 10px;
+
+        .avatar {
+          width: 200px;
+          height: 200px;
+          font-size: 60px;
+        }
+
+        // .list {
+        //   margin-left: 10px;
+        //   ul {
+        //     width: 100%;
+
+        //     margin: 0px;
+        //     padding: 0px;
+
+        //     li {
+        //       list-style: none;
+        //       font-family: $fontHeader;
+        //       font-weight: 600;
+        //       font-size: 14px;
+        //       display: flex;
+        //       line-height: 22px;
+        //     }
+        //   }
+        // }
+      }
+
+      .resetPassword {
+        .form {
+          .logInHeader {
+            margin-bottom: 10px;
+
+            .icon {
+              font-size: 45px;
+              margin-bottom: 10px;
+            }
+
+            .text {
+              font-size: 20px;
+            }
+          }
+          .credential {
+            margin-bottom: 10px;
+
+            input {
+              font-size: 16px;
+            }
+
+            .check {
+              font-size: 16px;
+              font-weight: 400;
+
+              input {
+                width: 15px;
+                height: 15px;
+              }
+            }
+          }
+
+          .button {
+            padding: 10px 20px;
+
+            .google {
+              margin-right: 10px;
+            }
+          }
+
+          .buttonSignUp {
+            padding: 10px 20px;
+          }
+
+          .separator {
+            margin: 10px 0px;
+          }
+          .line:first-child {
+            margin-left: 10px;
+          }
+
+          .line:last-child {
+            margin-right: 10px;
+          }
+
+          .or {
+            margin-left: 10px;
+            margin-right: 10px;
+          }
+        }
+      }
+      .loader {
+        height: fit-content;
+        height: 40px;
+      }
+    }
+  }
+
+  @media only screen and (max-width: 508px) {
+    .innerContainer {
+      .headerOrder {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0px;
+        padding: 10px;
+      }
+      .header {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0px;
+
+        .avatar {
+          margin-bottom: 10px;
+          width: 200px;
+          height: 200px;
+          font-size: 60px;
+        }
+
+        .list {
+          margin-left: 0px;
+          padding-left: 0px;
+          ul {
+            width: 100%;
+
+            margin: 0px;
+            padding: 0px;
+
+            li {
+              list-style: none;
+              font-family: $fontBody;
+              font-weight: 500;
+              font-size: 14px;
+              display: flex;
+              line-height: 20px;
+              text-align: center;
+              width: 100%;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            }
+
+            .userName {
+              font-size: 16px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -30,6 +30,7 @@ export default async function handler(
     mezaYaBwana,
     ahadi,
     nenoLaSiri,
+    missing,
   } = req.body;
   try {
     await prisma.user.create({
@@ -57,6 +58,7 @@ export default async function handler(
         mezaYaBwana,
         ahadi,
         nenoLaSiri,
+        missing,
       },
     });
     res.status(200).json({
