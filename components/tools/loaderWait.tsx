@@ -32,8 +32,8 @@ const LoaderWait = ({ sms }: dataType) => {
             y2="8"
             gradientUnits="userSpaceOnUse"
           >
-            <stop stop-color="currentColor" stop-opacity="0.5" />
-            <stop offset="1" stop-color="currentColor" stop-opacity="0" />
+            <stop stop-color="currentColor" stopOpacity={"0.5"} />
+            <stop offset="1" stopColor="currentColor" stopOpacity={"0"} />
           </linearGradient>
           <linearGradient
             id="paint1_linear_11825_47664"
@@ -43,8 +43,8 @@ const LoaderWait = ({ sms }: dataType) => {
             y2="8"
             gradientUnits="userSpaceOnUse"
           >
-            <stop stop-color="currentColor" />
-            <stop offset="1" stop-color="currentColor" stop-opacity="0.5" />
+            <stop stopColor="currentColor" />
+            <stop offset="1" stopColor="currentColor" stopOpacity="0.5" />
           </linearGradient>
         </defs>
         <animateTransform

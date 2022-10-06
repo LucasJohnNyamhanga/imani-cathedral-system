@@ -1,4 +1,4 @@
-import { useState, useRef, useContext } from "react";
+import { useState, useRef, useContext, useEffect } from "react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Styles from "../../styles/admin.module.scss";
 import { ReactNode } from "react";
@@ -12,8 +12,11 @@ import { useSession } from "next-auth/react";
 import { getSession } from "next-auth/react";
 import { FaUserTie as UserKamili } from "react-icons/fa";
 import { FaUserTimes as UserKasoro } from "react-icons/fa";
-import { FaQuoteRight } from "react-icons/fa";
 import axios from "axios";
+import { prisma } from "../../db/prisma";
+import Badge from "@mui/material/Badge";
+import CardBox from "../../components/tools/cardBoxWithView";
+import { user } from "@prisma/client";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context);
@@ -26,13 +29,41 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
   }
 
+  const userFromServer = await prisma.user.findFirst({
+    where: {
+      bahasha: session.user!.email,
+    },
+    select: {
+      id: true,
+      name: true,
+      image: true,
+    },
+  });
+  const userfound = await JSON.parse(JSON.stringify(userFromServer));
+
+  const userVerificationPendingServer = await prisma.user.count({
+    where: { missing: false, verified: false },
+  });
+  const userVerificationPending = await JSON.parse(
+    JSON.stringify(userVerificationPendingServer)
+  );
+
+  const userMissingCredentialsServer = await prisma.user.count({
+    where: { missing: true, verified: false },
+  });
+  const userMissingCredentials = await JSON.parse(
+    JSON.stringify(userMissingCredentialsServer)
+  );
+
   return {
-    props: {},
+    props: { userfound, userVerificationPending, userMissingCredentials },
   };
 };
 
 const Index = ({
   userfound,
+  userVerificationPending,
+  userMissingCredentials,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const matches300 = useMediaQuery("(min-width:325px)");
   const { status } = useSession();
@@ -46,6 +77,10 @@ const Index = ({
   const [navValue, setNavValue] = useState("");
   const [loading, setLoading] = useState(false);
   const [active, setActive] = useState("");
+  const [maombiKamili, setMaombiKamili] = useState(0);
+  const [kasoro, setKasoro] = useState(0);
+  const [userUsajiliSuccess, setUserUsajiliSuccess] = useState([]);
+  const [userUsajiliError, setUserUsajiliError] = useState([]);
 
   const notifySuccess = (message: string) => toast.success(message);
   const notifyError = (message: string) => toast.error(message);
@@ -67,11 +102,13 @@ const Index = ({
         maombiYaliokamilika.current.classList.add(Styles.Active);
         setActive("maombiYaliokamilika");
         unverifiedUsers();
+        setMaombiKamili(0);
         break;
       case "maombiKasoro":
         maombiKasoro.current.classList.add(Styles.Active);
         setActive("maombiKasoro");
         usersWithError();
+        setKasoro(0);
         break;
       case "sadakaAhadi":
         sadakaAhadi.current.classList.add(Styles.Active);
@@ -104,8 +141,7 @@ const Index = ({
       .then(function (response) {
         const users = JSON.parse(JSON.stringify(response.data));
         // handle success
-        console.log(users);
-
+        setUserUsajiliSuccess(users);
         setLoading(false);
       })
       .catch(function (error) {
@@ -126,8 +162,7 @@ const Index = ({
       .then(function (response) {
         const users = JSON.parse(JSON.stringify(response.data));
         // handle success
-        console.log(users);
-
+        setUserUsajiliError(users);
         setLoading(false);
       })
       .catch(function (error) {
@@ -196,6 +231,11 @@ const Index = ({
     return time;
   }
 
+  useEffect(() => {
+    setMaombiKamili(userVerificationPending);
+    setKasoro(userMissingCredentials);
+  }, []);
+
   return (
     <div className={Styles.container}>
       <div className={Styles.innerContainer}>
@@ -208,15 +248,19 @@ const Index = ({
               </div>
               <div className={Styles.scroller}>
                 <div className={Styles.containerBody}>
-                  <div className={Styles.TopicHeaderNotes}>Washarika</div>
+                  <div className={Styles.TopicHeaderNotes}>
+                    Usajili Washarika
+                  </div>
                   <div
                     ref={maombiYaliokamilika}
                     id="maombiYaliokamilika"
                     onClick={(e) => handleNav(e.currentTarget.id)}
                     className={Styles.topicTittle}
                   >
-                    <UserKamili size={25} />
-                    <div className={Styles.text}>Maombi Yaliyokamilika</div>
+                    <Badge badgeContent={maombiKamili} color="primary">
+                      <UserKamili size={18} />
+                    </Badge>
+                    <div className={Styles.text}>Usajiri kamili</div>
                   </div>
                   <div
                     ref={maombiKasoro}
@@ -224,8 +268,10 @@ const Index = ({
                     onClick={(e) => handleNav(e.currentTarget.id)}
                     className={Styles.topicTittle}
                   >
-                    <UserKasoro size={30} />
-                    <div className={Styles.text}>Maombi Yenye Kasoro</div>
+                    <Badge badgeContent={kasoro} color="primary">
+                      <UserKasoro size={18} />
+                    </Badge>
+                    <div className={Styles.text}>Usajiri Kasoro</div>
                   </div>
                   <div className={Styles.TopicHeaderNotes}>Matoleo</div>
                   <div
@@ -279,6 +325,18 @@ const Index = ({
                         </div>
                       </div>
                     </div>
+                    <div className={Styles.subjectBody}>
+                      {userUsajiliSuccess.map((user: user) => (
+                        <CardBox
+                          key={user.id}
+                          label={user.name}
+                          id={user.id}
+                          published={""}
+                          link={""}
+                          time={timeAgo(user.dateJoined)}
+                        />
+                      ))}
+                    </div>
                   </div>
                 )}
                 {navValue == "maombiKasoro" && (
@@ -288,6 +346,18 @@ const Index = ({
                         <div className={Styles.subjectHeaderText}>
                           Maombi Washarika Yasiyo Na Vigezo
                         </div>
+                      </div>
+                      <div className={Styles.subjectBody}>
+                        {userUsajiliError.map((user: user) => (
+                          <CardBox
+                            key={user.id}
+                            label={user.name}
+                            id={user.id}
+                            published={""}
+                            link={""}
+                            time={timeAgo(user.dateJoined)}
+                          />
+                        ))}
                       </div>
                     </div>
                   </div>

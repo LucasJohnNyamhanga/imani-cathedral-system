@@ -2,20 +2,39 @@ import { ChangeEvent, ReactNode, useEffect, useRef, useState } from "react";
 import Styles from "../../styles/sajili.module.scss";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import Stepper from "../../components/tools/Stepper";
 import ImageUpload from "../../components/tools/ImageUpload";
 import SelectMiu from "../../components/tools/SelectMui";
 import Loader from "../../components/tools/loaderWait";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { prisma } from "../../db/prisma";
+import { jumuiya } from "@prisma/client";
 //! insta @ johnsavanter
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const jumuiyaFromServer = await prisma.jumuiya.findMany({
+    where: {},
+    select: {
+      id: true,
+      name: true,
+    },
+  });
+  const jumuiyaListFull = await JSON.parse(JSON.stringify(jumuiyaFromServer));
+
+  return {
+    props: { jumuiyaListFull },
+  };
+};
 
 type formData = {
   label: string;
   value: string;
 }[];
 
-const SignIn = ({}) => {
+const SignIn = ({
+  jumuiyaListFull,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const [loadingDisplay, setLoadingDisplay] = useState(false);
   const [binafsi, setBinafsi] = useState(true);
   const [mawasiliano, setMawasiliano] = useState(false);
@@ -29,6 +48,7 @@ const SignIn = ({}) => {
   const [uploadData, setUploadData] = useState(0);
   const [haliNdoaList, setHaliNdoaList] = useState<formData>([]);
   const [kataList, setKataList] = useState<formData>([]);
+  const [jumuiyaFromServer, setJumuiyaFromServer] = useState<formData>([]);
   const [userDetails, setUserDetails] = useState({
     jinaKwanza: "",
     jinaKati: "",
@@ -115,6 +135,18 @@ const SignIn = ({}) => {
     push(`/Auth/SignIn`);
   };
 
+  useEffect(() => {
+    let dataJumuiya: formData = [];
+    jumuiyaListFull.map((jumuia: jumuiya) => {
+      let data = {
+        label: jumuia.name,
+        value: jumuia.id.toString(),
+      };
+      dataJumuiya.push(data);
+    });
+    setJumuiyaFromServer(dataJumuiya);
+  }, []);
+
   let checkUser = () => {
     const data = {
       name: `${
@@ -171,7 +203,7 @@ const SignIn = ({}) => {
       jinaLaMwenza: userDetails.jinaLaMwenza,
       nambaYaSimu: userDetails.nambaYaSimu,
       nambaYaSimuMwenza: userDetails.nambaYaSimuMwenza,
-      jumuiyaId: 1,
+      jumuiyaId: parseInt(userDetails.jumuiya),
       wilaya: userDetails.wilaya,
       kata: userDetails.kata,
       mtaa: userDetails.mtaa,
@@ -324,20 +356,32 @@ const SignIn = ({}) => {
       case 1:
         if (
           nambaYaSimu != "" &&
-          nambaYaSimuMwenza != "" &&
           jumuiya != "" &&
           wilaya != "" &&
           kata != "" &&
           mtaa != "" &&
           elimu != "" &&
-          kazi != "" &&
-          fani != ""
+          kazi != ""
         ) {
-          if (jumuiya == "Sijapata Jumuiya") {
-            setUserDetails({ ...userDetails, missing: true });
-            return true;
+          if (ainaYaNdoa == "Ndoa ya kikristo") {
+            if (nambaYaSimuMwenza != "") {
+              if (jumuiya == `1`) {
+                setUserDetails({ ...userDetails, missing: true });
+                return true;
+              } else {
+                return true;
+              }
+            } else {
+              notifyError("Tafadhali jaza namba ya simu ya mwenza.");
+              return false;
+            }
           } else {
-            return true;
+            if (jumuiya == `1`) {
+              setUserDetails({ ...userDetails, missing: true });
+              return true;
+            } else {
+              return true;
+            }
           }
         } else {
           notifyError("Tafadhali jaza nafasi zote zilizo wazi.");
@@ -760,27 +804,29 @@ const SignIn = ({}) => {
                     />
                     <span>Namba Yako Ya Simu</span>
                   </div>
-                  <div className={Styles.inputBox}>
-                    <input
-                      ref={nambaYaSimuMwenza}
-                      required
-                      type="number"
-                      value={userDetails.nambaYaSimuMwenza}
-                      placeholder={``}
-                      name={"nambaYaSimuMwenza"}
-                      onChange={(event) => {
-                        handletextChange(event);
-                      }}
-                      autoComplete="off"
-                      autoCorrect="off"
-                      spellCheck={false}
-                    />
-                    <span>Namba Ya Simu Ya Mwenza</span>
-                  </div>
+                  {userDetails.ainaYaNdoa == "Ndoa ya kikristo" && (
+                    <div className={Styles.inputBox}>
+                      <input
+                        ref={nambaYaSimuMwenza}
+                        required
+                        type="number"
+                        value={userDetails.nambaYaSimuMwenza}
+                        placeholder={``}
+                        name={"nambaYaSimuMwenza"}
+                        onChange={(event) => {
+                          handletextChange(event);
+                        }}
+                        autoComplete="off"
+                        autoCorrect="off"
+                        spellCheck={false}
+                      />
+                      <span>Namba Ya Simu Ya Mwenza</span>
+                    </div>
+                  )}
                   <SelectMiu
                     show={true}
                     displayLabel="Jina La Jumuiya Yako"
-                    forms={jumuiyaList}
+                    forms={jumuiyaFromServer}
                     handlechange={handleSelectJumuia}
                     value={userDetails.jumuiya}
                   />

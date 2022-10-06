@@ -36,6 +36,8 @@ export default async function handler(
         mezaYaBwana: true,
         bahasha: true,
         ahadi: true,
+        dateJoined: true,
+        updatedAt: true,
       },
     });
     const users = JSON.parse(JSON.stringify(usersFromServer));

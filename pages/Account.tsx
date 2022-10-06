@@ -19,6 +19,7 @@ import { FaQuoteRight } from "react-icons/fa";
 import { getSession } from "next-auth/react";
 import Link from "next/link";
 import ProgressBar from "../components/tools/ProgressBar";
+
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context);
   if (!session) {
@@ -37,6 +38,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       id: true,
       name: true,
       image: true,
+      ahadi: true,
     },
   });
   const userfound = await JSON.parse(JSON.stringify(userFromServer));
@@ -234,6 +236,7 @@ const Notes = ({
                 <ul>
                   <li className={Styles.userName}>{userfound.username}</li>
                   <li>{userfound.name}</li>
+                  <li>Ahadi: {userfound.ahadi}</li>
                   <li>
                     <Link href="/Admin">
                       <a>Msimamizi</a>
@@ -260,7 +263,7 @@ const Notes = ({
                 <FaQuoteRight size={32} className={Styles.quotation} />
               </div>
             </div>
-            <div className={Styles.methali}>Methali 3:9-10</div>
+            <div className={Styles.methali}> Methali 3:9-10 </div>
             <div className={Styles.progress}>
               <ProgressBar value={sadakaAsilimia} />
             </div>
