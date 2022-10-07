@@ -41,9 +41,9 @@ model user {
   kazi              String
   elimu             String
   fani              String
-  ubatizo           Boolean
-  kipaimara         Boolean
-  mezaYaBwana       Boolean
+  ubatizo           Boolean       @default(false)
+  kipaimara         Boolean       @default(false)
+  mezaYaBwana       Boolean       @default(false)
   ahadi             Int
   nenoLaSiri        String
   cheo              cheo[]

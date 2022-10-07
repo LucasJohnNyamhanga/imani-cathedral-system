@@ -1,27 +1,25 @@
 import { sadaka } from "@prisma/client";
 import Image from "next/image";
-import Styles from "../../styles/card.module.scss";
+import Styles from "../../styles/cardUser.module.scss";
 
 type dataType = {
   jina: string;
   picha: string;
-  ahadi: string;
-  kiasi: string;
+  jumuia: string;
+  simu: string;
   bahasha: string;
-  thibitisha: () => void;
-  sitisha: () => void;
-  sadaka: {}[];
+  tareheYaUsajiri: string;
+  missing: boolean;
 };
 
 const Card = ({
   jina,
   picha,
-  ahadi,
-  kiasi,
+  jumuia,
+  simu,
   bahasha,
-  thibitisha,
-  sitisha,
-  sadaka,
+  tareheYaUsajiri,
+  missing,
 }: dataType) => {
   var fulldays = [
     "Jumapili",
@@ -129,7 +127,7 @@ const Card = ({
   }
 
   return (
-    <div className={Styles.container} style={{ maxWidth: "1000px" }}>
+    <div className={Styles.container}>
       <div className={Styles.left}>
         <div className={Styles.image}>
           <Image
@@ -138,7 +136,7 @@ const Card = ({
             objectFit={"cover"}
             placeholder="blur"
             blurDataURL={picha}
-            height={400}
+            height={450}
             width={400}
             objectPosition={"center"}
           />
@@ -147,35 +145,48 @@ const Card = ({
       <div className={Styles.right}>
         <div className={Styles.description}>
           <h1>{jina}</h1>
-          <h2>Ahadi: {ahadi}.</h2>
+          <h2>Maombi ya usajiri ya msharika</h2>
           <span></span>
           <div className={Styles.kiasiContainer}>
             <div className={Styles.kiasiText}>Namba ya Bahasha</div>
-            <div className={Styles.kiasiValue}>{bahasha}</div>
-          </div>
-          {sadaka.map((toleo: any, index: number) => (
-            <div key={index}>
-              <div className={Styles.kiasiContainer}>
-                <div className={Styles.kiasiText}>Sadaka ya mwisho</div>
-                <div className={Styles.kiasiValue}>
-                  Tsh {toleo.amount.toLocaleString()} ya{" "}
-                  {`${formatDate(toleo.tarehe)} (${timeAgo(toleo.tarehe)})`}
-                </div>
-              </div>
+            <div className={Styles.kiasiValue}>
+              {bahasha == "" ? (
+                <div style={{ color: "red" }}>HANA BAHASHA</div>
+              ) : (
+                bahasha
+              )}
             </div>
-          ))}
+          </div>
+
           <div className={Styles.kiasiContainer}>
-            <div className={Styles.kiasiText}>Kiasi Kinachowekwa</div>
-            <div className={Styles.kiasiValue}>Tsh {kiasi}</div>
+            <div className={Styles.kiasiText}>Jina la Jumuiya</div>
+            <div className={Styles.kiasiValue}>
+              {jumuia == "Sijapata Jumuiya" ? (
+                <div style={{ color: "red" }}>HANA JUMUIYA</div>
+              ) : (
+                jumuia
+              )}
+            </div>
           </div>
-        </div>
-        <div className={Styles.confirm}>
-          <div onClick={sitisha} className={Styles.ButtonSitisha}>
-            Sitisha
+          <div className={Styles.kiasiContainer}>
+            <div className={Styles.kiasiText}>Namba ya Simu</div>
+            <div className={Styles.kiasiValue}>{simu}</div>
           </div>
-          <div onClick={thibitisha} className={Styles.Button}>
-            Thibitisha
+          <div className={Styles.kiasiContainer}>
+            <div className={Styles.kiasiText}>Siku ya usajiri</div>
+            <div className={Styles.kiasiValue}>
+              {`${formatDate(tareheYaUsajiri)} (${timeAgo(tareheYaUsajiri)})`}
+            </div>
           </div>
+          {missing ? (
+            <div className={Styles.viambatanishiMissing}>
+              Msharika hajakamilisha viambatanishi.
+            </div>
+          ) : (
+            <div className={Styles.viambatanishi}>
+              Msharika amekamilisha viambatanishi.
+            </div>
+          )}
         </div>
       </div>
     </div>

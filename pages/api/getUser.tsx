@@ -6,11 +6,11 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { bahasha } = req.body;
+  const { name } = req.body;
   try {
     const userFromServer = await prisma.user.findFirst({
       where: {
-        bahasha,
+        name,
       },
       select: {
         id: true,

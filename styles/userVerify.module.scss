@@ -1,0 +1,47 @@
+@import "index";
+.container {
+  background-color: $nyeupe;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 70vh;
+  padding-top: 5px;
+
+  .containerInner {
+    width: 100%;
+    max-width: 1200px;
+    padding: 10px;
+
+    .header {
+      line-height: 1;
+      margin: 0;
+      font-size: 1.7rem;
+      font-weight: 500;
+      margin-bottom: 10px;
+      margin-top: 15px;
+    }
+
+    .kiasiContainer {
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+      padding-bottom: 5px;
+      margin-bottom: 5px;
+      font-size: 17px;
+
+      .kiasiText {
+        font-weight: 500;
+      }
+
+      .kiasiValue {
+        font-weight: 600;
+        color: $ugoro;
+      }
+
+      .capitalize {
+        text-transform: capitalize;
+      }
+    }
+  }
+}

@@ -86,7 +86,7 @@ const Notes = ({
     password2: "",
     id: userfound.id,
   });
-  const [sadakaAsilimia, setSadakaAsilimia] = useState(30);
+  const [sadakaAsilimia, setSadakaAsilimia] = useState(0);
 
   const notifySuccess = (message: string) => toast.success(message);
   const notifyError = (message: string) => toast.error(message);
@@ -259,7 +259,7 @@ const Notes = ({
                 <ul>
                   <li className={Styles.userName}>{userfound.username}</li>
                   <li>{userfound.name}</li>
-                  <li>Ahadi: {userfound.ahadi}</li>
+                  <li>Ahadi: {userfound.ahadi.toLocaleString()}</li>
                   <li>
                     <Link href="/Admin">
                       <a>Msimamizi</a>

@@ -91,7 +91,6 @@ const Index = ({
   userMissingCredentials,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const matches300 = useMediaQuery("(min-width:325px)");
-  const { status } = useSession();
   const { navActive, setNavActive } = useContext(NavContext);
 
   type dataTypeSelect = {
@@ -467,7 +466,7 @@ const Index = ({
                           key={user.id}
                           label={user.name}
                           id={user.id}
-                          link={`/Admin/verify/${user.id}`}
+                          link={`/Admin/verify?id=${user.id}`}
                           time={timeAgo(user.dateJoined)}
                         />
                       ))}
@@ -488,7 +487,7 @@ const Index = ({
                             key={user.id}
                             label={user.name}
                             id={user.id}
-                            link={`/Admin/verify/${user.id}`}
+                            link={`/Admin/verify?id=${user.id}`}
                             time={timeAgo(user.dateJoined)}
                           />
                         ))}
@@ -572,7 +571,9 @@ const Index = ({
                               <Card
                                 jina={userReturned!.name}
                                 picha={userReturned!.image}
-                                ahadi={userReturned!.ahadi.toLocaleString()}
+                                ahadi={parseInt(
+                                  userReturned!.ahadi
+                                ).toLocaleString()}
                                 kiasi={parseInt(sadaka.kiasi).toLocaleString()}
                                 bahasha={sadaka.bahasha}
                                 sitisha={handleSitisha}

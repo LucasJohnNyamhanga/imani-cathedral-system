@@ -199,7 +199,10 @@ const SignIn = ({
       tareheYaKuzaliwa: new Date(userDetails.tareheYaKuzaliwa),
       haliYaNdoa: userDetails.haliYaNdoa,
       ainaYaNdoa: userDetails.ainaYaNdoa,
-      tareheYaNdoa: new Date(userDetails.tareheYaNdoa),
+      tareheYaNdoa:
+        userDetails.tareheYaNdoa == ""
+          ? null
+          : new Date(userDetails.tareheYaNdoa),
       jinaLaMwenza: userDetails.jinaLaMwenza,
       nambaYaSimu: userDetails.nambaYaSimu,
       nambaYaSimuMwenza: userDetails.nambaYaSimuMwenza,
@@ -323,7 +326,7 @@ const SignIn = ({
           jinsia != "" &&
           haliYaNdoa != ""
         ) {
-          if (haliYaNdoa == "Umeolewa" || haliYaNdoa == "Umeoa") {
+          if (haliYaNdoa == "Nimeolewa" || haliYaNdoa == "Nimeoa") {
             if (ainaYaNdoa != "") {
               if (ainaYaNdoa == "Ndoa ya kikristo") {
                 if (tareheYaNdoa != "" && jinaLaMwenza != "") {
@@ -542,16 +545,16 @@ const SignIn = ({
     { label: "Mwanamke", value: "Mwanamke" },
   ];
   const haliYaNdoaMkeList: formData = [
-    { label: "Umeolewa", value: "Umeolewa" },
-    { label: "Hujaolewa", value: "Hujaolewa" },
+    { label: "Nimeolewa", value: "Nimeolewa" },
+    { label: "Sijaolewa", value: "Sijaolewa" },
     { label: "Mjane", value: "Mjane" },
     { label: "Talikiwa", value: "Talikiwa" },
     { label: "Tengana", value: "Tengana" },
   ];
 
   const haliYaNdoaMumeList: formData = [
-    { label: "Umeoa", value: "Umeoa" },
-    { label: "Hujaoa", value: "Hujaoa" },
+    { label: "Nimeoa", value: "Nimeoa" },
+    { label: "Sijaoa", value: "Sijaoa" },
     { label: "Mgane", value: "Mgane" },
     { label: "Talikiwa", value: "Talikiwa" },
     { label: "Tengana", value: "Tengana" },
@@ -731,8 +734,8 @@ const SignIn = ({
                     handlechange={handleSelectNdoa}
                     value={userDetails.haliYaNdoa}
                   />
-                  {(userDetails.haliYaNdoa == "Umeoa" ||
-                    userDetails.haliYaNdoa == "Umeolewa") && (
+                  {(userDetails.haliYaNdoa == "Nimeoa" ||
+                    userDetails.haliYaNdoa == "Nimeolewa") && (
                     <>
                       <SelectMiu
                         show={true}
