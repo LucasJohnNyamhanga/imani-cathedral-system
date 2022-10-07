@@ -12,7 +12,7 @@ export default function CustomizedProgressBars({ value }: dataType) {
         variant="determinate"
         value={value}
         style={{
-          backgroundColor: "rgb(169,169,169)",
+          backgroundColor: "#D3D3D3",
           height: "10px",
         }}
       />

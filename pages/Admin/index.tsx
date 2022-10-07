@@ -467,7 +467,7 @@ const Index = ({
                           key={user.id}
                           label={user.name}
                           id={user.id}
-                          link={""}
+                          link={`/Admin/verify/${user.id}`}
                           time={timeAgo(user.dateJoined)}
                         />
                       ))}
@@ -488,7 +488,7 @@ const Index = ({
                             key={user.id}
                             label={user.name}
                             id={user.id}
-                            link={""}
+                            link={`/Admin/verify/${user.id}`}
                             time={timeAgo(user.dateJoined)}
                           />
                         ))}

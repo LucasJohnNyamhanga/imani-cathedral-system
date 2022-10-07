@@ -310,8 +310,8 @@
 
     .jumla {
       font-weight: 600 !important;
-      background-color: rgba($color: $ugoro, $alpha: 0.3);
-      font-family: $fontHeader;
+      background-color: rgba($color: $ugoro, $alpha: 0.3) !important;
+      font-family: $fontHeader !important;
     }
 
     .resetPassword {

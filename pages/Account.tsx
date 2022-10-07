@@ -321,7 +321,9 @@ const Notes = ({
                           )}
                           <tr className={Styles.jumla}>
                             <td>Jumla ya Sadaka</td>
-                            <td>{totalUserSadaka._sum.amount}</td>
+                            <td>
+                              {totalUserSadaka._sum.amount.toLocaleString()}
+                            </td>
                           </tr>
                         </tbody>
                       </table>
