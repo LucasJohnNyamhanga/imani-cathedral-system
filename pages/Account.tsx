@@ -39,17 +39,40 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       name: true,
       image: true,
       ahadi: true,
+      sadaka: {
+        orderBy: {
+          tarehe: "desc",
+        },
+        select: {
+          id: true,
+          tarehe: true,
+          amount: true,
+        },
+      },
     },
   });
   const userfound = await JSON.parse(JSON.stringify(userFromServer));
 
+  const userSadaka = await prisma.sadaka.aggregate({
+    where: {
+      user: {
+        bahasha: session.user!.email,
+      },
+    },
+    _sum: {
+      amount: true,
+    },
+  });
+  const totalUserSadaka = await JSON.parse(JSON.stringify(userSadaka));
+
   return {
-    props: { userfound },
+    props: { userfound, totalUserSadaka },
   };
 };
 
 const Notes = ({
   userfound,
+  totalUserSadaka,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const password = useRef<HTMLInputElement>(null!);
   const password1 = useRef<HTMLInputElement>(null!);
@@ -158,60 +181,60 @@ const Notes = ({
 
   const handleUpdateOrder = () => {};
 
-  function timeAgo(time: any) {
-    switch (typeof time) {
-      case "number":
-        break;
-      case "string":
-        time = +new Date(time);
-        break;
-      case "object":
-        if (time.constructor === Date) time = time.getTime();
-        break;
-      default:
-        time = +new Date();
-    }
-    var time_formats = [
-      [60, "seconds", 1], // 60
-      [120, "1 minute ago", "1 minute from now"], // 60*2
-      [3600, "minutes", 60], // 60*60, 60
-      [7200, "1 hour ago", "1 hour from now"], // 60*60*2
-      [86400, "hours", 3600], // 60*60*24, 60*60
-      [172800, "Yesterday", "Tomorrow"], // 60*60*24*2
-      [604800, "days", 86400], // 60*60*24*7, 60*60*24
-      [1209600, "Last week", "Next week"], // 60*60*24*7*4*2
-      [2419200, "weeks", 604800], // 60*60*24*7*4, 60*60*24*7
-      [4838400, "Last month", "Next month"], // 60*60*24*7*4*2
-      [29030400, "months", 2419200], // 60*60*24*7*4*12, 60*60*24*7*4
-      [58060800, "Last year", "Next year"], // 60*60*24*7*4*12*2
-      [2903040000, "years", 29030400], // 60*60*24*7*4*12*100, 60*60*24*7*4*12
-      [5806080000, "Last century", "Next century"], // 60*60*24*7*4*12*100*2
-      [58060800000, "centuries", 2903040000], // 60*60*24*7*4*12*100*20, 60*60*24*7*4*12*100
-    ];
-    var seconds = (+new Date() - time) / 1000,
-      token = "ago",
-      list_choice = 1;
+  var fulldays = [
+    "Jumapili",
+    "Jumatatu",
+    "Jumanne",
+    "Jumatano",
+    "Alhamisi",
+    "Ijumaa",
+    "Jumamosi",
+  ];
+  var months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
 
-    if (seconds == 0) {
-      return "Just now";
+  function formatDate(someDateTimeStamp: any) {
+    var dt = new Date(someDateTimeStamp),
+      date = dt.getDate(),
+      month = months[dt.getMonth()],
+      timeDiff = someDateTimeStamp - Date.now(),
+      diffDays = new Date().getDate() - date,
+      diffMonths = new Date().getMonth() - dt.getMonth(),
+      diffYears = new Date().getFullYear() - dt.getFullYear();
+
+    if (diffYears === 0 && diffDays === 0 && diffMonths === 0) {
+      return "Leo";
+    } else if (diffYears === 0 && diffDays === 1) {
+      return "Jana";
+    } else if (diffYears === 0 && diffDays === -1) {
+      return "Kesho";
+    } else if (diffYears === 0 && diffDays < -1 && diffDays > -7) {
+      return fulldays[dt.getDay()];
+    } else if (diffYears >= 1) {
+      return (
+        month + " " + date + ", " + new Date(someDateTimeStamp).getFullYear()
+      );
+    } else {
+      return month + " " + date;
     }
-    if (seconds < 0) {
-      seconds = Math.abs(seconds);
-      token = "from now";
-      list_choice = 2;
-    }
-    var i = 0,
-      format;
-    while ((format = time_formats[i++]))
-      if (seconds < format[0]) {
-        if (typeof format[2] == "string") return format[list_choice];
-        else
-          return (
-            Math.floor(seconds / format[2]) + " " + format[1] + " " + token
-          );
-      }
-    return time;
   }
+
+  useEffect(() => {
+    let value = (totalUserSadaka._sum.amount / userfound.ahadi) * 100;
+    setSadakaAsilimia(Math.round(value));
+  }, []);
 
   return (
     <div className={Styles.container}>
@@ -271,40 +294,45 @@ const Notes = ({
               {`Umefikia asilimia ${sadakaAsilimia} ya ahadi yako.`}
             </div>
             <div className={Styles.account}>
-              <div className={Styles.header}>Matoleo ya Ahadi</div>
-              <div className={Styles.list}>
-                <div className={Styles.table}>
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>Tarehe</th>
-                        <th>Kiasi</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {/* {userfound?.vifurushi.map(
-                        (furushi: { name: string; value: number }) => (
-                          <tr key={furushi.name}>
-                            <td>
-                              {furushi.name
-                                .replace(/([A-Z])/g, " $1")
-                                // uppercase the first character
-                                .replace(/^./, function (str) {
-                                  return str.toUpperCase();
-                                })}
-                            </td>
-                            <td>{furushi.value}</td>
+              {sadakaAsilimia > 0 ? (
+                <>
+                  <div className={Styles.header}>Matoleo ya Ahadi</div>
+                  <div className={Styles.list}>
+                    <div className={Styles.table}>
+                      <table>
+                        <thead>
+                          <tr>
+                            <th>Siku ya Toleo</th>
+                            <th>Kiasi</th>
                           </tr>
-                        )
-                      )} */}
-                      <tr>
-                        <td>21 Juni 2022</td>
-                        <td>5000</td>
-                      </tr>
-                    </tbody>
-                  </table>
+                        </thead>
+                        <tbody>
+                          {userfound?.sadaka.map(
+                            (furushi: {
+                              id: number;
+                              tarehe: string;
+                              amount: number;
+                            }) => (
+                              <tr key={furushi.id}>
+                                <td>{formatDate(furushi.tarehe)}</td>
+                                <td>{furushi.amount.toLocaleString()}</td>
+                              </tr>
+                            )
+                          )}
+                          <tr className={Styles.jumla}>
+                            <td>Jumla ya Sadaka</td>
+                            <td>{totalUserSadaka._sum.amount}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <div className={Styles.headerAhadi}>
+                  Ahadi yako bado haujaipa kipaumbele.
                 </div>
-              </div>
+              )}
             </div>
           </>
         )}

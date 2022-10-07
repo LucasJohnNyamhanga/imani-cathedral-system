@@ -6,22 +6,52 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { name } = req.body;
+  const { bahasha } = req.body;
   try {
     const userFromServer = await prisma.user.findFirst({
       where: {
-        name,
+        bahasha,
       },
       select: {
         id: true,
+        name: true,
+        image: true,
+        jinsia: true,
+        tareheYaKuzaliwa: true,
+        haliYaNdoa: true,
+        ainaYaNdoa: true,
+        tareheYaNdoa: true,
+        jinaLaMwenza: true,
+        nambaYaSimu: true,
+        nambaYaSimuMwenza: true,
+        jumuiya: true,
+        wilaya: true,
+        kata: true,
+        mtaa: true,
+        elimu: true,
+        kazi: true,
+        fani: true,
+        ubatizo: true,
+        kipaimara: true,
+        mezaYaBwana: true,
+        bahasha: true,
+        ahadi: true,
+        dateJoined: true,
+        updatedAt: true,
+        sadaka: {
+          orderBy: {
+            id: "desc",
+          },
+          take: 1,
+          select: {
+            tarehe: true,
+            amount: true,
+          },
+        },
       },
     });
     const user = JSON.parse(JSON.stringify(userFromServer));
-    if (user) {
-      res.status(200).json(user);
-    } else {
-      res.status(404).json("Not Found");
-    }
+    res.status(200).json(user);
   } catch (error) {
   } finally {
     await prisma.$disconnect();

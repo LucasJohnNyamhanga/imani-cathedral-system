@@ -1,22 +1,21 @@
-@import 'index';
+@import "index";
 
 .searchContainer {
-	width: 100%;
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	align-items: center;
-	min-height: 60px;
-	margin-bottom: 10px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  min-height: 60px;
 
-	.searchText {
-		width: 100%;
+  .searchText {
+    width: 100%;
 
-		.searchTool {
-			display: flex;
-			flex-direction: row;
-			justify-content: center;
-			align-items: center;
-		}
-	}
+    .searchTool {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+    }
+  }
 }

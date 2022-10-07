@@ -157,6 +157,13 @@
         font-weight: 500;
       }
 
+      .headerAhadi {
+        font-size: 18px;
+        font-family: $fontHeader;
+        font-weight: 500;
+        width: fit-content;
+      }
+
       .list {
         .table {
           display: flex;
@@ -299,6 +306,12 @@
           border-bottom: 0;
         }
       }
+    }
+
+    .jumla {
+      font-weight: 600 !important;
+      background-color: rgba($color: $ugoro, $alpha: 0.3);
+      font-family: $fontHeader;
     }
 
     .resetPassword {

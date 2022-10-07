@@ -17,6 +17,31 @@ import { prisma } from "../../db/prisma";
 import Badge from "@mui/material/Badge";
 import CardBox from "../../components/tools/cardBoxWithView";
 import { user } from "@prisma/client";
+import Card from "../../components/tools/CardUserSadaka";
+
+type userData = {
+  id: number;
+  image: string;
+  name: string;
+  tareheYaKuzaliwa: Date;
+  bahasha: string | null;
+  jinsia: string;
+  haliYaNdoa: string;
+  ainaYaNdoa: string | null;
+  tareheYaNdoa: Date | null;
+  jinaLaMwenza: string | null;
+  nambaYaSimu: string;
+  nambaYaSimuMwenza: string | null;
+  jumuiyaId: number;
+  mtaa: string;
+  kata: string;
+  wilaya: string;
+  kazi: string;
+  elimu: string;
+  sadaka: {}[];
+  verified: boolean;
+  ahadi: string;
+};
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context);
@@ -81,6 +106,13 @@ const Index = ({
   const [kasoro, setKasoro] = useState(0);
   const [userUsajiliSuccess, setUserUsajiliSuccess] = useState([]);
   const [userUsajiliError, setUserUsajiliError] = useState([]);
+  const [sadaka, setSadaka] = useState({
+    bahasha: "",
+    kiasi: "",
+    tarehe: "",
+  });
+  const [confirmSadaka, setConfirmSadaka] = useState(true);
+  const [userReturned, setUserReturned] = useState<userData>();
 
   const notifySuccess = (message: string) => toast.success(message);
   const notifyError = (message: string) => toast.error(message);
@@ -176,6 +208,12 @@ const Index = ({
       });
   };
 
+  let handleSadaka = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let value = e.target.value;
+    let name = e.target.name;
+    setSadaka({ ...sadaka, [name]: value });
+  };
+
   function timeAgo(time: any) {
     switch (typeof time) {
       case "number":
@@ -190,28 +228,28 @@ const Index = ({
         time = +new Date();
     }
     var time_formats = [
-      [60, "seconds", 1], // 60
-      [120, "1 minute ago", "1 minute from now"], // 60*2
-      [3600, "minutes", 60], // 60*60, 60
-      [7200, "1 hour ago", "1 hour from now"], // 60*60*2
-      [86400, "hours", 3600], // 60*60*24, 60*60
-      [172800, "Yesterday", "Tomorrow"], // 60*60*24*2
-      [604800, "days", 86400], // 60*60*24*7, 60*60*24
-      [1209600, "Last week", "Next week"], // 60*60*24*7*4*2
-      [2419200, "weeks", 604800], // 60*60*24*7*4, 60*60*24*7
-      [4838400, "Last month", "Next month"], // 60*60*24*7*4*2
-      [29030400, "months", 2419200], // 60*60*24*7*4*12, 60*60*24*7*4
-      [58060800, "Last year", "Next year"], // 60*60*24*7*4*12*2
-      [2903040000, "years", 29030400], // 60*60*24*7*4*12*100, 60*60*24*7*4*12
-      [5806080000, "Last century", "Next century"], // 60*60*24*7*4*12*100*2
+      [60, "sekunde", 1], // 60
+      [120, "Dakika 1 imepita", "1 minute from now"], // 60*2
+      [3600, "dakika", 60], // 60*60, 60
+      [7200, "Saa 1 limepita", "1 hour from now"], // 60*60*2
+      [86400, "masaa", 3600], // 60*60*24, 60*60
+      [172800, "Jana", "Tomorrow"], // 60*60*24*2
+      [604800, "siku", 86400], // 60*60*24*7, 60*60*24
+      [1209600, "Wiki iliyopita", "Next week"], // 60*60*24*7*4*2
+      [2419200, "wiki", 604800], // 60*60*24*7*4, 60*60*24*7
+      [4838400, "Mwezi uliopita", "Next month"], // 60*60*24*7*4*2
+      [29030400, "miezi", 2419200], // 60*60*24*7*4*12, 60*60*24*7*4
+      [58060800, "Mwaka jana", "Next year"], // 60*60*24*7*4*12*2
+      [2903040000, "miaka", 29030400], // 60*60*24*7*4*12*100, 60*60*24*7*4*12
+      [5806080000, "Muongo uliopita", "Next century"], // 60*60*24*7*4*12*100*2
       [58060800000, "centuries", 2903040000], // 60*60*24*7*4*12*100*20, 60*60*24*7*4*12*100
     ];
     var seconds = (+new Date() - time) / 1000,
-      token = "ago",
+      token = "zimepita",
       list_choice = 1;
 
     if (seconds == 0) {
-      return "Just now";
+      return "Sasa hivi";
     }
     if (seconds < 0) {
       seconds = Math.abs(seconds);
@@ -230,6 +268,104 @@ const Index = ({
       }
     return time;
   }
+
+  let handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let value = e.target.value;
+    let name = e.target.name;
+    setSadaka({ ...sadaka, tarehe: value });
+  };
+
+  const sajiliSadaka = () => {
+    if (sadaka.bahasha != "" && sadaka.kiasi && sadaka.tarehe) {
+      setLoading(true);
+      axios
+        .post("/api/getUser", sadaka)
+        .then(function (response) {
+          const users = JSON.parse(JSON.stringify(response.data));
+          // handle success
+          if (users) {
+            setConfirmSadaka(false);
+            setUserReturned(users);
+          } else {
+            setConfirmSadaka(true);
+            notifyError(
+              `Hakuna Msharika mwenye bahasha nambari ${sadaka.bahasha} aliyepatikana.`
+            );
+          }
+
+          setLoading(false);
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error);
+          notifyError("Kuna kitu hakiko sawa, jaribu tena baadae.");
+          setLoading(false);
+        })
+        .then(function () {
+          // always executed
+        });
+    } else {
+      notifyError("Jaza nafasi zote zilizo wazi.");
+    }
+  };
+
+  const date = new Date();
+
+  let day = date.getDate();
+  let month = date.getMonth() + 1;
+  let year = date.getFullYear();
+  let currentDate = `${year}-${month < 10 ? "0" + month : month}-${
+    day < 10 ? "0" + day : day
+  }`;
+
+  //Change it so that it is 7 days in the past.
+  const date7daysAgo = new Date();
+  date7daysAgo.setDate(date7daysAgo.getDate() - 7);
+  let day7 = date7daysAgo.getDate();
+  let month7 = date7daysAgo.getMonth() + 1;
+  let year7 = date7daysAgo.getFullYear();
+  let dateLimt = `${year7}-${month7 < 10 ? "0" + month7 : month7}-${
+    day7 < 10 ? "0" + day7 : day7
+  }`;
+
+  const handleSitisha = () => {
+    setConfirmSadaka(true);
+    setSadaka({ bahasha: "", kiasi: "", tarehe: "" });
+    smoothScroll();
+  };
+
+  const handleThibitisha = () => {
+    let data = {
+      tarehe: new Date(sadaka.tarehe),
+      amount: parseInt(sadaka.kiasi),
+      userId: userReturned!.id,
+    };
+    axios
+      .post("/api/wekaSadaka", data)
+      .then(function (response) {
+        const ujumbe = JSON.parse(JSON.stringify(response.data));
+        // handle success
+        if (ujumbe.type == "success") {
+          notifySuccess(ujumbe.message);
+        } else {
+          notifyError(ujumbe.message);
+        }
+        setLoading(false);
+        setConfirmSadaka(true);
+        setSadaka({ bahasha: "", kiasi: "", tarehe: "" });
+        smoothScroll();
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+        notifyError("Kuna kitu hakiko sawa, jaribu tena baadae.");
+        setLoading(false);
+      })
+      .then(function () {
+        // always executed
+      });
+    smoothScroll();
+  };
 
   useEffect(() => {
     setMaombiKamili(userVerificationPending);
@@ -331,7 +467,6 @@ const Index = ({
                           key={user.id}
                           label={user.name}
                           id={user.id}
-                          published={""}
                           link={""}
                           time={timeAgo(user.dateJoined)}
                         />
@@ -353,7 +488,6 @@ const Index = ({
                             key={user.id}
                             label={user.name}
                             id={user.id}
-                            published={""}
                             link={""}
                             time={timeAgo(user.dateJoined)}
                           />
@@ -367,8 +501,87 @@ const Index = ({
                     <div className={Styles.subject}>
                       <div className={Styles.subjectHeader}>
                         <div className={Styles.subjectHeaderText}>
-                          Karibu Kwenye Akaunti Ya Sadaka Ya Ahadi
+                          Sadaka Ya Ahadi
                         </div>
+                      </div>
+                      <div className={Styles.subjectBody}>
+                        {confirmSadaka ? (
+                          <>
+                            <div className={Styles.controls}>
+                              <div className={Styles.inputBox}>
+                                <input
+                                  required
+                                  type="number"
+                                  value={sadaka.bahasha}
+                                  placeholder={``}
+                                  name={"bahasha"}
+                                  onChange={(event) => {
+                                    handleSadaka(event);
+                                  }}
+                                  autoComplete="off"
+                                  autoCorrect="off"
+                                  spellCheck={false}
+                                />
+                                <span>Namba Ya Bahasha</span>
+                              </div>
+                              <div className={Styles.inputBox}>
+                                <input
+                                  required
+                                  type="number"
+                                  value={sadaka.kiasi}
+                                  placeholder={``}
+                                  name={"kiasi"}
+                                  onChange={(event) => {
+                                    handleSadaka(event);
+                                  }}
+                                  autoComplete="off"
+                                  autoCorrect="off"
+                                  spellCheck={false}
+                                />
+                                <span>Kiasi Cha Sadaka</span>
+                              </div>
+                              <div className={Styles.inputBox}>
+                                <input
+                                  required
+                                  type="date"
+                                  placeholder="dd-mm-yyyy"
+                                  min={dateLimt}
+                                  max={currentDate}
+                                  value={sadaka.tarehe}
+                                  name={"tareheYaKuzaliwa"}
+                                  onChange={(event) => {
+                                    handleDateChange(event);
+                                  }}
+                                  autoComplete="off"
+                                  autoCorrect="off"
+                                  spellCheck={false}
+                                />
+                                <span>Tarehe Ya Sadaka</span>
+                              </div>
+                            </div>
+                            <div
+                              onClick={sajiliSadaka}
+                              className={Styles.subjectBodyButton}
+                            >
+                              Sajili Sadaka
+                            </div>
+                          </>
+                        ) : (
+                          <>
+                            <div>
+                              <Card
+                                jina={userReturned!.name}
+                                picha={userReturned!.image}
+                                ahadi={userReturned!.ahadi.toLocaleString()}
+                                kiasi={parseInt(sadaka.kiasi).toLocaleString()}
+                                bahasha={sadaka.bahasha}
+                                sitisha={handleSitisha}
+                                thibitisha={handleThibitisha}
+                                sadaka={userReturned!.sadaka}
+                              />
+                            </div>
+                          </>
+                        )}
                       </div>
                     </div>
                   </div>
