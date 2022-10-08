@@ -50,7 +50,7 @@ model user {
   dateJoined        DateTime      @default(now())
   updatedAt         DateTime      @updatedAt
   cheoHistory       cheoHistory[]
-  kwaya             kwaya[]
+  kikundi           kikundi[]
   missing           Boolean       @default(false)
   verified          Boolean       @default(false)
   sadaka            sadaka[]
@@ -68,10 +68,11 @@ model jumuiya {
 }
 
 model cheo {
-  id          Int           @id @default(autoincrement())
-  name        String
-  user        user[]
-  cheoHistory cheoHistory[]
+  id                  Int           @id @default(autoincrement())
+  jinaLaCheo          String
+  user                user[]
+  kikundiAnachoongoza String
+  cheoHistory         cheoHistory[]
 }
 
 model cheoHistory {
@@ -84,11 +85,12 @@ model cheoHistory {
   user   user      @relation(fields: [userId], references: [id])
 }
 
-model kwaya {
+model kikundi {
   id          Int    @id @default(autoincrement())
   name        String
   description String @db.LongText
-  user        user[]
+  userId      Int
+  user        user   @relation(fields: [userId], references: [id])
 }
 
 model sadaka {

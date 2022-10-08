@@ -1,13 +1,14 @@
 import { GetStaticProps, GetStaticPaths, InferGetStaticPropsType } from "next";
 import { NavContext } from "../../../components/context/StateContext";
 import { prisma } from "../../../db/prisma";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import Styles from "../../../styles/userVerify.module.scss";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
-import { user } from "@prisma/client";
+import { jumuiya, user } from "@prisma/client";
 import Card from "../../../components/tools/CardUserDisplay";
 import { type } from "os";
 import { getSession } from "next-auth/react";
+import SelectMiu from "../../../components/tools/SelectMui";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context);
@@ -59,17 +60,50 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const user = JSON.parse(JSON.stringify(userServer));
 
+  const jumuiyaFromServer = await prisma.jumuiya.findMany({
+    where: {},
+    select: {
+      id: true,
+      name: true,
+    },
+  });
+  const jumuiyaListFull = await JSON.parse(JSON.stringify(jumuiyaFromServer));
+
   return {
     props: {
       user,
+      jumuiyaListFull,
     },
   };
 };
 
+type formData = {
+  label: string;
+  value: string;
+}[];
+
 const Index = ({
   user,
+  jumuiyaListFull,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { navActive, setNavActive } = useContext(NavContext);
+  const [userDetails, setUserDetails] = useState({
+    jumuiya: "",
+    bahasha: "",
+  });
+  const [jumuiyaFromServer, setJumuiyaFromServer] = useState<formData>([]);
+
+  useEffect(() => {
+    let dataJumuiya: formData = [];
+    jumuiyaListFull.map((jumuia: jumuiya) => {
+      let data = {
+        label: jumuia.name,
+        value: jumuia.id.toString(),
+      };
+      if (jumuia.id != 1) dataJumuiya.push(data);
+    });
+    setJumuiyaFromServer(dataJumuiya);
+  }, []);
 
   var fulldays = [
     "Jumapili",
@@ -121,6 +155,20 @@ const Index = ({
     }
   }
 
+  let handletextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let value = e.target.value;
+    let name = e.target.name;
+    setUserDetails({ ...userDetails, [name]: value });
+  };
+
+  let handleSelectJumuiya = (value: string) => {
+    setUserDetails({ ...userDetails, jumuiya: value });
+  };
+
+  const sitisha = () => {};
+
+  const thibitisha = () => {};
+
   //!mambo yanaanza
 
   return (
@@ -136,97 +184,155 @@ const Index = ({
           missing={user.missing}
         />
         <div className={Styles.header}>Taarifa za Msharika</div>
-        <div className={Styles.kiasiContainer}>
-          <div className={Styles.kiasiText}>jinsia</div>
-          <div className={Styles.kiasiValue}>{user.jinsia}</div>
-        </div>
-        <div className={Styles.kiasiContainer}>
-          <div className={Styles.kiasiText}>tareheYaKuzaliwa</div>
-          <div className={Styles.kiasiValue}>
-            {formatDate(user.tareheYaKuzaliwa)}
+        <div className={Styles.taarifaContainer}>
+          <div className={Styles.taarifa}>Binafsi</div>
+          <div className={Styles.kiasiContainer}>
+            <div className={Styles.kiasiText}>Jinsia</div>
+            <div className={Styles.kiasiValue}>{user.jinsia}</div>
+          </div>
+          <div className={Styles.kiasiContainer}>
+            <div className={Styles.kiasiText}>Tarehe Ya Kuzaliwa</div>
+            <div className={Styles.kiasiValue}>
+              {formatDate(user.tareheYaKuzaliwa)}
+            </div>
+          </div>
+          <div className={Styles.kiasiContainer}>
+            <div className={Styles.kiasiText}>Hali Ya Ndoa</div>
+            <div className={Styles.kiasiValue}>{user.haliYaNdoa}</div>
+          </div>
+          <div className={Styles.kiasiContainer}>
+            <div className={Styles.kiasiText}>Aina Ya Ndoa</div>
+            <div className={Styles.kiasiValue}>{user.ainaYaNdoa}</div>
+          </div>
+          <div className={Styles.kiasiContainer}>
+            <div className={Styles.kiasiText}>Tarehe Ya Ndoa</div>
+            <div className={Styles.kiasiValue}>
+              {user.tareheYaNdoa ? formatDate(user.tareheYaNdoa) : ""}
+            </div>
+          </div>
+          <div className={Styles.kiasiContainer}>
+            <div className={Styles.kiasiText}>Jina La Mwenza</div>
+            <div className={`${Styles.kiasiValue} ${Styles.capitalize}`}>
+              {user.jinaLaMwenza}
+            </div>
           </div>
         </div>
-        <div className={Styles.kiasiContainer}>
-          <div className={Styles.kiasiText}>haliYaNdoa</div>
-          <div className={Styles.kiasiValue}>{user.haliYaNdoa}</div>
-        </div>
-        <div className={Styles.kiasiContainer}>
-          <div className={Styles.kiasiText}>ainaYaNdoa</div>
-          <div className={Styles.kiasiValue}>{user.ainaYaNdoa}</div>
-        </div>
-        <div className={Styles.kiasiContainer}>
-          <div className={Styles.kiasiText}>tareheYaNdoa</div>
-          <div className={Styles.kiasiValue}>
-            {user.tareheYaNdoa ? formatDate(user.tareheYaNdoa) : ""}
+
+        <div className={Styles.taarifaContainer}>
+          <div className={Styles.taarifa}>Mawasiliano na Makazi</div>
+          <div className={Styles.kiasiContainer}>
+            <div className={Styles.kiasiText}>Namba Ya Simu</div>
+            <div className={Styles.kiasiValue}>{user.nambaYaSimu}</div>
+          </div>
+          <div className={Styles.kiasiContainer}>
+            <div className={Styles.kiasiText}>Namba Ya Simu Ya Mwenza</div>
+            <div className={Styles.kiasiValue}>{user.nambaYaSimuMwenza}</div>
+          </div>
+          <div className={Styles.kiasiContainer}>
+            <div className={Styles.kiasiText}>Jumuiya</div>
+            <div className={Styles.kiasiValue}>{user.jumuiya.name}</div>
+          </div>
+          <div className={Styles.kiasiContainer}>
+            <div className={Styles.kiasiText}>Wilaya</div>
+            <div className={Styles.kiasiValue}>{user.wilaya}</div>
+          </div>
+          <div className={Styles.kiasiContainer}>
+            <div className={Styles.kiasiText}>Kata</div>
+            <div className={Styles.kiasiValue}>{user.kata}</div>
+          </div>
+          <div className={Styles.kiasiContainer}>
+            <div className={Styles.kiasiText}>Mtaa</div>
+            <div className={Styles.kiasiValue}>{user.mtaa}</div>
+          </div>
+          <div className={Styles.kiasiContainer}>
+            <div className={Styles.kiasiText}>Elimu</div>
+            <div className={Styles.kiasiValue}>{user.elimu}</div>
+          </div>
+          <div className={Styles.kiasiContainer}>
+            <div className={Styles.kiasiText}>Kazi</div>
+            <div className={Styles.kiasiValue}>{user.kazi}</div>
+          </div>
+          <div className={Styles.kiasiContainer}>
+            <div className={Styles.kiasiText}>Fani</div>
+            <div className={Styles.kiasiValue}>{user.fani}</div>
           </div>
         </div>
-        <div className={Styles.kiasiContainer}>
-          <div className={Styles.kiasiText}>jinaLaMwenza</div>
-          <div className={`${Styles.kiasiValue} ${Styles.capitalize}`}>
-            {user.jinaLaMwenza}
+
+        <div className={Styles.taarifaContainer}>
+          <div className={Styles.taarifa}>Kiroho</div>
+          <div className={Styles.kiasiContainer}>
+            <div className={Styles.kiasiText}>Ubatizo</div>
+            <div className={Styles.kiasiValue}>
+              {user.ubatizo ? "Nimeshapokea Ubatizo" : "Bado Sijabatizwa"}
+            </div>
+          </div>
+          <div className={Styles.kiasiContainer}>
+            <div className={Styles.kiasiText}>Kipaimara</div>
+            <div className={Styles.kiasiValue}>
+              {user.kipaimara
+                ? "Nimeshapokea Kipaimara"
+                : "Sijapokea Kipaimara"}
+            </div>
+          </div>
+          <div className={Styles.kiasiContainer}>
+            <div className={Styles.kiasiText}>Meza Ya Bwana</div>
+            <div className={Styles.kiasiValue}>
+              {user.mezaYaBwana ? "Ninashiriki" : "Sishiriki"}
+            </div>
+          </div>
+          <div className={Styles.kiasiContainer}>
+            <div className={Styles.kiasiText}>Bahasha</div>
+            <div className={Styles.kiasiValue}>{user.bahasha}</div>
+          </div>
+          <div className={Styles.kiasiContainer}>
+            <div className={Styles.kiasiText}>Ahadi</div>
+            <div className={Styles.kiasiValue}>
+              {user.ahadi.toLocaleString()}
+            </div>
           </div>
         </div>
-        <div className={Styles.kiasiContainer}>
-          <div className={Styles.kiasiText}>nambaYaSimu</div>
-          <div className={Styles.kiasiValue}>{user.nambaYaSimu}</div>
-        </div>
-        <div className={Styles.kiasiContainer}>
-          <div className={Styles.kiasiText}>nambaYaSimuMwenza</div>
-          <div className={Styles.kiasiValue}>{user.nambaYaSimuMwenza}</div>
-        </div>
-        <div className={Styles.kiasiContainer}>
-          <div className={Styles.kiasiText}>jumuiya</div>
-          <div className={Styles.kiasiValue}>{user.jumuiya.name}</div>
-        </div>
-        <div className={Styles.kiasiContainer}>
-          <div className={Styles.kiasiText}>wilaya</div>
-          <div className={Styles.kiasiValue}>{user.wilaya}</div>
-        </div>
-        <div className={Styles.kiasiContainer}>
-          <div className={Styles.kiasiText}>kata</div>
-          <div className={Styles.kiasiValue}>{user.kata}</div>
-        </div>
-        <div className={Styles.kiasiContainer}>
-          <div className={Styles.kiasiText}>mtaa</div>
-          <div className={Styles.kiasiValue}>{user.mtaa}</div>
-        </div>
-        <div className={Styles.kiasiContainer}>
-          <div className={Styles.kiasiText}>elimu</div>
-          <div className={Styles.kiasiValue}>{user.elimu}</div>
-        </div>
-        <div className={Styles.kiasiContainer}>
-          <div className={Styles.kiasiText}>kazi</div>
-          <div className={Styles.kiasiValue}>{user.kazi}</div>
-        </div>
-        <div className={Styles.kiasiContainer}>
-          <div className={Styles.kiasiText}>fani</div>
-          <div className={Styles.kiasiValue}>{user.fani}</div>
-        </div>
-        <div className={Styles.kiasiContainer}>
-          <div className={Styles.kiasiText}>ubatizo</div>
-          <div className={Styles.kiasiValue}>
-            {user.ubatizo ? "Nimeshapokea Ubatizo" : "Bado Sijabatizwa"}
+
+        {user.missing && (
+          <div className={Styles.taarifaContainer}>
+            <div className={Styles.taarifa}>Boresha Taaraifa</div>
+            <div className={Styles.credential}>
+              {user.jumuiya.name == "Sijapata Jumuiya" && (
+                <SelectMiu
+                  show={true}
+                  displayLabel="Weka Jumuiya"
+                  forms={jumuiyaFromServer}
+                  handlechange={handleSelectJumuiya}
+                  value={userDetails.jumuiya}
+                />
+              )}
+              {user.bahasha == "" && (
+                <div className={Styles.inputBox}>
+                  <input
+                    required
+                    type="number"
+                    value={userDetails.jumuiya}
+                    placeholder={``}
+                    name={"mtaa"}
+                    onChange={(event) => {
+                      handletextChange(event);
+                    }}
+                    autoComplete="off"
+                    autoCorrect="off"
+                    spellCheck={false}
+                  />
+                  <span>Weka Namba Ya Bahasha</span>
+                </div>
+              )}
+            </div>
           </div>
-        </div>
-        <div className={Styles.kiasiContainer}>
-          <div className={Styles.kiasiText}>kipaimara</div>
-          <div className={Styles.kiasiValue}>
-            {user.kipaimara ? "Nimeshapokea Kipaimara" : "Sijapokea Kipaimara"}
+        )}
+        <div className={Styles.confirm}>
+          <div onClick={sitisha} className={Styles.ButtonSitisha}>
+            Sitisha
           </div>
-        </div>
-        <div className={Styles.kiasiContainer}>
-          <div className={Styles.kiasiText}>mezaYaBwana</div>
-          <div className={Styles.kiasiValue}>
-            {user.mezaYaBwana ? "Ninashiriki" : "Sishiriki Meza ya Bwana"}
+          <div onClick={thibitisha} className={Styles.Button}>
+            Thibitisha
           </div>
-        </div>
-        <div className={Styles.kiasiContainer}>
-          <div className={Styles.kiasiText}>bahasha</div>
-          <div className={Styles.kiasiValue}>{user.bahasha}</div>
-        </div>
-        <div className={Styles.kiasiContainer}>
-          <div className={Styles.kiasiText}>ahadi</div>
-          <div className={Styles.kiasiValue}>{user.ahadi.toLocaleString()}</div>
         </div>
       </div>
     </div>

@@ -12,14 +12,123 @@
     width: 100%;
     max-width: 1200px;
     padding: 10px;
+    padding-top: 30px;
+
+    .confirm {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: flex-end;
+      justify-content: flex-end;
+      padding: 15px 0px;
+      gap: 15px;
+
+      @media only screen and (max-width: 548px) {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      @media only screen and (max-width: 368px) {
+        width: 100%;
+        flex-direction: column;
+        justify-content: center;
+        gap: 0px;
+      }
+    }
+
+    .Button {
+      width: fit-content;
+      height: 40px;
+      background-color: $lightblue;
+      color: $white;
+      border: 4px solid transparent;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      border-radius: 5px;
+      transition: 0.1s linear;
+      padding-left: 25px;
+      padding-right: 25px;
+      text-align: center;
+      margin-bottom: 25px;
+      margin-top: 0px;
+      font-weight: 600;
+
+      &:hover {
+        background-color: $lightblue;
+        color: $nyeupe;
+        border: 4px solid $ugoro;
+        cursor: pointer;
+      }
+
+      @media only screen and (max-width: 368px) {
+        width: 100%;
+      }
+    }
+
+    .ButtonSitisha {
+      width: fit-content;
+      height: 40px;
+      background-color: $lightkahawa;
+      color: $ugoro;
+      border: 2px solid transparent;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      border-radius: 5px;
+      transition: 0.1s linear;
+      padding-left: 25px;
+      padding-right: 25px;
+      text-align: center;
+      margin-bottom: 25px;
+      margin-top: 0px;
+      font-weight: 600;
+
+      &:hover {
+        background-color: $ugoro;
+        color: $lightkahawa;
+        border: 2px solid transparent;
+        cursor: pointer;
+      }
+
+      @media only screen and (max-width: 368px) {
+        width: 100%;
+      }
+    }
 
     .header {
       line-height: 1;
       margin: 0;
-      font-size: 1.7rem;
+      font-size: 24px;
       font-weight: 500;
       margin-bottom: 10px;
       margin-top: 15px;
+    }
+
+    .taarifaContainer {
+      padding: 10px;
+      margin: 10px 0px;
+      margin-top: 40px;
+      border: 2px solid $ugoro;
+      position: relative;
+      top: 0;
+      padding-top: 30px;
+      padding-left: 20px;
+      border-radius: 5px;
+
+      .taarifa {
+        width: fit-content;
+        background-color: $ugoro;
+        color: $nyeupe;
+        padding: 10px 15px;
+        position: absolute;
+        top: -20px;
+        font-weight: 500;
+        border-radius: 5px;
+        font-size: 18px;
+      }
     }
 
     .kiasiContainer {
@@ -41,6 +150,120 @@
 
       .capitalize {
         text-transform: capitalize;
+      }
+    }
+
+    .credential {
+      width: 100%;
+      color: $lightkahawa;
+      margin: 0px;
+      display: grid;
+      grid-gap: 15px;
+      justify-content: center;
+      align-items: flex-start;
+      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+      padding: 10px 10px 25px 10px;
+
+      .inputBox {
+        position: relative;
+        width: 100%;
+
+        input {
+          border: 1.5px solid rgba($color: $gray, $alpha: 0.5);
+          padding: 10px;
+          font-size: 18px;
+          font-weight: 400;
+          border-radius: 5px;
+          width: 100%;
+          outline: none;
+          font-family: $fontBody;
+          margin-bottom: 10px;
+          color: $gray;
+          z-index: 1;
+          background-color: $white;
+
+          &:hover {
+            border: 1.5px solid rgba($color: $black, $alpha: 1);
+          }
+
+          &:valid ~ span,
+          &:focus ~ span {
+            color: $lightblue;
+            transform: translateX(10px) translateY(-8px);
+            font-size: 0.65em;
+            padding: 0 10px;
+            background-color: $white;
+            font-weight: 600;
+            border-left: 1.5px solid $lightblue;
+            border-right: 1.5px solid $lightblue;
+            z-index: 0;
+            width: fit-content;
+            height: fit-content;
+          }
+
+          &:valid {
+            border: 1.5px solid rgba($color: $gray, $alpha: 0.5);
+            color: $black;
+          }
+          &:focus {
+            border: 1.5px solid $lightblue;
+            z-index: 0;
+            color: $black;
+          }
+
+          &:valid ~ span {
+            border-left: 1.5px solid $gray;
+            border-right: 1.5px solid $gray;
+            color: $gray;
+          }
+        }
+
+        span {
+          position: absolute;
+          left: 0;
+          top: 3px;
+          padding: 10px;
+          pointer-events: none;
+          font-size: 1em;
+          font-weight: 500;
+          color: $gray;
+          // text-transform: uppercase;
+          font-family: $fontHeader;
+          transition: 0.5s;
+          z-index: 0;
+          background-color: $white;
+          height: 40px;
+          width: 100%;
+          max-width: fit-content;
+          margin-left: 5px;
+          display: flex;
+          flex-direction: row;
+        }
+      }
+
+      @media only screen and (max-width: 448px) {
+        grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+      }
+    }
+
+    .checkToggle {
+      display: flex;
+      flex-direction: row;
+      font-size: 18px;
+      font-weight: 400;
+      justify-content: flex-start;
+      align-items: center;
+      color: $ugoro;
+      font-family: $fontBody;
+      margin-bottom: 20px;
+
+      input {
+        width: 20px;
+        height: 20px;
+        align-self: center;
+        margin: 0px;
+        margin-right: 10px;
+        margin-left: 5px;
       }
     }
   }
