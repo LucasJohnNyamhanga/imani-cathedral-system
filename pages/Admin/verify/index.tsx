@@ -228,12 +228,51 @@ const Index = ({
       });
   };
 
+  const checkViambatanishi = (key: number) => {
+    switch (key) {
+      case 1:
+        if (userDetails.bahasha != "") {
+          return true;
+        } else {
+          notifyError("Weka namba ya bahasha ili umthibitishe msharika.");
+          return false;
+        }
+        break;
+      case 2:
+        if (userDetails.jumuiya != "") {
+          return true;
+        } else {
+          notifyError("Weka namba ya bahasha ili umthibitishe msharika.");
+          return false;
+        }
+        break;
+
+      default:
+        return false;
+        break;
+    }
+  };
+
   const thibitisha = () => {
     if (user.missing) {
-      if (userDetails.bahasha != "" && userDetails.jumuiya != "") {
-        uthibitisho();
+      if (user.bahasha != "") {
+        if (user.jumuiya.name == "Sijapata Jumuiya") {
+          if (checkViambatanishi(2)) {
+            uthibitisho();
+          }
+        } else {
+          uthibitisho();
+        }
       } else {
-        notifyError("Boresha Taarifa kabla ya kuthibitisha.");
+        if (checkViambatanishi(1)) {
+          if (user.jumuiya == "Sijapata Jumuiya") {
+            if (checkViambatanishi(2)) {
+              uthibitisho();
+            }
+          } else {
+            uthibitisho();
+          }
+        }
       }
     } else {
       uthibitisho();
