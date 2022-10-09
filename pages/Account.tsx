@@ -39,6 +39,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       name: true,
       image: true,
       ahadi: true,
+      nenoLaSiri: true,
       sadaka: {
         orderBy: {
           tarehe: "desc",
@@ -115,12 +116,12 @@ const Notes = ({
   };
   const sendToDatabase = (hash: string) => {
     const database = {
-      password: hash,
+      nenoLaSiri: hash,
       id: userfound.id,
     };
     axios({
       method: "post",
-      url: "http://localhost:3000/api/updatePassword",
+      url: "http://localhost:3000/api/badiliNenoSiri",
       data: database,
     })
       .then(function (response) {
@@ -154,7 +155,10 @@ const Notes = ({
       passChange.password != ""
     ) {
       //
-      const comaparison = passChange.password === userfound.password;
+      console.log("sasa : " + userfound.nenoLaSiri);
+      console.log("jipya : " + passChange.password);
+
+      const comaparison = passChange.password === userfound.nenoLaSiri;
       if (comaparison) {
         if (passChange.password1 == passChange.password2) {
           setLoadingDisplay(true);
@@ -163,15 +167,15 @@ const Notes = ({
           password1.current.focus();
           password1.current.style.color = "red";
           password2.current.style.color = "red";
-          notifyError("Password does not match.");
+          notifyError("Neno la siri halifanani.");
         }
       } else {
-        notifyError("Enter Correct Password");
+        notifyError("Ingiza Neno la Siri Sahihi");
         password.current.focus();
         password.current.style.color = "red";
       }
     } else {
-      notifyError("Enter all details.");
+      notifyError("Jaza nafasi zote zilizo wazi.");
     }
   };
 
@@ -267,7 +271,7 @@ const Notes = ({
                   </li>
                   {userfound?.password != "googleHasIt" && (
                     <li className={Styles.edit} onClick={reset}>
-                      Edit Password
+                      Badili Neno la Siri
                     </li>
                   )}
                 </ul>
@@ -342,17 +346,14 @@ const Notes = ({
           {resetPassword && (
             <form className={Styles.form}>
               <div className={Styles.logInHeader}>
-                <div>
-                  <AutoStoriesIcon className={Styles.icon} />
-                </div>
-                <div className={Styles.text}>Reset Password</div>
+                <div className={Styles.text}>Badili Neno La Siri</div>
               </div>
               <div className={Styles.credential}>
                 <input
                   ref={password}
                   type="password"
                   value={passChange.password}
-                  placeholder={"Current Password"}
+                  placeholder={"Neno la Siri la Sasa"}
                   name={"password"}
                   onChange={(event) => {
                     handletextChange(event);
@@ -365,7 +366,7 @@ const Notes = ({
                   ref={password1}
                   type="password"
                   value={passChange.password1}
-                  placeholder={"New Password"}
+                  placeholder={"Neno la Siri Jipya"}
                   name={"password1"}
                   onChange={(event) => {
                     handletextChange(event);
@@ -378,7 +379,7 @@ const Notes = ({
                   ref={password2}
                   type="password"
                   value={passChange.password2}
-                  placeholder={"Retype New Password"}
+                  placeholder={"Rudia Neno la Siri Jipya"}
                   name={"password2"}
                   onChange={(event) => {
                     handletextChange(event);
@@ -394,18 +395,18 @@ const Notes = ({
                       togglePasswordSignUp(e);
                     }}
                   />
-                  Show Password
+                  Onyesha Neno la Siri
                 </div>
               </div>
               <div onClick={resetPasswordNow} className={Styles.button}>
-                Reset Password
+                Badili Neno la Siri
               </div>
               <div className={Styles.separator}>
                 <hr className={Styles.line} />
                 <hr className={Styles.line} />
               </div>
               <div className={Styles.buttonSignUp} onClick={reset}>
-                <div>Back to Account</div>
+                <div>Rudi kwenye Akaunti</div>
               </div>
             </form>
           )}

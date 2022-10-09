@@ -1,0 +1,38 @@
+@import "index";
+.container {
+  background-color: $nyeupe;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 70vh;
+  padding-top: 5px;
+
+  .containerInner {
+    width: 100%;
+    max-width: 1200px;
+    padding: 30px 10px;
+
+    .ujumbe {
+      font-size: 18px;
+      font-weight: 500;
+      font-family: $fontHeader;
+      line-height: 1.5rem;
+      padding: 5px 0px;
+    }
+
+    .msaada {
+      padding-top: 10px;
+    }
+
+    .ujumbeMsaada {
+      font-size: 18px;
+      font-weight: 600;
+      font-family: $fontHeader;
+      line-height: 1.5rem;
+      padding: 5px 0px;
+      white-space: nowrap;
+      color: $ugoro;
+    }
+  }
+}

@@ -7,6 +7,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const {
+    id,
     image,
     name,
     tareheYaKuzaliwa,
@@ -31,9 +32,13 @@ export default async function handler(
     ahadi,
     nenoLaSiri,
     missing,
+    verified,
   } = req.body;
   try {
-    const newUser = await prisma.user.create({
+    await prisma.user.update({
+      where: {
+        id: parseInt(id),
+      },
       data: {
         image,
         name,
@@ -59,19 +64,19 @@ export default async function handler(
         ahadi,
         nenoLaSiri,
         missing,
-      },
-      select: {
-        id: true,
-        missing: true,
-        nenoLaSiri: true,
+        verified,
       },
     });
-
-    const user = JSON.parse(JSON.stringify(newUser));
-
-    res.status(200).json(user);
+    res.status(200).json({
+      message: "Uboreshaji wa Msharika umekamilika.",
+      type: "success",
+    });
   } catch (error) {
     console.log(error);
+    res.status(200).json({
+      message: "Tatizo limetokea, mtaarifu mtaalam wa mfumo.",
+      type: "error",
+    });
   } finally {
     await prisma.$disconnect();
   }

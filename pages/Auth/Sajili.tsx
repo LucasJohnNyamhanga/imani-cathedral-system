@@ -226,10 +226,15 @@ const SignIn = ({
       .post("http://localhost:3000/api/createUser", dataUser)
       .then(function (response) {
         //responce
-        if (response.data.type == "success") {
+        const user = JSON.parse(JSON.stringify(response.data));
+        if (user) {
           notifySuccess(response.data.message);
           setLoadingDisplay(false);
-          signTo();
+          if (user.missing) {
+            push(`/Auth/BadoUsajili?id=${user.id}`);
+          } else {
+            signTo();
+          }
         } else {
           notifyError(response.data.message);
           setLoadingDisplay(false);

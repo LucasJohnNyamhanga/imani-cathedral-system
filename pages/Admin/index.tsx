@@ -278,7 +278,7 @@ const Index = ({
     if (sadaka.bahasha != "" && sadaka.kiasi && sadaka.tarehe) {
       setLoading(true);
       axios
-        .post("/api/getUser", sadaka)
+        .post("/api/findUserBahasha", sadaka)
         .then(function (response) {
           const users = JSON.parse(JSON.stringify(response.data));
           // handle success
