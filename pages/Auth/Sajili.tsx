@@ -162,22 +162,24 @@ const SignIn = ({
     };
     setLoadingDisplay(true);
     axios
-      .post("http://localhost:3000/api/getUser", data)
+      .post("/api/getUser", data)
       .then(function (response) {
         //responce
         const userData = JSON.parse(JSON.stringify(response.data));
-        console.log(userData);
-        setLoadingDisplay(false);
-        if (Object.keys(userData).length > 0) {
+
+        if (userData) {
           notifyError("Tayari kuna akaunti yenye jina hili.");
           setLoadingDisplay(false);
+
           // username.current.focus();
           // username.current.style.color = "red";
+        } else {
+          uploadToServer();
         }
       })
       .catch(function (error) {
         // handle error
-        uploadToServer();
+        setLoadingDisplay(false);
       });
   };
 
@@ -223,7 +225,7 @@ const SignIn = ({
     };
 
     axios
-      .post("http://localhost:3000/api/createUser", dataUser)
+      .post("/api/createUser", dataUser)
       .then(function (response) {
         //responce
         const user = JSON.parse(JSON.stringify(response.data));
@@ -469,11 +471,11 @@ const SignIn = ({
 
   //! for uploading
   const uploadToServer = async () => {
-    setShowUpload(true);
+    //setShowUpload(true);
     const body = new FormData();
     body.append("file", image);
     axios
-      .post("/api/upload", body, {
+      .post("https://database.co.tz/api/uploadImani", body, {
         onUploadProgress: (progressEvent) => {
           console.log(
             "Upload Progress: " +
@@ -487,7 +489,7 @@ const SignIn = ({
       })
       .then(
         (res) => {
-          let location = res.data.file;
+          let location = res.data;
           registration(location);
         },
         (err) => {
