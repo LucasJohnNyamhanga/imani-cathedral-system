@@ -314,6 +314,48 @@
       font-family: $fontHeader !important;
     }
 
+    .uhakiki {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      margin-top: 30px;
+
+      .tahadhari {
+        font-size: 20px;
+        font-weight: 600;
+        font-family: $fontHeader;
+        margin-bottom: 10px;
+        color: $ugoro;
+        margin-top: 10px;
+      }
+
+      .message {
+        font-family: $fontBody;
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 1.5rem;
+        margin-bottom: 10px;
+      }
+
+      .info {
+        font-family: $fontBody;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 1.5rem;
+        margin-bottom: 5px;
+        color: $lightblue;
+      }
+      .contact {
+        font-family: $fontBody;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 1.5rem;
+        margin-bottom: 10px;
+        color: $ugoro;
+      }
+    }
+
     .resetPassword {
       display: flex;
       flex-direction: column;

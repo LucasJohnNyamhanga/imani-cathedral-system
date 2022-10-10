@@ -21,11 +21,11 @@ datasource db {
 }
 
 model user {
-  id                Int           @id @default(autoincrement())
+  id                Int       @id @default(autoincrement())
   image             String
-  name              String        @db.Text
+  name              String    @db.Text
   tareheYaKuzaliwa  DateTime
-  bahasha           String?       @db.Text
+  bahasha           String?   @db.Text
   jinsia            String
   haliYaNdoa        String
   ainaYaNdoa        String?
@@ -34,25 +34,24 @@ model user {
   nambaYaSimu       String
   nambaYaSimuMwenza String?
   jumuiyaId         Int
-  jumuiya           jumuiya       @relation(fields: [jumuiyaId], references: [id])
+  jumuiya           jumuiya   @relation(fields: [jumuiyaId], references: [id])
   mtaa              String
   kata              String
   wilaya            String
   kazi              String
   elimu             String
   fani              String
-  ubatizo           Boolean       @default(false)
-  kipaimara         Boolean       @default(false)
-  mezaYaBwana       Boolean       @default(false)
+  ubatizo           Boolean   @default(false)
+  kipaimara         Boolean   @default(false)
+  mezaYaBwana       Boolean   @default(false)
   ahadi             Int
   nenoLaSiri        String
   cheo              cheo[]
-  dateJoined        DateTime      @default(now())
-  updatedAt         DateTime      @updatedAt
-  cheoHistory       cheoHistory[]
+  dateJoined        DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
   kikundi           kikundi[]
-  missing           Boolean       @default(false)
-  verified          Boolean       @default(false)
+  missing           Boolean   @default(false)
+  verified          Boolean   @default(false)
   sadaka            sadaka[]
 
   @@fulltext([bahasha])
@@ -65,24 +64,15 @@ model jumuiya {
   name        String
   description String @db.LongText
   user        user[]
+  cheo        cheo[]
 }
 
 model cheo {
-  id                  Int           @id @default(autoincrement())
-  jinaLaCheo          String
-  user                user[]
-  kikundiAnachoongoza String
-  cheoHistory         cheoHistory[]
-}
-
-model cheoHistory {
-  id     Int       @id @default(autoincrement())
-  start  DateTime?
-  end    DateTime?
-  cheoId Int
-  cheo   cheo      @relation(fields: [cheoId], references: [id])
-  userId Int
-  user   user      @relation(fields: [userId], references: [id])
+  id         Int       @id @default(autoincrement())
+  jinaLaCheo String
+  user       user[]
+  jumuiya    jumuiya[]
+  kikundi    kikundi[]
 }
 
 model kikundi {
@@ -91,6 +81,7 @@ model kikundi {
   description String @db.LongText
   userId      Int
   user        user   @relation(fields: [userId], references: [id])
+  cheo        cheo[]
 }
 
 model sadaka {

@@ -1,27 +1,30 @@
 import { sadaka } from "@prisma/client";
 import Image from "next/image";
-import Styles from "../../styles/cardUser.module.scss";
+import Styles from "../../styles/cardUserUongozi.module.scss";
+import SelectMiu from "../../components/tools/SelectMui";
+import { useEffect } from "react";
 
 type dataType = {
   jina: string;
   picha: string;
-  jumuia: string;
-  simu: string;
   bahasha: string;
-  tareheYaUsajiri: string;
-  missing: boolean;
-  nenoLaSiri: string;
+  vyeo: {
+    label: string;
+    value: string;
+  }[];
+  thibitisha: () => void;
+  sitisha: () => void;
+  wekaUongozi: (uongozi: string) => void;
 };
 
 const Card = ({
   jina,
   picha,
-  jumuia,
-  simu,
   bahasha,
-  nenoLaSiri,
-  tareheYaUsajiri,
-  missing,
+  thibitisha,
+  sitisha,
+  vyeo,
+  wekaUongozi,
 }: dataType) => {
   var fulldays = [
     "Jumapili",
@@ -128,8 +131,14 @@ const Card = ({
     return time;
   }
 
+  let handleSelectJumuia = (value: string) => {
+    wekaUongozi(value);
+  };
+
+  useEffect(() => {}, [vyeo]);
+
   return (
-    <div className={Styles.container}>
+    <div className={Styles.container} style={{ maxWidth: "1000px" }}>
       <div className={Styles.left}>
         <div className={Styles.image}>
           <Image
@@ -138,7 +147,7 @@ const Card = ({
             objectFit={"cover"}
             placeholder="blur"
             blurDataURL={picha}
-            height={450}
+            height={400}
             width={400}
             objectPosition={"center"}
           />
@@ -147,54 +156,25 @@ const Card = ({
       <div className={Styles.right}>
         <div className={Styles.description}>
           <h1>{jina}</h1>
-          <h2>Maombi yako ya usajili yamepokelewa</h2>
+          <h2>Bahasha Namba {bahasha}</h2>
           <span></span>
           <div className={Styles.kiasiContainer}>
-            <div className={Styles.kiasiText}>Namba ya Bahasha</div>
-            <div className={Styles.kiasiValue}>
-              {bahasha == "" ? (
-                <div style={{ color: "red" }}>HUNA BAHASHA</div>
-              ) : (
-                bahasha
-              )}
-            </div>
+            <SelectMiu
+              show={true}
+              displayLabel="Chagua Uongozi"
+              forms={vyeo}
+              handlechange={handleSelectJumuia}
+              value={""}
+            />
           </div>
-
-          <div className={Styles.kiasiContainer}>
-            <div className={Styles.kiasiText}>Jina la Jumuiya</div>
-            <div className={Styles.kiasiValue}>
-              {jumuia == "Sijapata Jumuiya" ? (
-                <div style={{ color: "red" }}>HUNA JUMUIYA</div>
-              ) : (
-                jumuia
-              )}
-            </div>
+        </div>
+        <div className={Styles.confirm}>
+          <div onClick={sitisha} className={Styles.ButtonSitisha}>
+            Sitisha
           </div>
-          <div className={Styles.kiasiContainer}>
-            <div className={Styles.kiasiText}>Namba ya Simu</div>
-            <div className={Styles.kiasiValue}>{simu}</div>
+          <div onClick={thibitisha} className={Styles.Button}>
+            Weka Uongozi
           </div>
-          <div className={Styles.kiasiContainer}>
-            <div className={Styles.kiasiText}>Siku ya usajiri</div>
-            <div className={Styles.kiasiValue}>
-              {`${formatDate(tareheYaUsajiri)} (${timeAgo(tareheYaUsajiri)})`}
-            </div>
-          </div>
-          {nenoLaSiri != "" && (
-            <div className={Styles.kiasiContainer}>
-              <div className={Styles.kiasiText}>Neno lako la siri</div>
-              <div className={Styles.kiasiValue}>{nenoLaSiri}</div>
-            </div>
-          )}
-          {missing ? (
-            <div className={Styles.viambatanishiMissing}>
-              Hujakamilisha mahitaji yote yanayohitajika.
-            </div>
-          ) : (
-            <div className={Styles.viambatanishi}>
-              Msharika umekamilisha mahitaji yote.
-            </div>
-          )}
         </div>
       </div>
     </div>

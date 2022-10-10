@@ -172,7 +172,11 @@ const Index = ({
       .then(function (response) {
         const users = JSON.parse(JSON.stringify(response.data));
         // handle success
-        setUserUsajiliSuccess(users);
+        if (users.length > 0) {
+          setUserUsajiliSuccess(users);
+        } else {
+          notifyError("Hakuna maombi yeyote kwa sasa.");
+        }
         setLoading(false);
       })
       .catch(function (error) {
@@ -193,7 +197,12 @@ const Index = ({
       .then(function (response) {
         const users = JSON.parse(JSON.stringify(response.data));
         // handle success
-        setUserUsajiliError(users);
+        if (users.length > 0) {
+          setUserUsajiliError(users);
+        } else {
+          notifyError("Hakuna maombi yeyote kwa sasa.");
+        }
+
         setLoading(false);
       })
       .catch(function (error) {
@@ -379,7 +388,7 @@ const Index = ({
           <div className={Styles.leftInnercontainerBody}>
             <div className={Styles.leftInner}>
               <div className={Styles.containerHeader}>
-                <div className={Styles.TopicHeader}>Imani Cathedral</div>
+                <div className={Styles.TopicHeader}>Parish Worker</div>
               </div>
               <div className={Styles.scroller}>
                 <div className={Styles.containerBody}>
@@ -426,7 +435,7 @@ const Index = ({
           <div className={Styles.rightInnercontainerBody}>
             <div className={Styles.mobile}>
               <Drawer
-                textHeader={"Imani Admin"}
+                textHeader={"Parish Worker"}
                 active={active}
                 handleClick={handleNav}
                 userData={userfound}

@@ -19,6 +19,8 @@ import { FaQuoteRight } from "react-icons/fa";
 import { getSession } from "next-auth/react";
 import Link from "next/link";
 import ProgressBar from "../components/tools/ProgressBar";
+import Card from "../components/tools/CardUserDisplayBado";
+import { cheo } from "@prisma/client";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context);
@@ -40,6 +42,16 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       image: true,
       ahadi: true,
       nenoLaSiri: true,
+      verified: true,
+      dateJoined: true,
+      nambaYaSimu: true,
+      jumuiya: true,
+      bahasha: true,
+      cheo: {
+        select: {
+          jinaLaCheo: true,
+        },
+      },
       sadaka: {
         orderBy: {
           tarehe: "desc",
@@ -244,7 +256,7 @@ const Notes = ({
     <div className={Styles.container}>
       <Toaster position="top-center" reverseOrder={false} />
       <div className={Styles.innerContainer}>
-        {!resetPassword && (
+        {!resetPassword && userfound.verified && (
           <>
             <div className={Styles.header}>
               <Avatar className={Styles.avatar}>
@@ -264,11 +276,26 @@ const Notes = ({
                   <li className={Styles.userName}>{userfound.username}</li>
                   <li>{userfound.name}</li>
                   <li>Ahadi: {userfound.ahadi.toLocaleString()}</li>
-                  <li>
-                    <Link href="/Admin">
-                      <a>Msimamizi</a>
-                    </Link>
-                  </li>
+                  {userfound.cheo.some(
+                    (value: cheo) =>
+                      value.jinaLaCheo.toLowerCase() === "parish worker"
+                  ) && (
+                    <li className={Styles.edit}>
+                      <Link href="/Admin">
+                        <a>Parish Worker</a>
+                      </Link>
+                    </li>
+                  )}
+                  {userfound.cheo.some(
+                    (value: cheo) =>
+                      value.jinaLaCheo.toLowerCase() === "administrator"
+                  ) && (
+                    <li className={Styles.edit}>
+                      <Link href="/Admin/Super">
+                        <a>Administrator</a>
+                      </Link>
+                    </li>
+                  )}
                   {userfound?.password != "googleHasIt" && (
                     <li className={Styles.edit} onClick={reset}>
                       Badili Neno la Siri
@@ -342,8 +369,8 @@ const Notes = ({
             </div>
           </>
         )}
-        <div className={Styles.resetPassword}>
-          {resetPassword && (
+        {resetPassword && userfound.verified && (
+          <div className={Styles.resetPassword}>
             <form className={Styles.form}>
               <div className={Styles.logInHeader}>
                 <div className={Styles.text}>Badili Neno La Siri</div>
@@ -409,8 +436,30 @@ const Notes = ({
                 <div>Rudi kwenye Akaunti</div>
               </div>
             </form>
-          )}
-        </div>
+          </div>
+        )}
+        {!userfound.verified && (
+          <div className={Styles.uhakiki}>
+            <Card
+              jina={userfound.name}
+              picha={userfound.image}
+              jumuia={userfound.jumuiya?.name}
+              simu={userfound.nambaYaSimu}
+              bahasha={userfound.bahasha}
+              tareheYaUsajiri={userfound.dateJoined}
+              missing={userfound.missing}
+              nenoLaSiri={""}
+            />
+            <div className={Styles.tahadhari}>Tahadhari</div>
+            <div className={Styles.message}>
+              Akaunti yako haijahakikiwa na Parish Worker. Tafadhari fika katika
+              ofisi za kanisa ili kukamilisha uhakiki na uweze kupata taarifa
+              zako na maendeleo yako ndani ya kanisa kimtandao.
+            </div>
+            <div className={Styles.info}>Kwa msaada zaidi piga namba</div>
+            <div className={Styles.contact}>0700000000</div>
+          </div>
+        )}
       </div>
     </div>
   );
