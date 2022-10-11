@@ -18,6 +18,7 @@ import Badge from "@mui/material/Badge";
 import CardBox from "../../components/tools/cardBoxWithView";
 import { user } from "@prisma/client";
 import Card from "../../components/tools/CardUserSadaka";
+import LoaderWait from "../../components/tools/loaderWait";
 
 type userData = {
   id: number;
@@ -112,6 +113,7 @@ const Index = ({
   });
   const [confirmSadaka, setConfirmSadaka] = useState(true);
   const [userReturned, setUserReturned] = useState<userData>();
+  const [loadingDisplay, setLoadingDisplay] = useState(false);
 
   const notifySuccess = (message: string) => toast.success(message);
   const notifyError = (message: string) => toast.error(message);
@@ -284,8 +286,10 @@ const Index = ({
   };
 
   const sajiliSadaka = () => {
+    setLoadingDisplay(true);
     if (sadaka.bahasha != "" && sadaka.kiasi && sadaka.tarehe) {
       setLoading(true);
+
       axios
         .post("/api/findUserBahasha", sadaka)
         .then(function (response) {
@@ -294,6 +298,7 @@ const Index = ({
           if (users) {
             setConfirmSadaka(false);
             setUserReturned(users);
+            setLoadingDisplay(false);
           } else {
             setConfirmSadaka(true);
             notifyError(
@@ -313,6 +318,7 @@ const Index = ({
           // always executed
         });
     } else {
+      setLoadingDisplay(false);
       notifyError("Jaza nafasi zote zilizo wazi.");
     }
   };
@@ -343,6 +349,7 @@ const Index = ({
   };
 
   const handleThibitisha = () => {
+    setLoading(true);
     let data = {
       tarehe: new Date(sadaka.tarehe),
       amount: parseInt(sadaka.kiasi),
@@ -567,12 +574,18 @@ const Index = ({
                                 <span>Tarehe Ya Sadaka</span>
                               </div>
                             </div>
-                            <div
-                              onClick={sajiliSadaka}
-                              className={Styles.subjectBodyButton}
-                            >
-                              Sajili Sadaka
-                            </div>
+                            {loadingDisplay ? (
+                              <div className={Styles.subjectBodyButton}>
+                                <LoaderWait sms={"Uboreshaji"} />
+                              </div>
+                            ) : (
+                              <div
+                                onClick={sajiliSadaka}
+                                className={Styles.subjectBodyButton}
+                              >
+                                Sajili Sadaka
+                              </div>
+                            )}
                           </>
                         ) : (
                           <>
