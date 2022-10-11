@@ -181,6 +181,7 @@ const Index = ({
   };
 
   const uthibitisho = () => {
+    setLoadingDisplay(true);
     let dataUser = {
       id: user.id,
       name: user.name,
@@ -211,7 +212,7 @@ const Index = ({
       verified: true,
     };
     axios
-      .post("http://localhost:3000/api/updateUser", dataUser)
+      .post("/api/updateUser", dataUser)
       .then(function (response) {
         //responce
         if (response.data.type == "success") {
