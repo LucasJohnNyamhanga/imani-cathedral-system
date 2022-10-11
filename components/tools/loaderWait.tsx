@@ -11,7 +11,7 @@ const LoaderWait = ({ sms }: dataType) => {
         width="33"
         height="33"
         viewBox="0 0 16 16"
-        color="#007aff"
+        color="#fff"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
