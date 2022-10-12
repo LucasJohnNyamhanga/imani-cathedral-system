@@ -31,9 +31,6 @@ const BlogCard = ({ data }: dataType) => {
               className={Styles.photo}
               style={{
                 backgroundImage: `url(${item.image})`,
-                backgroundRepeat: "no-repeat",
-                backgroundSize: "cover",
-                backgroundPosition: "center",
               }}
             ></div>
             <ul className={Styles.details}>
