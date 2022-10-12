@@ -96,7 +96,9 @@ const Nav = () => {
                   height={100}
                 />
               </div>
-              <div className={Styles.kkkt}>KKKT USHARIKA WA IMANI</div>
+              <div className={Styles.kkkt}>
+                KKKT USHARIKA WA IMANI CATHEDRAL
+              </div>
               <div className={Styles.verse}>
                 <div className={Styles.details}>
                   &ldquo;Kabla sijasema neno lolote, wewe, ee Mwenyezi-Mungu,
