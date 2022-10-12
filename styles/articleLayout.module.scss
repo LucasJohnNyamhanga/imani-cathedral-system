@@ -1,113 +1,113 @@
-@import 'index';
+@import "index";
 .container {
-	display: flex;
-	flex-direction: column;
-	width: 100%;
-	justify-content: flex-start;
-	align-items: center;
-	background-color: $white;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: $white;
 
-	.innerContainer {
-		width: 100%;
-		max-width: 1400px;
-		padding: 10px;
-		display: flex;
-		flex-direction: row;
-		min-height: 60vh;
+  .innerContainer {
+    width: 100%;
+    max-width: 1400px;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    min-height: 60vh;
 
-		.headerText {
-			padding: 15px 20px;
-			font-family: $fontHeader;
-			font-size: 20px;
-			font-weight: 600;
-			width: fit-content;
-			background-color: $ugoro;
-			color: $nyeupe;
-			text-align: center;
-			margin-top: 15px;
-			margin-bottom: 10px;
-		}
+    .headerText {
+      padding: 15px 20px;
+      font-family: $fontHeader;
+      font-size: 20px;
+      font-weight: 600;
+      width: fit-content;
+      background-color: $ugoro;
+      color: $nyeupe;
+      text-align: center;
+      margin-top: 15px;
+      margin-bottom: 10px;
+    }
 
-		.headerTextEndelea {
-			width: 100%;
+    .headerTextEndelea {
+      width: 100%;
 
-			font-family: $fontHeader;
-			font-size: 16px;
-			font-weight: 500;
-			background-color: $white;
-			color: $ugoro;
-			margin-top: 10px;
-			margin-bottom: 15px;
-			display: flex;
-			flex-direction: column;
-			justify-content: flex-end;
-			align-content: flex-end;
-		}
+      font-family: $fontHeader;
+      font-size: 16px;
+      font-weight: 500;
+      background-color: $white;
+      color: $ugoro;
+      margin-top: 10px;
+      margin-bottom: 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-content: flex-end;
+    }
 
-		.headerTextEndelea > div {
-			cursor: pointer;
-			width: fit-content;
-			align-self: flex-end;
-			padding: 10px 10px;
-			transition: 0.3s;
-			color: $lightblue;
-			font-size: 18px;
+    .headerTextEndelea > div {
+      cursor: pointer;
+      width: fit-content;
+      align-self: flex-end;
+      padding: 10px;
+      transition: 0.3s;
+      color: $lightblue;
+      font-size: 18px;
 
-			@media only screen and (max-width: 948px) {
-				font-size: 16px;
-			}
-		}
+      @media only screen and (max-width: 948px) {
+        font-size: 16px;
+      }
+    }
 
-		.headerTextEndelea > div:hover {
-			color: $ugoro;
-			margin-right: 10px;
-		}
+    .headerTextEndelea > div:hover {
+      color: $ugoro;
+      margin-right: 10px;
+    }
 
-		.containerLeft {
-			width: 100%;
-			display: flex;
-			flex-direction: column;
-			justify-content: flex-start;
-			align-items: flex-start;
-			padding-right: 15px;
-		}
+    .containerLeft {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      padding-right: 15px;
+    }
 
-		.containerRight {
-			width: 100%;
-			display: flex;
-			flex-direction: column;
-			justify-content: flex-start;
-			align-items: flex-start;
-			max-width: 400px;
-		}
-	}
+    .containerRight {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      max-width: 400px;
+    }
+  }
 
-	@media only screen and (max-width: 1100px) {
-		.innerContainer {
-			.containerLeft {
-			}
+  @media only screen and (max-width: 1100px) {
+    .innerContainer {
+      .containerLeft {
+        padding-right: 0px;
+      }
 
-			.containerRight {
-				max-width: 100%;
-				max-width: 310px;
-			}
-		}
-	}
+      .containerRight {
+        max-width: 100%;
+        max-width: 310px;
+      }
+    }
+  }
 
-	@media only screen and (max-width: 948px) {
-		.innerContainer {
-			flex-direction: column;
-			width: 100%;
-			padding: 10px;
+  @media only screen and (max-width: 948px) {
+    .innerContainer {
+      flex-direction: column;
+      width: 100%;
 
-			.containerLeft {
-				margin-left: 0px;
-				margin-right: 0px;
-			}
+      .containerLeft {
+        margin-left: 0px;
+        margin-right: 0px;
+      }
 
-			.containerRight {
-				max-width: 100%;
-			}
-		}
-	}
+      .containerRight {
+        max-width: 100%;
+      }
+    }
+  }
 }
