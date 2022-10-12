@@ -304,6 +304,7 @@ const Index = ({
             notifyError(
               `Hakuna Msharika mwenye bahasha nambari ${sadaka.bahasha} aliyepatikana.`
             );
+            setLoadingDisplay(false);
           }
 
           setLoading(false);
@@ -576,7 +577,7 @@ const Index = ({
                             </div>
                             {loadingDisplay ? (
                               <div className={Styles.subjectBodyButton}>
-                                <LoaderWait sms={"Uboreshaji"} />
+                                <LoaderWait sms={"Uhakiki"} />
                               </div>
                             ) : (
                               <div
