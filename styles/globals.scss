@@ -1,83 +1,49 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
-@import 'index';
+@import "index";
+html {
+  font-size: 16px;
+}
 html,
 body {
-	--scrollbarBG: black;
-	--thumbBG: #007aff;
-	background-color: $white;
-	padding: 0;
-	margin: 0;
-	font-family: -apple-system, Montserrat, BlinkMacSystemFont, Segoe UI, Roboto,
-		Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-	max-width: 1920px;
-	background-color: $white;
-	scroll-behavior: smooth;
-	@media (prefers-color-scheme: dark) {
-		color: $black;
-	}
-	cursor: default;
-	scrollbar-width: thin;
-	scrollbar-color: var(--thumbBG) var(--scrollbarBG);
+  --scrollbarBG: black;
+  --thumbBG: #007aff;
+  background-color: $white;
+  padding: 0;
+  margin: 0;
+  font-family: $fontHeader, $fontBody;
+  max-width: 1920px;
+  background-color: $white;
+  scroll-behavior: smooth;
+  @media (prefers-color-scheme: dark) {
+    color: $black;
+  }
+  cursor: default;
+  scrollbar-width: thin;
+  scrollbar-color: var(--thumbBG) var(--scrollbarBG);
 
-	&::-webkit-scrollbar-track {
-		background: var(--scrollbarBG);
-	}
-	&::-webkit-scrollbar-thumb {
-		background-color: var(--thumbBG);
-		border-radius: 6px;
-		border: 3px solid var(--scrollbarBG);
-	}
-	&::-webkit-scrollbar {
-		width: 11px;
-	}
+  &::-webkit-scrollbar-track {
+    background: var(--scrollbarBG);
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--thumbBG);
+    border-radius: 6px;
+    border: 3px solid var(--scrollbarBG);
+  }
+  &::-webkit-scrollbar {
+    width: 11px;
+  }
 }
 
 a {
-	color: inherit;
-	text-decoration: none;
+  color: inherit;
+  text-decoration: none;
 }
 
 * {
-	box-sizing: border-box;
+  box-sizing: border-box;
 }
-
-.container {
-	// background-color: #cccccc;
-	// background-repeat: repeat;
-	// // background-attachment: fixed;
-	// background-size: cover;
-	// -webkit-animation: backgroundScroll 30s linear infinite;
-	// -webkit-animation-fill-mode: forwards;
-	// animation: backgroundScroll 30s linear infinite;
-	// animation-fill-mode: forwards;
-}
-
-// @keyframes backgroundScroll {
-// 	0% {
-// 		background-position: 0 0;
-// 	}
-// 	50% {
-// 		background-position: -360px -180px;
-// 	}
-// 	100% {
-// 		background-position: 0 0;
-// 	}
-// }
-
-// @-webkit-keyframes backgroundScroll {
-// 	0% {
-// 		background-position: 0 0;
-// 	}
-// 	50% {
-// 		background-position: -360px -180px;
-// 	}
-// 	100% {
-// 		background-position: 0 0;
-// 	}
-// }
 
 @media (prefers-color-scheme: dark) {
-	html {
-		color-scheme: light;
-	}
+  html {
+    color-scheme: light;
+  }
 }
