@@ -1,279 +1,280 @@
-@import 'index';
+@import "index";
 
 .mainContainer {
-	width: 100%;
-	display: flex;
-	flex-direction: column;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .innerContainerTop {
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
-	.NavHeaderDetails {
-		width: 100%;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		background-color: $nyeupe;
+  .NavHeaderDetails {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: $nyeupe;
 
-		.utangulizi {
-			width: 100%;
-			max-width: 1200px;
-			display: flex;
-			flex-direction: row;
-			align-items: center;
+    .utangulizi {
+      width: 100%;
+      max-width: 1200px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
 
-			.logo {
-				width: 100%;
-				display: flex;
-				flex-direction: row;
-				align-items: center;
-				justify-content: space-between;
+      .logo {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
 
-				.kkkt {
-					font-weight: bolder;
-					font-size: 22px;
-					color: $lightblue;
-				}
+        .kkkt {
+          font-family: $fontHeader;
+          font-weight: 600;
+          font-size: 25px;
+          color: $lightblue;
+        }
 
-				.verse {
-					max-width: 300px;
-					font-weight: 500;
+        .verse {
+          max-width: 300px;
+          font-weight: 500;
 
-					.details {
-						padding: 5px 0px;
-					}
+          .details {
+            padding: 5px 0px;
+          }
 
-					.number {
-						font-weight: 500;
-						color: $lightblue;
-					}
-				}
-			}
-		}
-	}
+          .number {
+            font-weight: 500;
+            color: $lightblue;
+          }
+        }
+      }
+    }
+  }
 
-	.NavDetails {
-		background-color: $lightkahawa;
-		height: fit-content;
-		min-height: 30px;
-		font-family: $fontHeader;
-		font-size: 15px;
-		width: 100%;
-		display: flex;
-		flex-direction: row;
-		justify-content: center;
-		align-items: center;
-		color: $ugoro;
+  .NavDetails {
+    background-color: $lightkahawa;
+    height: fit-content;
+    min-height: 30px;
+    font-family: $fontHeader;
+    font-size: 15px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: $ugoro;
 
-		.topAdvatisment {
-			width: 100%;
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			justify-content: center;
-			font-weight: 600;
+    .topAdvatisment {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
 
-			p {
-				text-align: center;
-				width: fit-content;
-				padding: 5px;
-				margin: 5px;
-				padding-left: 10px;
-				padding-right: 10px;
-			}
-		}
-	}
+      p {
+        text-align: center;
+        width: fit-content;
+        padding: 5px;
+        margin: 5px;
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+    }
+  }
 
-	.NavHeader {
-		background-color: $ugoro;
-		display: flex;
-		flex-direction: row;
-		justify-content: center;
-		width: 100%;
-		padding-left: 2rem;
-		padding-right: 2rem;
+  .NavHeader {
+    background-color: $ugoro;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    padding-left: 2rem;
+    padding-right: 2rem;
 
-		.nav {
-			font-family: $fontHeader;
-			font-weight: 400;
-			background-color: $ugoro;
-			width: 100%;
-			height: 60px;
-			max-width: 1200px;
-			display: flex;
-			flex-direction: row;
-			align-items: center;
-			justify-content: space-between;
+    .nav {
+      font-family: $fontHeader;
+      font-weight: 400;
+      background-color: $ugoro;
+      width: 100%;
+      height: 60px;
+      max-width: 1200px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
 
-			.logo {
-				font-family: $fontHeader;
-				font-weight: 500;
-				font-size: 24px;
-				display: flex;
-				flex-direction: row;
-				cursor: pointer;
-				color: $lightblue;
+      .logo {
+        font-family: $fontHeader;
+        font-weight: 500;
+        font-size: 24px;
+        display: flex;
+        flex-direction: row;
+        cursor: pointer;
+        color: $lightblue;
 
-				.icon {
-					display: flex;
-					align-items: center;
-					justify-content: center;
-					margin-right: 10px;
-				}
+        .icon {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-right: 10px;
+        }
 
-				.shule {
-					color: $lightkahawa;
-					display: flex;
-					align-items: center;
-					justify-content: center;
-				}
-			}
+        .shule {
+          color: $lightkahawa;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
 
-			.links ul {
-				display: flex;
-				flex-direction: row;
-				align-items: center;
-				justify-content: center;
-				list-style-type: none;
-				padding: 0 0;
-				margin: 0 0;
-				color: $lightkahawa;
-			}
+      .links ul {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        list-style-type: none;
+        padding: 0 0;
+        margin: 0 0;
+        color: $lightkahawa;
+      }
 
-			.links ul li {
-				padding: 0.5rem 1rem;
-				border-radius: 4px;
-				border: 2px solid transparent;
-				font-family: $fontHeader;
-				font-weight: 600;
-				font-size: 16px;
-				margin: 0px 1.5px;
-				z-index: 14;
-				position: relative;
-			}
+      .links ul li {
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        border: 2px solid transparent;
+        font-family: $fontHeader;
+        font-weight: 500;
+        font-size: 16px;
+        margin: 0px 1.5px;
+        z-index: 14;
+        position: relative;
+      }
 
-			.links ul li:hover {
-				border: 2px solid $lightkahawa;
-				background-color: $lightkahawa;
-				color: $ugoro;
-				border-radius: 4px;
-				cursor: pointer;
-			}
+      .links ul li:hover {
+        border: 2px solid $lightkahawa;
+        background-color: $lightkahawa;
+        color: $ugoro;
+        border-radius: 4px;
+        cursor: pointer;
+      }
 
-			ul li ul {
-				visibility: hidden;
-				opacity: 0;
-				position: absolute;
+      ul li ul {
+        visibility: hidden;
+        opacity: 0;
+        position: absolute;
 
-				left: 0;
-				display: flex;
-				flex-direction: column;
-				padding-top: 25px !important;
-				width: fit-content;
-			}
+        left: 0;
+        display: flex;
+        flex-direction: column;
+        padding-top: 25px !important;
+        width: fit-content;
+      }
 
-			ul li ul li {
-				padding: 0.5rem 1rem;
-				border-radius: 4px;
-				border: 2px solid transparent;
-				font-family: $fontHeader;
-				font-weight: 600 !important;
-				font-size: 15px !important;
-				background-color: $ugoro;
-				color: $nyeupe;
-				margin-bottom: 5px !important;
-				width: 100%;
-				white-space: nowrap;
-				z-index: 999999999 !important;
-			}
+      ul li ul li {
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        border: 2px solid transparent;
+        font-family: $fontHeader;
+        font-weight: 500 !important;
+        font-size: 15px !important;
+        background-color: $ugoro;
+        color: $nyeupe;
+        margin-bottom: 5px !important;
+        width: 100%;
+        white-space: nowrap;
+        z-index: 999999999 !important;
+      }
 
-			ul li:hover > ul,
-			ul li ul:hover {
-				visibility: visible;
-				opacity: 1;
-				display: flex;
-				flex-direction: column;
-				z-index: 999999999 !important;
-			}
+      ul li:hover > ul,
+      ul li ul:hover {
+        visibility: visible;
+        opacity: 1;
+        display: flex;
+        flex-direction: column;
+        z-index: 999999999 !important;
+      }
 
-			.buttonsNav {
-				color: $lightkahawa;
-				font-family: $fontHeader;
-				font-weight: 600;
-				font-size: 16px;
-				display: flex;
-				flex-direction: row;
-				justify-content: center;
-				align-items: center;
+      .buttonsNav {
+        color: $lightkahawa;
+        font-family: $fontHeader;
+        font-weight: 500;
+        font-size: 16px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
 
-				.validating {
-					font-family: $fontHeader;
-					color: $lightkahawa;
-					font-weight: 500;
-				}
-				.Sign {
-					padding: 0.5rem 1rem;
-					border-radius: 4px;
-					border: 2px solid transparent;
-					font-family: $fontHeader;
-					font-weight: 600;
-					font-size: 16px;
-					margin: 0px 1.5px;
-					background-color: $white;
-					color: $ugoro;
-				}
+        .validating {
+          font-family: $fontHeader;
+          color: $lightkahawa;
+          font-weight: 500;
+        }
+        .Sign {
+          padding: 0.5rem 1rem;
+          border-radius: 4px;
+          border: 2px solid transparent;
+          font-family: $fontHeader;
+          font-weight: 500;
+          font-size: 16px;
+          margin: 0px 1.5px;
+          background-color: $white;
+          color: $ugoro;
+        }
 
-				.Sign:hover {
-					border: 2px solid $lightkahawa;
-					background-color: $lightkahawa;
-					color: $ugoro;
-					border-radius: 4px;
-					cursor: pointer;
-					color: $ugoro;
-				}
+        .Sign:hover {
+          border: 2px solid $lightkahawa;
+          background-color: $lightkahawa;
+          color: $ugoro;
+          border-radius: 4px;
+          cursor: pointer;
+          color: $ugoro;
+        }
 
-				.Register {
-					padding: 0.5rem 1rem;
-					border-radius: 4px;
-					border: 2px solid $lightblue;
-					background-color: $ugoro;
-					font-family: $fontHeader;
-					font-weight: 600;
-					font-size: 16px;
-					margin: 0px 1.5px;
-					color: $lightkahawa;
-				}
+        .Register {
+          padding: 0.5rem 1rem;
+          border-radius: 4px;
+          border: 2px solid $lightblue;
+          background-color: $ugoro;
+          font-family: $fontHeader;
+          font-weight: 500;
+          font-size: 16px;
+          margin: 0px 1.5px;
+          color: $lightkahawa;
+        }
 
-				.Register:hover {
-					border: 2px solid $lightkahawa;
-					background-color: $lightkahawa;
-					color: $ugoro;
-					border-radius: 4px;
-					cursor: pointer;
-				}
-			}
-		}
-	}
+        .Register:hover {
+          border: 2px solid $lightkahawa;
+          background-color: $lightkahawa;
+          color: $ugoro;
+          border-radius: 4px;
+          cursor: pointer;
+        }
+      }
+    }
+  }
 }
 
 .active {
-	border: 2px solid $lightblue;
-	background-color: $lightblue;
-	color: $white;
-	border-radius: 4px;
-	cursor: pointer;
+  border: 2px solid $lightblue;
+  background-color: $lightblue;
+  color: $white;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 .active:hover {
-	border: 2px solid $lightblue !important;
-	background-color: $lightblue !important;
-	color: $white !important;
-	border-radius: 4px !important;
-	cursor: pointer !important;
+  border: 2px solid $lightblue !important;
+  background-color: $lightblue !important;
+  color: $white !important;
+  border-radius: 4px !important;
+  cursor: pointer !important;
 }

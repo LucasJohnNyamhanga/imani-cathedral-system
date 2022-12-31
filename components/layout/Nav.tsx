@@ -22,9 +22,9 @@ const Nav = () => {
     });
   };
 
-  let handleRegister = () => {
+  let handleSomaBiblia = () => {
     push({
-      pathname: "/Auth/Sajili",
+      pathname: "/SomaBiblia",
     });
   };
 
@@ -99,10 +99,10 @@ const Nav = () => {
               <div className={Styles.kkkt}>KKKT USHARIKA WA IMANI</div>
               <div className={Styles.verse}>
                 <div className={Styles.details}>
-                  &ldquo;Kabla sijasema neno lolote, wewe, ee Mwenyezi-Mungu,
-                  walijua kabisa.&rdquo;
+                  &ldquo;Akasema, Uso wangu utakwenda pamoja nawe, nami nitakupa
+                  raha.&rdquo;
                 </div>
-                <div className={Styles.number}>Zaburi 139:4</div>
+                <div className={Styles.number}>Kutoka 33:14</div>
               </div>
             </div>
           </div>
@@ -193,6 +193,23 @@ const Nav = () => {
                     </ul>
                   </li>
                 </div>
+                <Link href="/SomaBiblia">
+                  <a>
+                    <div
+                      onClick={() => {
+                        setNavActive("Biblia");
+                      }}
+                    >
+                      <li
+                        className={
+                          "Biblia" == navActive ? Styles.active : Styles.links
+                        }
+                      >
+                        Soma Biblia
+                      </li>
+                    </div>
+                  </a>
+                </Link>
               </ul>
             </div>
             <div className={Styles.buttonsNav}>
@@ -204,9 +221,6 @@ const Nav = () => {
                 </>
               ) : (
                 <>
-                  <div className={Styles.Sign} onClick={handleRegister}>
-                    Jisajili
-                  </div>
                   <div onClick={handleSignIn} className={Styles.Register}>
                     Ingia
                   </div>
