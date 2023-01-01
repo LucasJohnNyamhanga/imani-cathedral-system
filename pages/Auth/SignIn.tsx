@@ -42,15 +42,16 @@ const SignIn = ({}) => {
           notifyError("Umekosea namba ya bahasha au neno la siri");
           setLoadingDisplay(false);
         } else if (responce?.status === 200) {
-          if (typeof callback != "undefined") {
-            if (callback.includes("/Auth")) {
-              push(`/`);
-            } else {
-              push(`${callback}`);
-            }
-          } else {
-            push("/");
-          }
+          // if (typeof callback != "undefined") {
+          //   if (callback.includes("/Auth")) {
+          //     push(`/`);
+          //   } else {
+          //     push(`${callback}`);
+          //   }
+          // } else {
+          //   push("/");
+          // }
+          push("/Admin/");
         }
       });
     } else {

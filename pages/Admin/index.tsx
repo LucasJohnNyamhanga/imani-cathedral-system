@@ -2,7 +2,8 @@ import { useState, useRef, useContext, useEffect } from "react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Styles from "../../styles/admin.module.scss";
 import { ReactNode } from "react";
-import { BsInboxesFill } from "react-icons/bs";
+import { FaRegIdCard } from "react-icons/fa";
+import { FaRegEdit } from "react-icons/fa";
 import toast, { Toaster } from "react-hot-toast";
 import { NavContext } from "../../components/context/StateContext";
 import Loader from "../../components/tools/loader";
@@ -10,8 +11,8 @@ import Drawer from "../../components/tools/DrawerMobileAdmin";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useSession } from "next-auth/react";
 import { getSession } from "next-auth/react";
-import { FaUserTie as UserKamili } from "react-icons/fa";
-import { FaUserTimes as UserKasoro } from "react-icons/fa";
+import { FaFileMedicalAlt as TengenezaPost } from "react-icons/fa";
+import { FaFileSignature as RekebishaPost } from "react-icons/fa";
 import axios from "axios";
 import { prisma } from "../../db/prisma";
 import Badge from "@mui/material/Badge";
@@ -396,13 +397,11 @@ const Index = ({
           <div className={Styles.leftInnercontainerBody}>
             <div className={Styles.leftInner}>
               <div className={Styles.containerHeader}>
-                <div className={Styles.TopicHeader}>Parish Worker</div>
+                <div className={Styles.TopicHeader}>Kituo Cha Usimamizi</div>
               </div>
               <div className={Styles.scroller}>
                 <div className={Styles.containerBody}>
-                  <div className={Styles.TopicHeaderNotes}>
-                    Usajili Washarika
-                  </div>
+                  <div className={Styles.TopicHeaderNotes}>Maandishi</div>
                   <div
                     ref={maombiYaliokamilika}
                     id="maombiYaliokamilika"
@@ -410,9 +409,9 @@ const Index = ({
                     className={Styles.topicTittle}
                   >
                     <Badge badgeContent={maombiKamili} color="primary">
-                      <UserKamili size={18} />
+                      <TengenezaPost size={25} />
                     </Badge>
-                    <div className={Styles.text}>Usajiri kamili</div>
+                    <div className={Styles.text}>Tengeneza Andishi</div>
                   </div>
                   <div
                     ref={maombiKasoro}
@@ -421,19 +420,28 @@ const Index = ({
                     className={Styles.topicTittle}
                   >
                     <Badge badgeContent={kasoro} color="primary">
-                      <UserKasoro size={18} />
+                      <RekebishaPost size={25} />
                     </Badge>
-                    <div className={Styles.text}>Usajiri Kasoro</div>
+                    <div className={Styles.text}>Rekebisha Andishi</div>
                   </div>
-                  <div className={Styles.TopicHeaderNotes}>Matoleo</div>
+                  <div className={Styles.TopicHeaderNotes}>Matangazo</div>
                   <div
                     ref={sadakaAhadi}
                     id="sadakaAhadi"
                     onClick={(e) => handleNav(e.currentTarget.id)}
                     className={Styles.topicTittle}
                   >
-                    <BsInboxesFill size={25} />
-                    <div className={Styles.text}>Sadaka ya Ahadi</div>
+                    <FaRegIdCard size={25} />
+                    <div className={Styles.text}>Tengeneza Tangazo</div>
+                  </div>
+                  <div
+                    ref={sadakaAhadi}
+                    id="sadakaAhadi"
+                    onClick={(e) => handleNav(e.currentTarget.id)}
+                    className={Styles.topicTittle}
+                  >
+                    <FaRegEdit size={25} />
+                    <div className={Styles.text}>Rekebisha Tangazo</div>
                   </div>
                 </div>
               </div>
