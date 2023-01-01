@@ -47,51 +47,52 @@ type userData = {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context);
-  if (!session) {
-    return {
-      redirect: {
-        destination: `/Auth/SignIn?callbackUr=/`,
-        permanent: false,
-      },
-    };
-  }
+  // if (!session) {
+  //   return {
+  //     redirect: {
+  //       destination: `/Auth/SignIn?callbackUr=/`,
+  //       permanent: false,
+  //     },
+  //   };
+  // }
 
-  const userFromServer = await prisma.user.findFirst({
-    where: {
-      bahasha: session.user!.email,
-    },
-    select: {
-      id: true,
-      name: true,
-      image: true,
-    },
-  });
-  const userfound = await JSON.parse(JSON.stringify(userFromServer));
+  // const userFromServer = await prisma.user.findFirst({
+  //   where: {
+  //     bahasha: session.user!.email,
+  //   },
+  //   select: {
+  //     id: true,
+  //     name: true,
+  //     image: true,
+  //   },
+  // });
+  // const userfound = await JSON.parse(JSON.stringify(userFromServer));
 
-  const userVerificationPendingServer = await prisma.user.count({
-    where: { missing: false, verified: false },
-  });
-  const userVerificationPending = await JSON.parse(
-    JSON.stringify(userVerificationPendingServer)
-  );
+  // const userVerificationPendingServer = await prisma.user.count({
+  //   where: { missing: false, verified: false },
+  // });
+  // const userVerificationPending = await JSON.parse(
+  //   JSON.stringify(userVerificationPendingServer)
+  // );
 
-  const userMissingCredentialsServer = await prisma.user.count({
-    where: { missing: true, verified: false },
-  });
-  const userMissingCredentials = await JSON.parse(
-    JSON.stringify(userMissingCredentialsServer)
-  );
+  // const userMissingCredentialsServer = await prisma.user.count({
+  //   where: { missing: true, verified: false },
+  // });
+  // const userMissingCredentials = await JSON.parse(
+  //   JSON.stringify(userMissingCredentialsServer)
+  // );
 
   return {
-    props: { userfound, userVerificationPending, userMissingCredentials },
+    props: {
+      // userfound, userVerificationPending, userMissingCredentials
+    },
   };
 };
 
-const Index = ({
-  userfound,
-  userVerificationPending,
-  userMissingCredentials,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const Index = ({}: // userfound,
+// userVerificationPending,
+// userMissingCredentials,
+InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const matches300 = useMediaQuery("(min-width:325px)");
   const { navActive, setNavActive } = useContext(NavContext);
 
@@ -385,8 +386,8 @@ const Index = ({
   };
 
   useEffect(() => {
-    setMaombiKamili(userVerificationPending);
-    setKasoro(userMissingCredentials);
+    // setMaombiKamili(userVerificationPending);
+    // setKasoro(userMissingCredentials);
   }, []);
 
   return (
@@ -401,7 +402,7 @@ const Index = ({
               </div>
               <div className={Styles.scroller}>
                 <div className={Styles.containerBody}>
-                  <div className={Styles.TopicHeaderNotes}>Maandishi</div>
+                  <div className={Styles.TopicHeaderNotes}>Uboreshaji</div>
                   <div
                     ref={maombiYaliokamilika}
                     id="maombiYaliokamilika"
@@ -411,7 +412,7 @@ const Index = ({
                     <Badge badgeContent={maombiKamili} color="primary">
                       <TengenezaPost size={25} />
                     </Badge>
-                    <div className={Styles.text}>Tengeneza Andishi</div>
+                    <div className={Styles.text}>Machapisho</div>
                   </div>
                   <div
                     ref={maombiKasoro}
@@ -420,11 +421,11 @@ const Index = ({
                     className={Styles.topicTittle}
                   >
                     <Badge badgeContent={kasoro} color="primary">
-                      <RekebishaPost size={25} />
+                      <FaRegIdCard size={25} />
                     </Badge>
-                    <div className={Styles.text}>Rekebisha Andishi</div>
+                    <div className={Styles.text}>Matangazo</div>
                   </div>
-                  <div className={Styles.TopicHeaderNotes}>Matangazo</div>
+                  <div className={Styles.TopicHeaderNotes}>Usimamizi</div>
                   <div
                     ref={sadakaAhadi}
                     id="sadakaAhadi"
@@ -432,7 +433,7 @@ const Index = ({
                     className={Styles.topicTittle}
                   >
                     <FaRegIdCard size={25} />
-                    <div className={Styles.text}>Tengeneza Tangazo</div>
+                    <div className={Styles.text}>Watumiaji</div>
                   </div>
                   <div
                     ref={sadakaAhadi}
@@ -450,12 +451,12 @@ const Index = ({
           {/* //!start of default desplay */}
           <div className={Styles.rightInnercontainerBody}>
             <div className={Styles.mobile}>
-              <Drawer
+              {/* <Drawer
                 textHeader={"Parish Worker"}
                 active={active}
                 handleClick={handleNav}
                 userData={userfound}
-              />
+              /> */}
             </div>
 
             {loading && (
