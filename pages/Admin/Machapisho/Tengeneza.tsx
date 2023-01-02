@@ -22,6 +22,7 @@ const CkEditor = dynamic(() => import("../../../components/tools/Ck"), {
 
 import { getSession } from "next-auth/react";
 import LoaderWait from "../../../components/tools/loaderWait";
+import InputTextMui from "../../../components/tools/InputTextMui";
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context);
   const url = process.env.MAIN_URL;
@@ -103,24 +104,17 @@ const Notes = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navActive]);
 
-  const [formOptions, setFormOptions] = useState<formData>([]);
-  const [subjectOptions, setSubjectOptions] = useState<formData>([]);
-  const [topicOptions, setTopicOptions] = useState<formData>([]);
   const [change, setChange] = useState(0);
-  const [hideShow, setHideShow] = useState(false);
-  const [topicDetails, setTopicDetails] = useState({
-    formId: "",
-    subjectId: "",
-  });
+  const [kundiHabari, setKundiHabari] = useState<formData>([]);
 
-  const [topicSelectValue, setTopicSelectValue] = useState({
-    formId: "",
-    subjectId: "",
-    topicId: "",
-    content: "",
-    userId: "",
+  const [andikoDetails, setAndikoDetails] = useState({
+    title: "",
+    subTitle: "",
+    body: "",
+    tag: "",
   });
   const [loading, setLoad] = useState(false);
+
   const notify = (message: string) => toast(message);
   const notifySuccess = (message: string) => toast.success(message);
   const notifyError = (message: string) => toast.error(message);
@@ -148,44 +142,24 @@ const Notes = ({
       `img`,
       `Image layout="fill" objectFit="cover"`
     );
-    setTopicSelectValue({ ...topicSelectValue, content: convertedData });
+    setAndikoDetails({ ...andikoDetails, body: convertedData });
   };
 
-  let handleSelectSubject = (value: string) => {
-    setTopicDetails({ ...topicDetails, subjectId: value });
-    setTopicSelectValue({ ...topicSelectValue, subjectId: value });
-    setChange(change + 1);
+  let handleSelectKundiHabari = (value: string) => {
+    setAndikoDetails({ ...andikoDetails, tag: value });
   };
 
-  let handleSelectForm = (value: string) => {
-    setTopicDetails({ ...topicDetails, formId: value });
-    setTopicSelectValue({ ...topicSelectValue, formId: value });
-    setChange(change + 1);
-  };
-
-  let handleSelectTopic = (value: string) => {
-    setTopicSelectValue({
-      ...topicSelectValue,
-      topicId: value,
-      userId: userfound.id,
-    });
-  };
-
-  let handleCreateNotes = () => {
+  let handleTengenezaAndiko = () => {
     if (
-      topicSelectValue.formId != "" &&
-      topicSelectValue.subjectId != "" &&
-      topicSelectValue.topicId &&
-      topicSelectValue.content.length > 200
+      andikoDetails.title != "" &&
+      andikoDetails.subTitle != "" &&
+      andikoDetails.tag != "" &&
+      andikoDetails.body.length > 200
     ) {
-      checkNotes();
       setLoad(true);
+      sendToDatabase();
     } else {
-      if (topicSelectValue.content.length < 200) {
-        notifyError("Notes content should exceed 200 characters..");
-      } else {
-        notifyError("Fill in all fields including selections.");
-      }
+      notifyError("Fill in all fields including selections.");
     }
   };
 
@@ -193,17 +167,11 @@ const Notes = ({
     axios({
       method: "post",
       url: url + "/api/addNotes",
-      data: topicSelectValue,
+      data: andikoDetails,
     })
       .then(function (response) {
         // handle success
-        setTopicSelectValue({
-          formId: "",
-          subjectId: "",
-          topicId: "",
-          content: "",
-          userId: "",
-        });
+
         let jibu: string = response.data.message;
         let type: string = response.data.type;
 
@@ -227,35 +195,14 @@ const Notes = ({
       });
   };
 
-  let checkNotes = () => {
-    axios({
-      method: "post",
-      url: url + "/api/notes",
-      data: topicSelectValue,
-    })
-      .then(function (response) {
-        const notesFromServer = JSON.parse(JSON.stringify(response.data));
-        // handle success
-        if (notesFromServer.length > 0) {
-          notifyError("Database contain another copy of this note.");
-          setLoad(false);
-        } else {
-          sendToDatabase();
-        }
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error);
-        notifyError("Something went wrong.");
-        setLoad(false);
-      })
-      .then(function () {
-        // always executed
-      });
-  };
-
   let handleOnReady = () => {
     console.log("Editor is ready");
+  };
+
+  let handletextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let value = e.target.value;
+    let name = e.target.name;
+    setAndikoDetails({ ...andikoDetails, [name]: value });
   };
 
   return (
@@ -264,6 +211,38 @@ const Notes = ({
       <div className={Styles.innerContainer}>
         <div className={Styles.content}>
           <div className={Styles.mainContent}>
+            <div className={Styles.inputBox}>
+              <input
+                type="text"
+                required
+                value={andikoDetails.title}
+                placeholder={""}
+                name={"title"}
+                onChange={(event) => {
+                  handletextChange(event);
+                }}
+                autoComplete="off"
+                autoCorrect="off"
+                spellCheck={false}
+              />
+              <span>Kichwa Cha Habari</span>
+            </div>
+            <div className={Styles.inputBox}>
+              <input
+                type="text"
+                required
+                value={andikoDetails.subTitle}
+                placeholder={""}
+                name={"subTitle"}
+                onChange={(event) => {
+                  handletextChange(event);
+                }}
+                autoComplete="off"
+                autoCorrect="off"
+                spellCheck={false}
+              />
+              <span>Muktasari</span>
+            </div>
             <CkEditor
               content={handleContent}
               dataCk={""}
@@ -273,27 +252,11 @@ const Notes = ({
           <div className={Styles.controlContent}>
             <SelectMiu
               show={true}
-              displayLabel="Select Subject"
-              forms={subjectOptions}
-              handlechange={handleSelectSubject}
-              value={topicSelectValue.subjectId}
+              displayLabel="Kundi La Habari"
+              forms={kundiHabari}
+              handlechange={handleSelectKundiHabari}
+              value={andikoDetails.tag}
             />
-            <SelectMiu
-              show={true}
-              displayLabel="Select Form"
-              forms={formOptions}
-              handlechange={handleSelectForm}
-              value={topicSelectValue.formId}
-            />
-            {hideShow && (
-              <SelectMiu
-                show={true}
-                displayLabel="Select Topic"
-                forms={topicOptions}
-                handlechange={handleSelectTopic}
-                value={""}
-              />
-            )}
           </div>
         </div>
         <div>
@@ -302,7 +265,7 @@ const Notes = ({
               <LoaderWait sms={"Wait.."} />
             </div>
           ) : (
-            <div onClick={handleCreateNotes} className={Styles.imageSelect}>
+            <div onClick={handleTengenezaAndiko} className={Styles.imageSelect}>
               Tengeneza Andiko
             </div>
           )}

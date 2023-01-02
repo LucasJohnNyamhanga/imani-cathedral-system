@@ -1,89 +1,167 @@
-@import 'index';
+@import "index";
 .container {
-	display: flex;
-	flex-direction: column;
-	width: 100%;
-	justify-content: flex-start;
-	align-items: center;
-	background-color: $white;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: $white;
 
-	.innerContainer {
-		width: 100%;
-		padding-right: 10px;
-		max-width: 1200px;
-		margin-top: 20px;
-		display: flex;
-		flex-direction: column;
-		min-height: 60vh;
-	}
+  .innerContainer {
+    width: 100%;
+    padding-right: 10px;
+    max-width: 1200px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    min-height: 60vh;
+  }
 
-	.content {
-		display: flex;
-		flex-direction: row;
-		width: 100%;
+  .inputBox {
+    position: relative;
+    width: 100%;
 
-		.mainContent {
-			width: 100%;
-			margin-left: 10px;
-			margin-right: 10px;
-			margin-top: 10px;
-		}
+    input {
+      border: 1.5px solid rgba($color: $gray, $alpha: 0.5);
+      padding: 10px;
+      font-size: 18px;
+      font-weight: 400;
+      border-radius: 5px;
+      width: 100%;
+      outline: none;
+      font-family: $fontBody;
+      margin-bottom: 10px;
+      color: $gray;
+      z-index: 1;
+      background-color: $white;
 
-		.controlContent {
-			width: 100%;
-			max-width: 230px;
-		}
-	}
+      &:hover {
+        border: 1.5px solid rgba($color: $black, $alpha: 1);
+      }
 
-	@media only screen and (max-width: 948px) {
-		.content {
-			flex-direction: column-reverse;
-			width: 100%;
-			padding: 10px;
+      &:valid ~ span,
+      &:focus ~ span {
+        color: $lightblue;
+        transform: translateX(10px) translateY(-8px);
+        font-size: 0.65em;
+        padding: 0 10px;
+        background-color: $white;
+        font-weight: 600;
+        border-left: 1.5px solid $lightblue;
+        border-right: 1.5px solid $lightblue;
+        z-index: 0;
+        width: fit-content;
+        height: fit-content;
+      }
 
-			.mainContent {
-				margin-left: 0px;
-				margin-right: 0px;
-			}
+      &:valid {
+        border: 1.5px solid rgba($color: $gray, $alpha: 0.5);
+        color: $black;
+      }
+      &:focus {
+        border: 1.5px solid $lightblue;
+        z-index: 0;
+        color: $black;
+      }
 
-			.controlContent {
-				max-width: 100%;
-			}
-		}
-	}
+      &:valid ~ span {
+        border-left: 1.5px solid $gray;
+        border-right: 1.5px solid $gray;
+        color: $ugoro;
+      }
+    }
 
-	.imageSelect {
-		width: 180px;
-		height: 40px;
-		background-color: $ugoro;
-		color: $white;
-		border: 2px solid transparent;
-		margin: 15px;
-		display: flex;
-		flex-direction: row;
-		justify-content: center;
-		align-items: center;
-		border-radius: 5px;
-		transition: 0.2s linear;
-		font-weight: 500;
-	}
+    span {
+      position: absolute;
+      left: 0;
+      top: 3px;
+      padding: 10px;
+      pointer-events: none;
+      font-size: 1em;
+      font-weight: 500;
+      color: $gray;
+      // text-transform: uppercase;
+      font-family: $fontHeader;
+      transition: 0.5s;
+      z-index: 0;
+      background-color: $white;
+      height: 40px;
+      width: 100%;
+      max-width: fit-content;
+      margin-left: 5px;
+      display: flex;
+      flex-direction: row;
+    }
+  }
 
-	.imageSelect:hover {
-		background-color: $lightkahawa;
-		color: $ugoro;
-		border: 2px solid $lightblue;
-		cursor: pointer;
-	}
+  .content {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
 
-	.imageSelectText {
-		margin-left: 10px;
-	}
+    .mainContent {
+      width: 100%;
+      margin-left: 10px;
+      margin-right: 10px;
+      margin-top: 10px;
+    }
+
+    .controlContent {
+      width: 100%;
+      max-width: 230px;
+      margin-top: 10px;
+    }
+  }
+
+  @media only screen and (max-width: 948px) {
+    .content {
+      flex-direction: column-reverse;
+      width: 100%;
+      padding: 10px;
+
+      .mainContent {
+        margin-left: 0px;
+        margin-right: 0px;
+      }
+
+      .controlContent {
+        max-width: 100%;
+      }
+    }
+  }
+
+  .imageSelect {
+    width: 180px;
+    height: 40px;
+    background-color: $ugoro;
+    color: $white;
+    border: 2px solid transparent;
+    margin: 15px 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    transition: 0.2s linear;
+    font-weight: 500;
+  }
+
+  .imageSelect:hover {
+    background-color: $lightkahawa;
+    color: $ugoro;
+    border: 2px solid $lightblue;
+    cursor: pointer;
+  }
+
+  .imageSelectText {
+    margin-left: 10px;
+  }
 }
 
 @media only screen and (max-width: 948px) {
-	.container {
-		.innerContainer {
-			padding-right: 0px;
-		}
-	}
+  .container {
+    .innerContainer {
+      padding-right: 0px;
+    }
+  }
 }
