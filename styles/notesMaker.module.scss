@@ -1,0 +1,89 @@
+@import 'index';
+.container {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	justify-content: flex-start;
+	align-items: center;
+	background-color: $white;
+
+	.innerContainer {
+		width: 100%;
+		padding-right: 10px;
+		max-width: 1200px;
+		margin-top: 20px;
+		display: flex;
+		flex-direction: column;
+		min-height: 60vh;
+	}
+
+	.content {
+		display: flex;
+		flex-direction: row;
+		width: 100%;
+
+		.mainContent {
+			width: 100%;
+			margin-left: 10px;
+			margin-right: 10px;
+			margin-top: 10px;
+		}
+
+		.controlContent {
+			width: 100%;
+			max-width: 230px;
+		}
+	}
+
+	@media only screen and (max-width: 948px) {
+		.content {
+			flex-direction: column-reverse;
+			width: 100%;
+			padding: 10px;
+
+			.mainContent {
+				margin-left: 0px;
+				margin-right: 0px;
+			}
+
+			.controlContent {
+				max-width: 100%;
+			}
+		}
+	}
+
+	.imageSelect {
+		width: 180px;
+		height: 40px;
+		background-color: $ugoro;
+		color: $white;
+		border: 2px solid transparent;
+		margin: 15px;
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+		border-radius: 5px;
+		transition: 0.2s linear;
+		font-weight: 500;
+	}
+
+	.imageSelect:hover {
+		background-color: $lightkahawa;
+		color: $ugoro;
+		border: 2px solid $lightblue;
+		cursor: pointer;
+	}
+
+	.imageSelectText {
+		margin-left: 10px;
+	}
+}
+
+@media only screen and (max-width: 948px) {
+	.container {
+		.innerContainer {
+			padding-right: 0px;
+		}
+	}
+}

@@ -1,9 +1,9 @@
-import { useState, useRef, useContext, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Styles from "../../styles/admin.module.scss";
 import { ReactNode } from "react";
 import { FaRegIdCard } from "react-icons/fa";
-import { FaRegEdit } from "react-icons/fa";
+import SelectMiu from "../../components/tools/SelectMui";
 import toast, { Toaster } from "react-hot-toast";
 import { NavContext } from "../../components/context/StateContext";
 import Loader from "../../components/tools/loader";
@@ -11,8 +11,8 @@ import Drawer from "../../components/tools/DrawerMobileAdmin";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useSession } from "next-auth/react";
 import { getSession } from "next-auth/react";
-import { FaFileMedicalAlt as TengenezaPost } from "react-icons/fa";
-import { FaFileSignature as RekebishaPost } from "react-icons/fa";
+import { FaUserAlt } from "react-icons/fa";
+import { FaFileSignature } from "react-icons/fa";
 import axios from "axios";
 import { prisma } from "../../db/prisma";
 import Badge from "@mui/material/Badge";
@@ -20,6 +20,12 @@ import CardBox from "../../components/tools/cardBoxWithView";
 import { user } from "@prisma/client";
 import Card from "../../components/tools/CardUserSadaka";
 import LoaderWait from "../../components/tools/loaderWait";
+import Link from "next/link";
+
+type dataTypeSelect = {
+  value: string;
+  label: string;
+}[];
 
 type userData = {
   id: number;
@@ -93,37 +99,32 @@ const Index = ({}: // userfound,
 // userVerificationPending,
 // userMissingCredentials,
 InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  const matches300 = useMediaQuery("(min-width:325px)");
-  const { navActive, setNavActive } = useContext(NavContext);
-
   type dataTypeSelect = {
     value: string;
     label: string;
   }[];
 
+  const [selectOption, setSelectOption] = useState<dataTypeSelect>([]);
+  const [selectOptionForms, setSelectOptionForms] = useState<dataTypeSelect>(
+    []
+  );
+  const [notesDetails, setNotesDetails] = useState({
+    formId: "",
+    subjectId: "",
+    topicId: "",
+  });
+
   const [navValue, setNavValue] = useState("");
   const [loading, setLoading] = useState(false);
   const [active, setActive] = useState("");
-  const [maombiKamili, setMaombiKamili] = useState(0);
-  const [kasoro, setKasoro] = useState(0);
-  const [userUsajiliSuccess, setUserUsajiliSuccess] = useState([]);
-  const [userUsajiliError, setUserUsajiliError] = useState([]);
-  const [sadaka, setSadaka] = useState({
-    bahasha: "",
-    kiasi: "",
-    tarehe: "",
-  });
-  const [confirmSadaka, setConfirmSadaka] = useState(true);
-  const [userReturned, setUserReturned] = useState<userData>();
-  const [loadingDisplay, setLoadingDisplay] = useState(false);
 
   const notifySuccess = (message: string) => toast.success(message);
   const notifyError = (message: string) => toast.error(message);
   const notify = (message: string) => toast(message);
 
-  const maombiYaliokamilika = useRef<HTMLDivElement>(null!);
-  const maombiKasoro = useRef<HTMLDivElement>(null!);
-  const sadakaAhadi = useRef<HTMLDivElement>(null!);
+  const machapisho = useRef<HTMLDivElement>(null!);
+  const matangazo = useRef<HTMLDivElement>(null!);
+  const watumiaji = useRef<HTMLDivElement>(null!);
 
   let handleNav = (value: string) => {
     setNavValue(value);
@@ -133,21 +134,17 @@ InferGetServerSidePropsType<typeof getServerSideProps>) => {
   let createActive = (key: string) => {
     removeActive();
     switch (key) {
-      case "maombiYaliokamilika":
-        maombiYaliokamilika.current.classList.add(Styles.Active);
-        setActive("maombiYaliokamilika");
-        unverifiedUsers();
-        setMaombiKamili(0);
+      case "machapisho":
+        machapisho.current.classList.add(Styles.Active);
+        setActive("machapisho");
         break;
-      case "maombiKasoro":
-        maombiKasoro.current.classList.add(Styles.Active);
-        setActive("maombiKasoro");
-        usersWithError();
-        setKasoro(0);
+      case "matangazo":
+        matangazo.current.classList.add(Styles.Active);
+        setActive("matangazo");
         break;
-      case "sadakaAhadi":
-        sadakaAhadi.current.classList.add(Styles.Active);
-        setActive("sadakaAhadi");
+      case "watumiaji":
+        watumiaji.current.classList.add(Styles.Active);
+        setActive("watumiaji");
         break;
 
       default:
@@ -157,9 +154,9 @@ InferGetServerSidePropsType<typeof getServerSideProps>) => {
   };
 
   let removeActive = () => {
-    maombiYaliokamilika.current.classList.remove(Styles.Active);
-    maombiKasoro.current.classList.remove(Styles.Active);
-    sadakaAhadi.current.classList.remove(Styles.Active);
+    machapisho.current.classList.remove(Styles.Active);
+    matangazo.current.classList.remove(Styles.Active);
+    watumiaji.current.classList.remove(Styles.Active);
   };
 
   let smoothScroll = () => {
@@ -169,62 +166,30 @@ InferGetServerSidePropsType<typeof getServerSideProps>) => {
     });
   };
 
-  let unverifiedUsers = () => {
-    setLoading(true);
-    axios
-      .get("/api/getUserListUnverified")
-      .then(function (response) {
-        const users = JSON.parse(JSON.stringify(response.data));
-        // handle success
-        if (users.length > 0) {
-          setUserUsajiliSuccess(users);
-        } else {
-          notifyError("Hakuna maombi yeyote kwa sasa.");
-        }
-        setLoading(false);
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error);
-        notifyError("Something went wrong.");
-        setLoading(false);
-      })
-      .then(function () {
-        // always executed
-      });
-  };
-
-  let usersWithError = () => {
-    setLoading(true);
-    axios
-      .get("/api/getUserListWithError")
-      .then(function (response) {
-        const users = JSON.parse(JSON.stringify(response.data));
-        // handle success
-        if (users.length > 0) {
-          setUserUsajiliError(users);
-        } else {
-          notifyError("Hakuna maombi yeyote kwa sasa.");
-        }
-
-        setLoading(false);
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error);
-        notifyError("Something went wrong.");
-        setLoading(false);
-      })
-      .then(function () {
-        // always executed
-      });
-  };
-
-  let handleSadaka = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let value = e.target.value;
-    let name = e.target.name;
-    setSadaka({ ...sadaka, [name]: value });
-  };
+  // let unverifiedUsers = () => {
+  //   setLoading(true);
+  //   axios
+  //     .get("/api/getUserListUnverified")
+  //     .then(function (response) {
+  //       const users = JSON.parse(JSON.stringify(response.data));
+  //       // handle success
+  //       if (users.length > 0) {
+  //         setUserUsajiliSuccess(users);
+  //       } else {
+  //         notifyError("Hakuna maombi yeyote kwa sasa.");
+  //       }
+  //       setLoading(false);
+  //     })
+  //     .catch(function (error) {
+  //       // handle error
+  //       console.log(error);
+  //       notifyError("Something went wrong.");
+  //       setLoading(false);
+  //     })
+  //     .then(function () {
+  //       // always executed
+  //     });
+  // };
 
   function timeAgo(time: any) {
     switch (typeof time) {
@@ -281,51 +246,6 @@ InferGetServerSidePropsType<typeof getServerSideProps>) => {
     return time;
   }
 
-  let handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let value = e.target.value;
-    let name = e.target.name;
-    setSadaka({ ...sadaka, tarehe: value });
-  };
-
-  const sajiliSadaka = () => {
-    setLoadingDisplay(true);
-    if (sadaka.bahasha != "" && sadaka.kiasi && sadaka.tarehe) {
-      setLoading(true);
-
-      axios
-        .post("/api/findUserBahasha", sadaka)
-        .then(function (response) {
-          const users = JSON.parse(JSON.stringify(response.data));
-          // handle success
-          if (users) {
-            setConfirmSadaka(false);
-            setUserReturned(users);
-            setLoadingDisplay(false);
-          } else {
-            setConfirmSadaka(true);
-            notifyError(
-              `Hakuna Msharika mwenye bahasha nambari ${sadaka.bahasha} aliyepatikana.`
-            );
-            setLoadingDisplay(false);
-          }
-
-          setLoading(false);
-        })
-        .catch(function (error) {
-          // handle error
-          console.log(error);
-          notifyError("Kuna kitu hakiko sawa, jaribu tena baadae.");
-          setLoading(false);
-        })
-        .then(function () {
-          // always executed
-        });
-    } else {
-      setLoadingDisplay(false);
-      notifyError("Jaza nafasi zote zilizo wazi.");
-    }
-  };
-
   const date = new Date();
 
   let day = date.getDate();
@@ -345,50 +265,14 @@ InferGetServerSidePropsType<typeof getServerSideProps>) => {
     day7 < 10 ? "0" + day7 : day7
   }`;
 
-  const handleSitisha = () => {
-    setConfirmSadaka(true);
-    setSadaka({ bahasha: "", kiasi: "", tarehe: "" });
-    smoothScroll();
-  };
-
-  const handleThibitisha = () => {
-    setLoading(true);
-    let data = {
-      tarehe: new Date(sadaka.tarehe),
-      amount: parseInt(sadaka.kiasi),
-      userId: userReturned!.id,
-    };
-    axios
-      .post("/api/wekaSadaka", data)
-      .then(function (response) {
-        const ujumbe = JSON.parse(JSON.stringify(response.data));
-        // handle success
-        if (ujumbe.type == "success") {
-          notifySuccess(ujumbe.message);
-        } else {
-          notifyError(ujumbe.message);
-        }
-        setLoading(false);
-        setConfirmSadaka(true);
-        setSadaka({ bahasha: "", kiasi: "", tarehe: "" });
-        smoothScroll();
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error);
-        notifyError("Kuna kitu hakiko sawa, jaribu tena baadae.");
-        setLoading(false);
-      })
-      .then(function () {
-        // always executed
-      });
-    smoothScroll();
-  };
-
   useEffect(() => {
     // setMaombiKamili(userVerificationPending);
-    // setKasoro(userMissingCredentials);
+    // set7(userMissingCredentials);
   }, []);
+
+  let handleSelectedNotesSubject = (value: string) => {
+    setNotesDetails({ ...notesDetails, subjectId: value });
+  };
 
   return (
     <div className={Styles.container}>
@@ -404,45 +288,36 @@ InferGetServerSidePropsType<typeof getServerSideProps>) => {
                 <div className={Styles.containerBody}>
                   <div className={Styles.TopicHeaderNotes}>Uboreshaji</div>
                   <div
-                    ref={maombiYaliokamilika}
-                    id="maombiYaliokamilika"
+                    ref={machapisho}
+                    id="machapisho"
                     onClick={(e) => handleNav(e.currentTarget.id)}
                     className={Styles.topicTittle}
                   >
-                    <Badge badgeContent={maombiKamili} color="primary">
-                      <TengenezaPost size={25} />
+                    <Badge badgeContent={5} color="primary">
+                      <FaFileSignature size={25} />
                     </Badge>
                     <div className={Styles.text}>Machapisho</div>
                   </div>
                   <div
-                    ref={maombiKasoro}
-                    id="maombiKasoro"
+                    ref={matangazo}
+                    id="matangazo"
                     onClick={(e) => handleNav(e.currentTarget.id)}
                     className={Styles.topicTittle}
                   >
-                    <Badge badgeContent={kasoro} color="primary">
+                    <Badge badgeContent={7} color="primary">
                       <FaRegIdCard size={25} />
                     </Badge>
                     <div className={Styles.text}>Matangazo</div>
                   </div>
                   <div className={Styles.TopicHeaderNotes}>Usimamizi</div>
                   <div
-                    ref={sadakaAhadi}
-                    id="sadakaAhadi"
+                    ref={watumiaji}
+                    id="watumiaji"
                     onClick={(e) => handleNav(e.currentTarget.id)}
                     className={Styles.topicTittle}
                   >
-                    <FaRegIdCard size={25} />
+                    <FaUserAlt size={25} />
                     <div className={Styles.text}>Watumiaji</div>
-                  </div>
-                  <div
-                    ref={sadakaAhadi}
-                    id="sadakaAhadi"
-                    onClick={(e) => handleNav(e.currentTarget.id)}
-                    className={Styles.topicTittle}
-                  >
-                    <FaRegEdit size={25} />
-                    <div className={Styles.text}>Rekebisha Tangazo</div>
                   </div>
                 </div>
               </div>
@@ -477,51 +352,70 @@ InferGetServerSidePropsType<typeof getServerSideProps>) => {
                     </div>
                   </div>
                 )}
-                {navValue == "maombiYaliokamilika" && (
+                {navValue == "machapisho" && (
                   <div className={Styles.rightInnercontainerBody}>
                     <div className={Styles.subject}>
                       <div className={Styles.subjectHeader}>
                         <div className={Styles.subjectHeaderText}>
-                          Maombi Washarika Yaliyokamilishwa Vigezo
+                          Machapisho Management
                         </div>
+                        <Link passHref href="/Admin/Machapisho/Tengeneza">
+                          <div className={Styles.subjectHeaderButton}>
+                            Tengeneza
+                          </div>
+                        </Link>
                       </div>
-                    </div>
-                    <div className={Styles.subjectBody}>
-                      {userUsajiliSuccess.map((user: user) => (
-                        <CardBox
-                          key={user.id}
-                          label={user.name}
-                          id={user.id}
-                          link={`/Admin/verify?id=${user.id}`}
-                          time={timeAgo(user.dateJoined)}
-                        />
-                      ))}
+                      <div className={Styles.selectDivTopic}>list</div>
                     </div>
                   </div>
                 )}
-                {navValue == "maombiKasoro" && (
+                {navValue == "matangazo" && (
                   <div className={Styles.rightInnercontainerBody}>
                     <div className={Styles.subject}>
                       <div className={Styles.subjectHeader}>
                         <div className={Styles.subjectHeaderText}>
-                          Maombi Washarika Yasiyo Na Vigezo
+                          Matangazo Management
                         </div>
+                        <Link passHref href="/Admin/Notes/Create/Notes">
+                          <div className={Styles.subjectHeaderButton}>
+                            Tengeneza
+                          </div>
+                        </Link>
+                      </div>
+                      <div className={Styles.selectDivTopic}>
+                        <SelectMiu
+                          displayLabel="Select Subject"
+                          show={true}
+                          forms={selectOption}
+                          handlechange={handleSelectedNotesSubject}
+                          value={notesDetails.subjectId}
+                        />
+                      </div>
+                      <div
+                        onClick={() => {
+                          console.log("Weka button");
+                        }}
+                        className={Styles.subjectHeaderButton}
+                      >
+                        Kusanya Matangazo
                       </div>
                       <div className={Styles.subjectBody}>
-                        {userUsajiliError.map((user: user) => (
-                          <CardBox
-                            key={user.id}
-                            label={user.name}
-                            id={user.id}
-                            link={`/Admin/verify?id=${user.id}`}
-                            time={timeAgo(user.dateJoined)}
-                          />
-                        ))}
+                        {/* {true &&
+                          [].map((note) => (
+                            <CardBox
+                              handleUpdate={handleUpdateNotes}
+                              link={`/Admin/Notes/Edit/Note/${note.id}`}
+                              label={note.topic.topicName}
+                              published={note.users.name}
+                              id={note.id}
+                              key={note.id}
+                            />
+                          ))} */}
                       </div>
                     </div>
                   </div>
                 )}
-                {navValue == "sadakaAhadi" && (
+                {navValue == "watumiaji" && (
                   <div className={Styles.rightInnercontainerBody}>
                     <div className={Styles.subject}>
                       <div className={Styles.subjectHeader}>
@@ -529,93 +423,7 @@ InferGetServerSidePropsType<typeof getServerSideProps>) => {
                           Sadaka Ya Ahadi
                         </div>
                       </div>
-                      <div className={Styles.subjectBody}>
-                        {confirmSadaka ? (
-                          <>
-                            <div className={Styles.controls}>
-                              <div className={Styles.inputBox}>
-                                <input
-                                  required
-                                  type="number"
-                                  value={sadaka.bahasha}
-                                  placeholder={``}
-                                  name={"bahasha"}
-                                  onChange={(event) => {
-                                    handleSadaka(event);
-                                  }}
-                                  autoComplete="off"
-                                  autoCorrect="off"
-                                  spellCheck={false}
-                                />
-                                <span>Namba Ya Bahasha</span>
-                              </div>
-                              <div className={Styles.inputBox}>
-                                <input
-                                  required
-                                  type="number"
-                                  value={sadaka.kiasi}
-                                  placeholder={``}
-                                  name={"kiasi"}
-                                  onChange={(event) => {
-                                    handleSadaka(event);
-                                  }}
-                                  autoComplete="off"
-                                  autoCorrect="off"
-                                  spellCheck={false}
-                                />
-                                <span>Kiasi Cha Sadaka</span>
-                              </div>
-                              <div className={Styles.inputBox}>
-                                <input
-                                  required
-                                  type="date"
-                                  placeholder="dd-mm-yyyy"
-                                  min={dateLimt}
-                                  max={currentDate}
-                                  value={sadaka.tarehe}
-                                  name={"tareheYaKuzaliwa"}
-                                  onChange={(event) => {
-                                    handleDateChange(event);
-                                  }}
-                                  autoComplete="off"
-                                  autoCorrect="off"
-                                  spellCheck={false}
-                                />
-                                <span>Tarehe Ya Sadaka</span>
-                              </div>
-                            </div>
-                            {loadingDisplay ? (
-                              <div className={Styles.subjectBodyButton}>
-                                <LoaderWait sms={"Uhakiki"} />
-                              </div>
-                            ) : (
-                              <div
-                                onClick={sajiliSadaka}
-                                className={Styles.subjectBodyButton}
-                              >
-                                Sajili Sadaka
-                              </div>
-                            )}
-                          </>
-                        ) : (
-                          <>
-                            <div>
-                              <Card
-                                jina={userReturned!.name}
-                                picha={userReturned!.image}
-                                ahadi={parseInt(
-                                  userReturned!.ahadi
-                                ).toLocaleString()}
-                                kiasi={parseInt(sadaka.kiasi).toLocaleString()}
-                                bahasha={sadaka.bahasha}
-                                sitisha={handleSitisha}
-                                thibitisha={handleThibitisha}
-                                sadaka={userReturned!.sadaka}
-                              />
-                            </div>
-                          </>
-                        )}
-                      </div>
+                      <div className={Styles.subjectBody}>hey</div>
                     </div>
                   </div>
                 )}
