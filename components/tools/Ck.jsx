@@ -12,9 +12,7 @@ import Styles from "../../styles/ckEditor.module.scss";
 const Ck = ({ content, dataCk, onReadyToStart }) => {
   const [data, setData] = useState(dataCk);
 
-  useEffect(() => {
-    setData(dataCk);
-  }, []);
+
 
   return (
     <div className={Styles.container}>

@@ -1,10 +1,4 @@
-import React, {
-  ReactNode,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { ReactNode, useContext, useEffect, useState } from "react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { prisma } from "../../../db/prisma";
 import Styles from "../../../styles/notesMaker.module.scss";
@@ -22,7 +16,6 @@ const CkEditor = dynamic(() => import("../../../components/tools/Ck"), {
 
 import { getSession } from "next-auth/react";
 import LoaderWait from "../../../components/tools/loaderWait";
-import InputTextMui from "../../../components/tools/InputTextMui";
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context);
   const url = process.env.MAIN_URL;

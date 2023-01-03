@@ -77,14 +77,12 @@ export default function AccountMenu({ signOut }: dataUser) {
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <Link href="/Admin/">
-          <a>
-            <MenuItem>
-              <Avatar
-                sx={{ width: 40, height: 40, backgroundColor: "#800000" }}
-              />{" "}
-              Akaunti Yangu
-            </MenuItem>
-          </a>
+          <MenuItem>
+            <Avatar
+              sx={{ width: 40, height: 40, backgroundColor: "#800000" }}
+            />{" "}
+            Akaunti Yangu
+          </MenuItem>
         </Link>
         <Divider />
 

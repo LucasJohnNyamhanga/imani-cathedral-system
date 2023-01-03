@@ -317,7 +317,7 @@ InferGetServerSidePropsType<typeof getServerSideProps>) => {
                         <div className={Styles.subjectHeaderText}>
                           Machapisho Management
                         </div>
-                        <Link passHref href="/Admin/Machapisho/Tengeneza">
+                        <Link passHref href="/Admin/Machapisho/Tengeneza" legacyBehavior>
                           <div className={Styles.subjectHeaderButton}>
                             Tengeneza
                           </div>
@@ -334,7 +334,7 @@ InferGetServerSidePropsType<typeof getServerSideProps>) => {
                         <div className={Styles.subjectHeaderText}>
                           Matangazo Management
                         </div>
-                        <Link passHref href="/Admin/Notes/Create/Notes">
+                        <Link passHref href="/Admin/Notes/Create/Notes" legacyBehavior>
                           <div className={Styles.subjectHeaderButton}>
                             Tengeneza
                           </div>
@@ -352,7 +352,7 @@ InferGetServerSidePropsType<typeof getServerSideProps>) => {
                         <div className={Styles.subjectHeaderText}>
                           Watumiaji Management
                         </div>
-                        <Link passHref href="/Admin/Watumiaji/Tengeneza">
+                        <Link passHref href="/Admin/Watumiaji/Tengeneza" legacyBehavior>
                           <div className={Styles.subjectHeaderButton}>
                             Tengeneza
                           </div>

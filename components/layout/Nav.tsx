@@ -112,21 +112,19 @@ const Nav = () => {
             <div className={Styles.links}>
               <ul>
                 <Link href="/">
-                  <a>
-                    <div
-                      onClick={() => {
-                        setNavActive("Mwanzo");
-                      }}
+                  <div
+                    onClick={() => {
+                      setNavActive("Mwanzo");
+                    }}
+                  >
+                    <li
+                      className={
+                        "Mwanzo" == navActive ? Styles.active : Styles.links
+                      }
                     >
-                      <li
-                        className={
-                          "Mwanzo" == navActive ? Styles.active : Styles.links
-                        }
-                      >
-                        Mwanzo
-                      </li>
-                    </div>
-                  </a>
+                      Mwanzo
+                    </li>
+                  </div>
                 </Link>
                 <div>
                   <li>
@@ -165,21 +163,19 @@ const Nav = () => {
                   </li>
                 </div>
                 <Link href="/Miradi">
-                  <a>
-                    <div
-                      onClick={() => {
-                        setNavActive("Miradi");
-                      }}
+                  <div
+                    onClick={() => {
+                      setNavActive("Miradi");
+                    }}
+                  >
+                    <li
+                      className={
+                        "Miradi" == navActive ? Styles.active : Styles.links
+                      }
                     >
-                      <li
-                        className={
-                          "Miradi" == navActive ? Styles.active : Styles.links
-                        }
-                      >
-                        Miradi
-                      </li>
-                    </div>
-                  </a>
+                      Miradi
+                    </li>
+                  </div>
                 </Link>
                 <div>
                   <li>
@@ -194,21 +190,19 @@ const Nav = () => {
                   </li>
                 </div>
                 <Link href="/SomaBiblia">
-                  <a>
-                    <div
-                      onClick={() => {
-                        setNavActive("Biblia");
-                      }}
+                  <div
+                    onClick={() => {
+                      setNavActive("Biblia");
+                    }}
+                  >
+                    <li
+                      className={
+                        "Biblia" == navActive ? Styles.active : Styles.links
+                      }
                     >
-                      <li
-                        className={
-                          "Biblia" == navActive ? Styles.active : Styles.links
-                        }
-                      >
-                        Soma Biblia
-                      </li>
-                    </div>
-                  </a>
+                      Soma Biblia
+                    </li>
+                  </div>
                 </Link>
               </ul>
             </div>
