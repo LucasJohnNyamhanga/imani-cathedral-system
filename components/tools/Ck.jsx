@@ -3,13 +3,13 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "ckeditor5-build-classic-extended";
 import Styles from "../../styles/ckEditor.module.scss";
 
-type dataContent = {
-  content: (data: string) => void;
-  dataCk: string;
-  onReadyToStart: () => void;
-};
+// type dataContent = {
+//   content: (data: string) => void;
+//   dataCk: string;
+//   onReadyToStart: () => void;
+// };
 
-const Ck = ({ content, dataCk, onReadyToStart }: dataContent) => {
+const Ck = ({ content, dataCk, onReadyToStart }) => {
   const [data, setData] = useState(dataCk);
 
   useEffect(() => {
@@ -22,14 +22,14 @@ const Ck = ({ content, dataCk, onReadyToStart }: dataContent) => {
         editor={ClassicEditor}
         data={data}
         onReady={onReadyToStart}
-        onChange={(event: any, editor: any) => {
+        onChange={(event, editor) => {
           const data = editor.getData();
           content(data);
         }}
-        onBlur={(event: any, editor: any) => {
+        onBlur={(event, editor) => {
           //console.log("Blur.", editor);
         }}
-        onFocus={(event: any, editor: any) => {
+        onFocus={(event, editor) => {
           //console.log("Focus.", editor);
         }}
         config={{

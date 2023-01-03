@@ -35,42 +35,42 @@ export default async function handler(
     verified,
   } = req.body;
   try {
-    await prisma.user.update({
-      where: {
-        id: parseInt(id),
-      },
-      data: {
-        image,
-        name,
-        tareheYaKuzaliwa,
-        bahasha,
-        jinsia,
-        haliYaNdoa,
-        ainaYaNdoa,
-        tareheYaNdoa,
-        jinaLaMwenza,
-        nambaYaSimu,
-        nambaYaSimuMwenza,
-        jumuiyaId,
-        mtaa,
-        kata,
-        wilaya,
-        kazi,
-        elimu,
-        fani,
-        ubatizo,
-        kipaimara,
-        mezaYaBwana,
-        ahadi,
-        nenoLaSiri,
-        missing,
-        verified,
-      },
-    });
-    res.status(200).json({
-      message: "Uboreshaji wa Msharika umekamilika.",
-      type: "success",
-    });
+    // await prisma.user.update({
+    //   where: {
+    //     id: parseInt(id),
+    //   },
+    //   data: {
+    //     image,
+    //     name,
+    //     tareheYaKuzaliwa,
+    //     bahasha,
+    //     jinsia,
+    //     haliYaNdoa,
+    //     ainaYaNdoa,
+    //     tareheYaNdoa,
+    //     jinaLaMwenza,
+    //     nambaYaSimu,
+    //     nambaYaSimuMwenza,
+    //     jumuiyaId,
+    //     mtaa,
+    //     kata,
+    //     wilaya,
+    //     kazi,
+    //     elimu,
+    //     fani,
+    //     ubatizo,
+    //     kipaimara,
+    //     mezaYaBwana,
+    //     ahadi,
+    //     nenoLaSiri,
+    //     missing,
+    //     verified,
+    //   },
+    // });
+    // res.status(200).json({
+    //   message: "Uboreshaji wa Msharika umekamilika.",
+    //   type: "success",
+    // });
   } catch (error) {
     console.log(error);
     res.status(200).json({

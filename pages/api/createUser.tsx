@@ -33,43 +33,41 @@ export default async function handler(
     missing,
   } = req.body;
   try {
-    const newUser = await prisma.user.create({
-      data: {
-        image,
-        name,
-        tareheYaKuzaliwa,
-        bahasha,
-        jinsia,
-        haliYaNdoa,
-        ainaYaNdoa,
-        tareheYaNdoa,
-        jinaLaMwenza,
-        nambaYaSimu,
-        nambaYaSimuMwenza,
-        jumuiyaId,
-        mtaa,
-        kata,
-        wilaya,
-        kazi,
-        elimu,
-        fani,
-        ubatizo,
-        kipaimara,
-        mezaYaBwana,
-        ahadi,
-        nenoLaSiri,
-        missing,
-      },
-      select: {
-        id: true,
-        missing: true,
-        nenoLaSiri: true,
-      },
-    });
-
-    const user = JSON.parse(JSON.stringify(newUser));
-
-    res.status(200).json(user);
+    // const newUser = await prisma.user.create({
+    //   data: {
+    //     image,
+    //     name,
+    //     tareheYaKuzaliwa,
+    //     bahasha,
+    //     jinsia,
+    //     haliYaNdoa,
+    //     ainaYaNdoa,
+    //     tareheYaNdoa,
+    //     jinaLaMwenza,
+    //     nambaYaSimu,
+    //     nambaYaSimuMwenza,
+    //     jumuiyaId,
+    //     mtaa,
+    //     kata,
+    //     wilaya,
+    //     kazi,
+    //     elimu,
+    //     fani,
+    //     ubatizo,
+    //     kipaimara,
+    //     mezaYaBwana,
+    //     ahadi,
+    //     nenoLaSiri,
+    //     missing,
+    //   },
+    //   select: {
+    //     id: true,
+    //     missing: true,
+    //     nenoLaSiri: true,
+    //   },
+    // });
+    // const user = JSON.parse(JSON.stringify(newUser));
+    // res.status(200).json(user);
   } catch (error) {
     console.log(error);
   } finally {
