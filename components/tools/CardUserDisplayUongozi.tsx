@@ -1,4 +1,3 @@
-import { sadaka } from "@prisma/client";
 import Image from "next/image";
 import Styles from "../../styles/cardUserUongozi.module.scss";
 import SelectMiu from "../../components/tools/SelectMui";

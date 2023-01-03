@@ -19,6 +19,7 @@
     "@mui/styled-engine-sc": "^5.10.3",
     "@prisma/client": "^4.4.0",
     "@tanem/react-nprogress": "^5.0.13",
+    "@types/ckeditor": "^4.9.10",
     "@types/ckeditor__ckeditor5-core": "^33.0.3",
     "axios": "^0.27.2",
     "ckeditor5-build-classic-extended": "^20.0.1",

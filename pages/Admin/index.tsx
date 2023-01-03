@@ -52,7 +52,7 @@ type userData = {
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getSession(context);
+  // const session = await getSession(context);
   // if (!session) {
   //   return {
   //     redirect: {
@@ -103,16 +103,6 @@ InferGetServerSidePropsType<typeof getServerSideProps>) => {
     value: string;
     label: string;
   }[];
-
-  const [selectOption, setSelectOption] = useState<dataTypeSelect>([]);
-  const [selectOptionForms, setSelectOptionForms] = useState<dataTypeSelect>(
-    []
-  );
-  const [notesDetails, setNotesDetails] = useState({
-    formId: "",
-    subjectId: "",
-    topicId: "",
-  });
 
   const [navValue, setNavValue] = useState("");
   const [loading, setLoading] = useState(false);
@@ -165,31 +155,6 @@ InferGetServerSidePropsType<typeof getServerSideProps>) => {
       behavior: "smooth",
     });
   };
-
-  // let unverifiedUsers = () => {
-  //   setLoading(true);
-  //   axios
-  //     .get("/api/getUserListUnverified")
-  //     .then(function (response) {
-  //       const users = JSON.parse(JSON.stringify(response.data));
-  //       // handle success
-  //       if (users.length > 0) {
-  //         setUserUsajiliSuccess(users);
-  //       } else {
-  //         notifyError("Hakuna maombi yeyote kwa sasa.");
-  //       }
-  //       setLoading(false);
-  //     })
-  //     .catch(function (error) {
-  //       // handle error
-  //       console.log(error);
-  //       notifyError("Something went wrong.");
-  //       setLoading(false);
-  //     })
-  //     .then(function () {
-  //       // always executed
-  //     });
-  // };
 
   function timeAgo(time: any) {
     switch (typeof time) {
@@ -265,14 +230,7 @@ InferGetServerSidePropsType<typeof getServerSideProps>) => {
     day7 < 10 ? "0" + day7 : day7
   }`;
 
-  useEffect(() => {
-    // setMaombiKamili(userVerificationPending);
-    // set7(userMissingCredentials);
-  }, []);
-
-  let handleSelectedNotesSubject = (value: string) => {
-    setNotesDetails({ ...notesDetails, subjectId: value });
-  };
+  useEffect(() => {}, []);
 
   return (
     <div className={Styles.container}>
@@ -382,36 +340,8 @@ InferGetServerSidePropsType<typeof getServerSideProps>) => {
                           </div>
                         </Link>
                       </div>
-                      <div className={Styles.selectDivTopic}>
-                        <SelectMiu
-                          displayLabel="Select Subject"
-                          show={true}
-                          forms={selectOption}
-                          handlechange={handleSelectedNotesSubject}
-                          value={notesDetails.subjectId}
-                        />
-                      </div>
-                      <div
-                        onClick={() => {
-                          console.log("Weka button");
-                        }}
-                        className={Styles.subjectHeaderButton}
-                      >
-                        Kusanya Matangazo
-                      </div>
-                      <div className={Styles.subjectBody}>
-                        {/* {true &&
-                          [].map((note) => (
-                            <CardBox
-                              handleUpdate={handleUpdateNotes}
-                              link={`/Admin/Notes/Edit/Note/${note.id}`}
-                              label={note.topic.topicName}
-                              published={note.users.name}
-                              id={note.id}
-                              key={note.id}
-                            />
-                          ))} */}
-                      </div>
+
+                      <div className={Styles.subjectBody}>list</div>
                     </div>
                   </div>
                 )}
@@ -420,10 +350,15 @@ InferGetServerSidePropsType<typeof getServerSideProps>) => {
                     <div className={Styles.subject}>
                       <div className={Styles.subjectHeader}>
                         <div className={Styles.subjectHeaderText}>
-                          Sadaka Ya Ahadi
+                          Watumiaji Management
                         </div>
+                        <Link passHref href="/Admin/Watumiaji/Tengeneza">
+                          <div className={Styles.subjectHeaderButton}>
+                            Tengeneza
+                          </div>
+                        </Link>
                       </div>
-                      <div className={Styles.subjectBody}>hey</div>
+                      <div className={Styles.selectDivTopic}>list</div>
                     </div>
                   </div>
                 )}
