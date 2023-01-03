@@ -3,23 +3,11 @@ import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Styles from "../../styles/admin.module.scss";
 import { ReactNode } from "react";
 import { FaRegIdCard } from "react-icons/fa";
-import SelectMiu from "../../components/tools/SelectMui";
 import toast, { Toaster } from "react-hot-toast";
-import { NavContext } from "../../components/context/StateContext";
 import Loader from "../../components/tools/loader";
-import Drawer from "../../components/tools/DrawerMobileAdmin";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import { useSession } from "next-auth/react";
-import { getSession } from "next-auth/react";
 import { FaUserAlt } from "react-icons/fa";
 import { FaFileSignature } from "react-icons/fa";
-import axios from "axios";
-import { prisma } from "../../db/prisma";
 import Badge from "@mui/material/Badge";
-import CardBox from "../../components/tools/cardBoxWithView";
-import { user } from "@prisma/client";
-import Card from "../../components/tools/CardUserSadaka";
-import LoaderWait from "../../components/tools/loaderWait";
 import Link from "next/link";
 
 type dataTypeSelect = {
@@ -317,7 +305,11 @@ InferGetServerSidePropsType<typeof getServerSideProps>) => {
                         <div className={Styles.subjectHeaderText}>
                           Machapisho Management
                         </div>
-                        <Link passHref href="/Admin/Machapisho/Tengeneza" legacyBehavior>
+                        <Link
+                          passHref
+                          href="/Admin/Machapisho/Tengeneza"
+                          legacyBehavior
+                        >
                           <div className={Styles.subjectHeaderButton}>
                             Tengeneza
                           </div>
@@ -334,7 +326,11 @@ InferGetServerSidePropsType<typeof getServerSideProps>) => {
                         <div className={Styles.subjectHeaderText}>
                           Matangazo Management
                         </div>
-                        <Link passHref href="/Admin/Notes/Create/Notes" legacyBehavior>
+                        <Link
+                          passHref
+                          href="/Admin/Notes/Create/Notes"
+                          legacyBehavior
+                        >
                           <div className={Styles.subjectHeaderButton}>
                             Tengeneza
                           </div>
@@ -352,7 +348,11 @@ InferGetServerSidePropsType<typeof getServerSideProps>) => {
                         <div className={Styles.subjectHeaderText}>
                           Watumiaji Management
                         </div>
-                        <Link passHref href="/Admin/Watumiaji/Tengeneza" legacyBehavior>
+                        <Link
+                          passHref
+                          href="/Admin/Watumiaji/Tengeneza"
+                          legacyBehavior
+                        >
                           <div className={Styles.subjectHeaderButton}>
                             Tengeneza
                           </div>
