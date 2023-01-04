@@ -48,9 +48,6 @@ type formData = {
 }[];
 
 const Notes = ({
-  forms,
-  subjects,
-  userfound,
   url,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { navActive, setNavActive } = useContext(NavContext);
