@@ -20,55 +20,18 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context);
   const url = process.env.MAIN_URL;
 
-  // if (!session) {
-  //   return {
-  //     redirect: {
-  //       destination: `/Auth/SignIn?callbackUr=/`,
-  //       permanent: false,
-  //     },
-  //   };
-  // }
-  // const userFromServer = await prisma.users.findFirst({
-  //   where: {
-  //     username: session.user.email,
-  //   },
-  //   select: {
-  //     isAdmin: true,
-  //     id: true,
-  //   },
-  // });
-  // const userfound = await JSON.parse(JSON.stringify(userFromServer));
-
-  // if (!userfound.isAdmin) {
-  //   return {
-  //     redirect: {
-  //       destination: "/",
-  //       permanent: false,
-  //     },
-  //   };
-  // }
-  // const formsFromServer: userData = await prisma.form.findMany({
-  //   select: {
-  //     id: true,
-  //     formName: true,
-  //   },
-  // });
-  // const forms = JSON.parse(JSON.stringify(formsFromServer));
-
-  // const subjectsFromServer = await prisma.subject.findMany({
-  //   select: {
-  //     id: true,
-  //     subjectName: true,
-  //   },
-  // });
-  // const subjects = JSON.parse(JSON.stringify(subjectsFromServer));
+  if (!session) {
+    return {
+      redirect: {
+        destination: `/Auth/SignIn?callbackUr=/`,
+        permanent: false,
+      },
+    };
+  }
 
   await prisma.$disconnect();
   return {
     props: {
-      // forms,
-      // subjects,
-      // userfound,
       url,
     },
   };

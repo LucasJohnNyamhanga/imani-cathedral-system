@@ -10,9 +10,19 @@ import Loader from "../../../components/tools/loaderWait";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { prisma } from "../../../db/prisma";
 import InputTextMui from "../../../components/tools/InputTextMui";
+import { getSession } from "next-auth/react";
 //! insta @ johnsavanter
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession(context);
+  if (!session) {
+    return {
+      redirect: {
+        destination: `/Auth/SignIn?callbackUr=/`,
+        permanent: false,
+      },
+    };
+  }
   // const jumuiyaFromServer = await prisma.jumuiya.findMany({
   //   where: {},
   //   select: {
