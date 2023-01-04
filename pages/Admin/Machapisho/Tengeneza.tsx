@@ -16,6 +16,7 @@ const CkEditor = dynamic(() => import("../../../components/tools/Ck"), {
 
 import { getSession } from "next-auth/react";
 import LoaderWait from "../../../components/tools/loaderWait";
+import { tag } from "@prisma/client";
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context);
   const url = process.env.MAIN_URL;
@@ -29,10 +30,30 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
   }
 
+  const userFromServer = await prisma.user.findFirst({
+    where: {
+      userName: session.user!.email ?? "",
+    },
+    select: {
+      id: true,
+    },
+  });
+  const userfound = await JSON.parse(JSON.stringify(userFromServer));
+
+  const categoryFromServer = await prisma.tag.findMany({
+    select: {
+      id: true,
+      name: true,
+    },
+  });
+  const categories = await JSON.parse(JSON.stringify(categoryFromServer));
+
   await prisma.$disconnect();
   return {
     props: {
       url,
+      categories,
+      userfound,
     },
   };
 };
@@ -49,15 +70,11 @@ type formData = {
 
 const Notes = ({
   url,
+  categories,
+  userfound,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { navActive, setNavActive } = useContext(NavContext);
 
-  useEffect(() => {
-    setNavActive("Admin");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [navActive]);
-
-  const [change, setChange] = useState(0);
   const [kundiHabari, setKundiHabari] = useState<formData>([]);
 
   const [andikoDetails, setAndikoDetails] = useState({
@@ -86,10 +103,6 @@ const Notes = ({
     );
   };
 
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [change]);
-
   let handleContent = (data: string) => {
     let convertedData = data.replaceAll(
       `img`,
@@ -107,20 +120,33 @@ const Notes = ({
       andikoDetails.title != "" &&
       andikoDetails.subTitle != "" &&
       andikoDetails.tag != "" &&
-      andikoDetails.body.length > 200
+      andikoDetails.body.length > 2
     ) {
       setLoad(true);
       sendToDatabase();
     } else {
-      notifyError("Fill in all fields including selections.");
+      notifyError("Jaza nafasi zote zilizo wazi.");
     }
   };
 
   let sendToDatabase = () => {
+    let tag = [];
+
+    tag.push({
+      id: parseInt(andikoDetails.tag),
+    });
+
+    let data = {
+      title: andikoDetails.title,
+      subTitle: andikoDetails.subTitle,
+      tag,
+      body: andikoDetails.body,
+      userId: userfound.id,
+    };
     axios({
       method: "post",
-      url: url + "/api/addNotes",
-      data: andikoDetails,
+      url: url + "/api/addPost",
+      data,
     })
       .then(function (response) {
         // handle success
@@ -157,6 +183,19 @@ const Notes = ({
     let name = e.target.name;
     setAndikoDetails({ ...andikoDetails, [name]: value });
   };
+
+  useEffect(() => {
+    let tagFromServer: formData = [];
+    categories.map((tag: tag) => {
+      tagFromServer.push({
+        label: tag.name,
+        value: tag.id as unknown as string,
+      });
+    });
+    setKundiHabari(tagFromServer);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className={Styles.container}>
@@ -215,7 +254,7 @@ const Notes = ({
         <div>
           {loading ? (
             <div className={Styles.imageSelect}>
-              <LoaderWait sms={"Wait.."} />
+              <LoaderWait sms={"Subiri.."} />
             </div>
           ) : (
             <div onClick={handleTengenezaAndiko} className={Styles.imageSelect}>
