@@ -9,76 +9,35 @@ import { FaUserAlt } from "react-icons/fa";
 import { FaFileSignature } from "react-icons/fa";
 import Badge from "@mui/material/Badge";
 import Link from "next/link";
-
-type dataTypeSelect = {
-  value: string;
-  label: string;
-}[];
-
-type userData = {
-  id: number;
-  image: string;
-  name: string;
-  tareheYaKuzaliwa: Date;
-  bahasha: string | null;
-  jinsia: string;
-  haliYaNdoa: string;
-  ainaYaNdoa: string | null;
-  tareheYaNdoa: Date | null;
-  jinaLaMwenza: string | null;
-  nambaYaSimu: string;
-  nambaYaSimuMwenza: string | null;
-  jumuiyaId: number;
-  mtaa: string;
-  kata: string;
-  wilaya: string;
-  kazi: string;
-  elimu: string;
-  sadaka: {}[];
-  verified: boolean;
-  ahadi: string;
-};
+import { prisma } from "../../db/prisma";
+import { getSession } from "next-auth/react";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  // const session = await getSession(context);
-  // if (!session) {
-  //   return {
-  //     redirect: {
-  //       destination: `/Auth/SignIn?callbackUr=/`,
-  //       permanent: false,
-  //     },
-  //   };
-  // }
+  const session = await getSession(context);
+  if (!session) {
+    return {
+      redirect: {
+        destination: `/Auth/SignIn?callbackUr=/`,
+        permanent: false,
+      },
+    };
+  }
 
-  // const userFromServer = await prisma.user.findFirst({
-  //   where: {
-  //     bahasha: session.user!.email,
-  //   },
-  //   select: {
-  //     id: true,
-  //     name: true,
-  //     image: true,
-  //   },
-  // });
-  // const userfound = await JSON.parse(JSON.stringify(userFromServer));
-
-  // const userVerificationPendingServer = await prisma.user.count({
-  //   where: { missing: false, verified: false },
-  // });
-  // const userVerificationPending = await JSON.parse(
-  //   JSON.stringify(userVerificationPendingServer)
-  // );
-
-  // const userMissingCredentialsServer = await prisma.user.count({
-  //   where: { missing: true, verified: false },
-  // });
-  // const userMissingCredentials = await JSON.parse(
-  //   JSON.stringify(userMissingCredentialsServer)
-  // );
+  const userFromServer = await prisma.user.findFirst({
+    where: {
+      userName: session.user!.email,
+    },
+    select: {
+      id: true,
+      name: true,
+      image: true,
+    },
+  });
+  const userfound = await JSON.parse(JSON.stringify(userFromServer));
 
   return {
     props: {
-      // userfound, userVerificationPending, userMissingCredentials
+      userfound,
     },
   };
 };

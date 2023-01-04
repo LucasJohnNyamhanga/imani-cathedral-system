@@ -18,27 +18,27 @@ export default NextAuth({
       },
       async authorize(credentials, req) {
         // Add logic here to look up the user from the credentials supplied
-        // const userFromServer = await prisma.user.findFirst({
-        //   where: {
-        //     bahasha: credentials?.username,
-        //   },
-        //   select: {
-        //     id: true,
-        //     name: true,
-        //     bahasha: true,
-        //     nenoLaSiri: true,
-        //   },
-        // });
-        // const userfound = await JSON.parse(JSON.stringify(userFromServer));
+        const userFromServer = await prisma.user.findFirst({
+          where: {
+            userName: credentials?.username,
+          },
+          select: {
+            id: true,
+            name: true,
+            userName: true,
+            nenoLaSiri: true,
+          },
+        });
+        const userfound = await JSON.parse(JSON.stringify(userFromServer));
 
-        // let comaparison = credentials!.password === userfound.nenoLaSiri;
+        let comaparison = credentials!.password === userfound.nenoLaSiri;
 
-        if (true) {
+        if (comaparison) {
           const user = {
-            // id: userfound.id,
-            // name: `${userfound.name}`,
-            // email: userfound.bahasha,
-            // image: "",
+            id: userfound.id,
+            name: `${userfound.name}`,
+            email: userfound.userName,
+            image: userfound.image,
           };
 
           // Any object returned will be saved in `user` property of the JWT

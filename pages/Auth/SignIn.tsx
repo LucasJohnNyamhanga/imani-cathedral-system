@@ -98,7 +98,7 @@ const SignIn = ({}) => {
             <div className={Styles.credential}>
               <div className={Styles.inputBox}>
                 <input
-                  type="number"
+                  type="text"
                   required
                   value={formData.username}
                   placeholder={``}
@@ -110,7 +110,7 @@ const SignIn = ({}) => {
                   autoCorrect="off"
                   spellCheck={false}
                 />
-                <span>Namba Ya Bahasha</span>
+                <span>Jina La Mtumiaji</span>
               </div>
               <div className={Styles.inputBox}>
                 <input
@@ -157,12 +157,12 @@ const SignIn = ({}) => {
             )}
             <div className={Styles.separator}>
               <hr className={Styles.line} />
-              <div className={Styles.or}>Mtumiaji Mpya</div>
+              <div className={Styles.or}>KKKT DMZV</div>
               <hr className={Styles.line} />
             </div>
-            <div className={Styles.buttonSignUp} onClick={signTo}>
+            {/* <div className={Styles.buttonSignUp} onClick={signTo}>
               <div>Sajili Akaunti Mpya</div>
-            </div>
+            </div> */}
           </form>
         </div>
       </div>

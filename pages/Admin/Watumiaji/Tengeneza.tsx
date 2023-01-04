@@ -9,21 +9,21 @@ import SelectMiu from "../../../components/tools/SelectMui";
 import Loader from "../../../components/tools/loaderWait";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { prisma } from "../../../db/prisma";
-import { jumuiya } from "@prisma/client";
+import InputTextMui from "../../../components/tools/InputTextMui";
 //! insta @ johnsavanter
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const jumuiyaFromServer = await prisma.jumuiya.findMany({
-    where: {},
-    select: {
-      id: true,
-      name: true,
-    },
-  });
-  const jumuiyaListFull = await JSON.parse(JSON.stringify(jumuiyaFromServer));
+  // const jumuiyaFromServer = await prisma.jumuiya.findMany({
+  //   where: {},
+  //   select: {
+  //     id: true,
+  //     name: true,
+  //   },
+  // });
+  // const jumuiyaListFull = await JSON.parse(JSON.stringify(jumuiyaFromServer));
 
   return {
-    props: { jumuiyaListFull },
+    props: {},
   };
 };
 
@@ -32,9 +32,7 @@ type formData = {
   value: string;
 }[];
 
-const SignIn = ({
-  jumuiyaListFull,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const SignIn = ({}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const [loadingDisplay, setLoadingDisplay] = useState(false);
   const [binafsi, setBinafsi] = useState(true);
   const [mawasiliano, setMawasiliano] = useState(false);
@@ -43,17 +41,19 @@ const SignIn = ({
   const [taarifa, setTaarifa] = useState("");
   const [image, setImage] = useState<string | Blob>("");
   const [uploadData, setUploadData] = useState(0);
+  const [submit, setSubmit] = useState(true);
 
   const [userDetails, setUserDetails] = useState({
     jinaKwanza: "",
     jinaKati: "",
     jinaMwisho: "",
-    tareheYaKuzaliwa: "",
     jinsia: "",
     nambaYaSimu: "",
+    userName: "",
     password1: "",
     password2: "",
     image: "",
+    bio: "",
   });
 
   const password1 = useRef<HTMLInputElement>(null!);
@@ -91,10 +91,11 @@ const SignIn = ({
   };
 
   let signTo = () => {
-    push(`/Auth/SignIn`);
+    push(`/Admin`);
   };
 
   let checkUser = () => {
+    setSubmit(false);
     const data = {
       name: `${
         userDetails.jinaKwanza.charAt(0).toUpperCase() +
@@ -117,7 +118,7 @@ const SignIn = ({
         if (userData) {
           notifyError("Tayari kuna akaunti yenye jina hili.");
           setLoadingDisplay(false);
-
+          setSubmit(true);
           // username.current.focus();
           // username.current.style.color = "red";
         } else {
@@ -142,12 +143,12 @@ const SignIn = ({
         userDetails.jinaMwisho.charAt(0).toUpperCase() +
         userDetails.jinaMwisho.toLowerCase().slice(1)
       }`,
-      jina: "",
-      tareheYaKuzaliwa: "",
-      jinsia: "",
-      nambaYaSimu: "",
-      password: "",
-      image: "",
+      jinsia: userDetails.jinsia,
+      nambaYaSimu: userDetails.nambaYaSimu,
+      nenoLaSiri: userDetails.password1,
+      image: userDetails.image,
+      bio: userDetails.bio,
+      userName: userDetails.userName,
     };
 
     axios
@@ -194,18 +195,21 @@ const SignIn = ({
   };
 
   let handleMbele = () => {
-    if (verify(step))
+    if (verify(step)) {
       if (step < 2) {
         setStep(step + 1);
         setTaarifa(headerTaarifa[step + 1]);
         smoothScroll();
         changer(step + 1);
       }
+    } else {
+      notifyError("Jaza nafasi zote zilizo wazi");
+    }
   };
 
   const verfyAndSubmit = () => {
-    const { password1, password2 } = userDetails;
-    if (password1 != "" && password2 != "" && image != "") {
+    const { password1, password2, userName } = userDetails;
+    if (password1 != "" && password2 != "" && userName != "") {
       if (password1 == password2) {
         checkUser();
       } else {
@@ -213,29 +217,50 @@ const SignIn = ({
         setLoadingDisplay(false);
       }
     } else {
-      notifyError("Hakikisha umepakia picha na kuandika neno la siri");
+      notifyError("Hakikisha umejaza nafasi zote.");
       setLoadingDisplay(false);
     }
   };
 
   const verify = (step: number) => {
+    console.log(userDetails);
     const {
       jinaKwanza,
       jinaKati,
       jinaMwisho,
-      tareheYaKuzaliwa,
       jinsia,
+      bio,
       nambaYaSimu,
+      password1,
+      password2,
+      userName,
     } = userDetails;
     switch (step) {
       case 0:
-        return true;
+        if (
+          jinaKwanza != "" &&
+          jinaKati != "" &&
+          jinaMwisho != "" &&
+          jinsia != ""
+        ) {
+          return true;
+        } else {
+          return false;
+        }
         break;
       case 1:
-        return true;
+        if (nambaYaSimu != "" && bio != "") {
+          return true;
+        } else {
+          return false;
+        }
         break;
       case 2:
-        return true;
+        if (userName != "" && password1 != "" && password2 != "") {
+          return true;
+        } else {
+          return false;
+        }
         break;
 
       default:
@@ -288,30 +313,36 @@ const SignIn = ({
   //! for uploading
   const uploadToServer = async () => {
     //setShowUpload(true);
-    const body = new FormData();
-    body.append("file", image);
-    axios
-      .post("https://database.co.tz/api/uploadImani", body, {
-        onUploadProgress: (progressEvent) => {
-          console.log(
-            "Upload Progress: " +
-              Math.round((progressEvent.loaded / progressEvent.total!) * 100) +
-              "%"
-          );
-          setUploadData(
-            Math.round((progressEvent.loaded / progressEvent.total!) * 100)
-          );
-        },
-      })
-      .then(
-        (res) => {
-          let location = res.data;
-          registration(location);
-        },
-        (err) => {
-          //some error
-        }
-      );
+    if (typeof image === "string") {
+      registration("");
+    } else {
+      const body = new FormData();
+      body.append("file", image);
+      axios
+        .post("https://database.co.tz/api/uploadImani", body, {
+          onUploadProgress: (progressEvent) => {
+            console.log(
+              "Upload Progress: " +
+                Math.round(
+                  (progressEvent.loaded / progressEvent.total!) * 100
+                ) +
+                "%"
+            );
+            setUploadData(
+              Math.round((progressEvent.loaded / progressEvent.total!) * 100)
+            );
+          },
+        })
+        .then(
+          (res) => {
+            let location = res.data;
+            registration(location);
+          },
+          (err) => {
+            //some error
+          }
+        );
+    }
   };
 
   let handleSelectJinsia = (value: string) => {
@@ -321,91 +352,17 @@ const SignIn = ({
     });
   };
 
+  let handleTextInput = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    name: string
+  ) => {
+    let value = event.currentTarget.value;
+    setUserDetails({ ...userDetails, [name]: value });
+  };
+
   const jinsiaList: formData = [
-    { label: "Mwanamme", value: "Mwanamme" },
+    { label: "Mwanaume", value: "Mwanaume" },
     { label: "Mwanamke", value: "Mwanamke" },
-  ];
-  const haliYaNdoaMkeList: formData = [
-    { label: "Nimeolewa", value: "Nimeolewa" },
-    { label: "Sijaolewa", value: "Sijaolewa" },
-    { label: "Mjane", value: "Mjane" },
-    { label: "Talikiwa", value: "Talikiwa" },
-    { label: "Tengana", value: "Tengana" },
-  ];
-
-  const haliYaNdoaMumeList: formData = [
-    { label: "Nimeoa", value: "Nimeoa" },
-    { label: "Sijaoa", value: "Sijaoa" },
-    { label: "Mgane", value: "Mgane" },
-    { label: "Talikiwa", value: "Talikiwa" },
-    { label: "Tengana", value: "Tengana" },
-  ];
-
-  const ainaYaNdoaList: formData = [
-    { label: "Ndoa Ya Kikristo", value: "Ndoa ya kikristo" },
-    { label: "Ndoa Isiyo Ya Kikristo", value: "Ndoa isiyo ya kikristo" },
-  ];
-  const jumuiyaList: formData = [
-    { label: "Sijapata Jumuiya", value: "Sijapata Jumuiya" },
-    { label: "Ufunuo", value: "Ufunuo" },
-    { label: "Agape", value: "Agape" },
-    { label: "Neema Nyamanoro", value: "Neema Nyamanoro" },
-    { label: "Israeli", value: "Israeli" },
-    { label: "Sinai", value: "Sinai" },
-    { label: "Jurusalem", value: "Jurusalem" },
-    { label: "Bethilehem", value: "Bethilehem" },
-    { label: "Warumi", value: "Warumi" },
-  ];
-
-  const wilayaList: formData = [
-    { label: "Ilemela", value: "Ilemela" },
-    { label: "Nyamagana", value: "Nyamagana" },
-  ];
-
-  const elimuList: formData = [
-    { label: "Sijasoma", value: "Sijasoma" },
-    { label: "Darasa la saba", value: "Darasa la saba" },
-    { label: "Kidato cha nne", value: "Kidato cha nne" },
-    { label: "Kidato cha sita", value: "Kidato cha sita" },
-    { label: "Elimu ya chuo", value: "Elimu ya chuo" },
-  ];
-
-  const ndioHapanaList: formData = [
-    { label: "Ndio", value: "True" },
-    { label: "Hapana", value: "False" },
-  ];
-
-  const ilemelaList: formData = [
-    { label: "Bugogwa", value: "Bugogwa" },
-    { label: "Buswelu", value: "Buswelu" },
-    { label: "Ilemela", value: "Ilemela" },
-    { label: "Kirumba", value: "Kirumba" },
-    { label: "Kitangiri", value: "Kitangiri" },
-    { label: "Nyakato", value: "Nyakato" },
-    { label: "Nyamanoro", value: "Nyamanoro" },
-    { label: "Pasiansi", value: "Pasiansi" },
-    { label: "Sangabuye", value: "Sangabuye" },
-  ];
-
-  const nyamaganaList: formData = [
-    { label: "Buhongwa", value: "Buhongwa" },
-    { label: "Butimba", value: "Butimba" },
-    { label: "Igogo", value: "Igogo" },
-    { label: "Igoma", value: "Igoma" },
-    { label: "Isamilo", value: "Isamilo" },
-    { label: "Kishili", value: "Kishili" },
-    { label: "Luchelele", value: "Luchelele" },
-    { label: "Lwanhima", value: "Lwanhima" },
-    { label: "Mabatini", value: "Mabatini" },
-    { label: "Mahina", value: "Mahina" },
-    { label: "Mbugani", value: "Mbugani" },
-    { label: "Mhandu", value: "Mhandu" },
-    { label: "Mikuyuni", value: "Mikuyuni" },
-    { label: "Mirongo", value: "Mirongo" },
-    { label: "Mkolani", value: "Mkolani" },
-    { label: "Nyamagana", value: "Nyamagana" },
-    { label: "Nyegezi", value: "Nyegezi" },
-    { label: "Pamba", value: "Pamba" },
   ];
 
   useEffect(() => {}, [step, userDetails]);
@@ -511,6 +468,12 @@ const SignIn = ({
                     />
                     <span>Namba Yako Ya Simu</span>
                   </div>
+                  <InputTextMui
+                    label="Maelezo Mafupi Kuhusu Mtumiaji"
+                    content={userDetails.bio}
+                    name="bio"
+                    handleChange={handleTextInput}
+                  />
                 </>
               )}
               {mwisho && (
@@ -520,6 +483,22 @@ const SignIn = ({
                     imageReady={image}
                   />
                   <div className={Styles.credential}>
+                    <div className={Styles.inputBox}>
+                      <input
+                        type="name"
+                        value={userDetails.userName}
+                        placeholder={``}
+                        name={`userName`}
+                        onChange={(event) => {
+                          handletextChange(event);
+                        }}
+                        autoComplete="off"
+                        autoCorrect="off"
+                        spellCheck={false}
+                        required
+                      />
+                      <span>Jina La Mtumiaji</span>
+                    </div>
                     <div className={Styles.inputBox}>
                       <input
                         ref={password1}
@@ -572,7 +551,7 @@ const SignIn = ({
         </div>
         <div className={Styles.buttonHolder}>
           <div>
-            {step > 0 && (
+            {step > 0 && submit && (
               <div className={Styles.button} onClick={handleNyuma}>
                 Nyuma
               </div>

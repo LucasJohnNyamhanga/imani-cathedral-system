@@ -21,17 +21,18 @@ datasource db {
 }
 
 model user {
-  id               Int      @id @default(autoincrement())
-  image            String?
-  name             String   @db.Text
-  bio              String   @db.LongText
-  tareheYaKuzaliwa DateTime
-  jinsia           String
-  nenoLaSiri       String
-  dateJoined       DateTime @default(now())
-  updatedAt        DateTime @updatedAt
-  verified         Boolean  @default(false)
-  post             post[]
+  id          Int      @id @default(autoincrement())
+  image       String?
+  name        String   @db.Text
+  bio         String   @db.LongText
+  nambaYaSimu String
+  jinsia      String
+  userName    String
+  nenoLaSiri  String
+  dateJoined  DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  verified    Boolean  @default(false)
+  post        post[]
 
   @@fulltext([name])
 }
