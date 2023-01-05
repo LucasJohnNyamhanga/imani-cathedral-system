@@ -167,17 +167,17 @@ const SignIn = ({}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
         //responce
         const user = JSON.parse(JSON.stringify(response.data));
         if (user) {
-          notifySuccess(response.data.message);
-          setLoadingDisplay(false);
-
+          notifySuccess("Akaunti Imetengenezwa");
           signTo();
         } else {
-          notifyError(response.data.message);
-          setLoadingDisplay(false);
+          notifyError("Akaunti imeshindikana kutengenezwa, Jaribu baadae!.");
         }
+        setLoadingDisplay(false);
       })
       .catch(function (error) {
         // handle error
+        notifyError("Akaunti imeshindikana kutengenezwa, Jaribu baadae!.");
+        setLoadingDisplay(false);
       });
   };
 

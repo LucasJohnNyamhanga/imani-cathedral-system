@@ -12,6 +12,7 @@ import { prisma } from "../../db/prisma";
 import { getSession } from "next-auth/react";
 import axios from "axios";
 import CardBox from "../../components/tools/cardBoxStyle";
+import Drawer from "../../components/tools/DrawerMobileAdmin";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context);
@@ -43,10 +44,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   };
 };
 
-const Index = ({}: // userfound,
-// userVerificationPending,
-// userMissingCredentials,
-InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const Index = ({
+  userfound,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   type dataTypeSelect = {
     value: string;
     label: string;
@@ -64,6 +64,7 @@ InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const matangazo = useRef<HTMLDivElement>(null!);
   const watumiaji = useRef<HTMLDivElement>(null!);
   const [userList, setUserList] = useState([]);
+  const [postList, setPostList] = useState([]);
 
   let handleNav = (value: string) => {
     setNavValue(value);
@@ -75,6 +76,7 @@ InferGetServerSidePropsType<typeof getServerSideProps>) => {
     switch (key) {
       case "machapisho":
         machapisho.current.classList.add(Styles.Active);
+        retriavePost();
         setActive("machapisho");
         break;
       case "matangazo":
@@ -120,23 +122,42 @@ InferGetServerSidePropsType<typeof getServerSideProps>) => {
       });
   };
 
-  let handleUpdateWatumiaji = (published: boolean, id: number) => {
+  let retriavePost = () => {
     setLoading(true);
     axios
-      .post("/api/updateDraftOrPublishedExam", {
+      .get("/api/getPosts")
+      .then(function (response) {
+        const postFromServer = JSON.parse(JSON.stringify(response.data));
+        // handle success
+        setPostList(postFromServer);
+        setLoading(false);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+        notifyError("Kuna kitu hakiko sawa, jaribu baadae.");
+        setLoading(false);
+      })
+      .then(function () {
+        // always executed
+      });
+  };
+
+  let handleUpdatePost = (published: boolean, id: number) => {
+    axios
+      .post("/api/updateDraftOrPublished", {
         id,
         published: !published,
       })
       .then(function (response) {
-        retriaveWatumiaji();
         let jibu: string = response.data.message;
         notifySuccess(jibu);
+        retriavePost();
       })
       .catch(function (error) {
         // handle error
         console.log(error);
         notifyError("Error has occured, try later.");
-        setLoading(false);
       })
       .then(function () {
         // always executed
@@ -279,12 +300,12 @@ InferGetServerSidePropsType<typeof getServerSideProps>) => {
           {/* //!start of default desplay */}
           <div className={Styles.rightInnercontainerBody}>
             <div className={Styles.mobile}>
-              {/* <Drawer
+              <Drawer
                 textHeader={"Parish Worker"}
                 active={active}
                 handleClick={handleNav}
                 userData={userfound}
-              /> */}
+              />
             </div>
 
             {loading && (
@@ -322,7 +343,31 @@ InferGetServerSidePropsType<typeof getServerSideProps>) => {
                           </div>
                         </Link>
                       </div>
-                      <div className={Styles.selectDivTopic}>list</div>
+                      <div className={Styles.subjectBody}>
+                        {postList.map(
+                          (post: {
+                            id: number;
+                            title: string;
+                            subTitle: string;
+                            body: string;
+                            createdAt: Date;
+                            published: boolean;
+                            userId: number;
+                            user: {
+                              name: string;
+                            };
+                          }) => (
+                            <CardBox
+                              handleUpdate={handleUpdatePost}
+                              link={`/Admin/Notes/Edit/Note/${post.id}`}
+                              label={customTruncate(`${post.title}`, 30)}
+                              published={post.published}
+                              id={post.id}
+                              key={post.id}
+                            />
+                          )
+                        )}
+                      </div>
                     </div>
                   </div>
                 )}
@@ -373,6 +418,7 @@ InferGetServerSidePropsType<typeof getServerSideProps>) => {
                             name: string;
                           }) => (
                             <CardBox
+                              handleUpdate={handleUpdatePost}
                               link={"/Admin/User/" + user.id}
                               label={customTruncate(`${user.name}`, 24)}
                               id={user.id}

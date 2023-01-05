@@ -9,10 +9,17 @@ type dataType = {
   label: string;
   id: number;
   published: boolean | string;
+  handleUpdate: (published: boolean, id: number) => void;
   link: string;
 };
 
-const CardBoxStyle = ({ label, id, published, link }: dataType) => {
+const CardBoxStyle = ({
+  label,
+  id,
+  published,
+  link,
+  handleUpdate,
+}: dataType) => {
   const [showHidePublish, setShowHidePublish] = useState(false);
 
   useEffect(() => {
@@ -27,7 +34,11 @@ const CardBoxStyle = ({ label, id, published, link }: dataType) => {
         <div className={Styles.labelTextInText}>{label}</div>
         {showHidePublish && (
           <Tooltip title="Update Status">
-            <IconButton>
+            <IconButton
+              onClick={() => {
+                typeof published != "string" ? handleUpdate(published, id) : "";
+              }}
+            >
               <div className={Styles.published}>
                 {typeof published != "string" ? (
                   published ? (
