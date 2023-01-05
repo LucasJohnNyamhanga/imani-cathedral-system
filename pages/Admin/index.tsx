@@ -114,7 +114,7 @@ const Index = ({
       .catch(function (error) {
         // handle error
         console.log(error);
-        notifyError("Something went wrong.");
+        notifyError("Kuna kitu hakiko sawa, jaribu tena baadae.");
         setLoading(false);
       })
       .then(function () {
@@ -135,7 +135,7 @@ const Index = ({
       .catch(function (error) {
         // handle error
         console.log(error);
-        notifyError("Kuna kitu hakiko sawa, jaribu baadae.");
+        notifyError("Kuna kitu hakiko sawa, jaribu tena baadae.");
         setLoading(false);
       })
       .then(function () {
@@ -157,7 +157,7 @@ const Index = ({
       .catch(function (error) {
         // handle error
         console.log(error);
-        notifyError("Error has occured, try later.");
+        notifyError("Kuna kitu hakiko sawa, jaribu tena baadae.");
       })
       .then(function () {
         // always executed
