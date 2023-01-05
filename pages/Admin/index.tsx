@@ -359,7 +359,7 @@ const Index = ({
                           }) => (
                             <CardBox
                               handleUpdate={handleUpdatePost}
-                              link={`/Admin/Notes/Edit/Note/${post.id}`}
+                              link={`/Admin/Machapisho/${post.id}`}
                               label={customTruncate(`${post.title}`, 30)}
                               published={post.published}
                               id={post.id}

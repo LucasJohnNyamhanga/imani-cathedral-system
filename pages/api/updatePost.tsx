@@ -1,40 +1,35 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "../../db/prisma";
-type dataType = {
-  formId: string;
-  subjectId: string;
-  topicId: string;
-  content: string;
+type userData = {
+  message: string;
+  type: string;
 };
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse<userData>
 ) {
-  const { title, subTitle, body, tagId, userId } = req.body;
+  const { title, subTitle, tagId, body, userId, id } = req.body;
 
-  let userIdNumber = parseInt(userId);
-  let tag = parseInt(tagId);
   try {
-    await prisma.post.create({
+    await prisma.post.update({
+      where: { id },
       data: {
         title,
         subTitle,
+        tagId,
         body,
-        tagId: tag,
-        userId: userIdNumber,
+        userId,
       },
     });
-    res.status(200).json({
-      message: "Andiko limesajiliwa kikamilifu.",
-      type: "success",
-    });
+    res
+      .status(200)
+      .json({ message: "Mabolesho Yamefanyika kikamilifu", type: "success" });
   } catch (error) {
-    console.log(error);
     res.status(200).json({
       message: "Kuna kitu hakiko sawa, jaribu tena baadae.",
-      type: "error",
+      type: "success",
     });
   } finally {
     await prisma.$disconnect();

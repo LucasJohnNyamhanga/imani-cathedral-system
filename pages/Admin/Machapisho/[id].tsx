@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import React, { ReactNode, useContext, useEffect, useState } from "react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { prisma } from "../../../db/prisma";
@@ -6,7 +7,6 @@ import SelectMiu from "../../../components/tools/SelectMui";
 import toast, { Toaster } from "react-hot-toast";
 import dynamic from "next/dynamic";
 import axios from "axios";
-import { useRouter } from "next/router";
 
 //load when browser kicks in, on page load
 const CkEditor = dynamic(() => import("../../../components/tools/Ck"), {
@@ -19,7 +19,6 @@ import { tag } from "@prisma/client";
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context);
   const url = process.env.MAIN_URL;
-
   if (!session) {
     return {
       redirect: {
@@ -28,13 +27,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       },
     };
   }
-
   const userFromServer = await prisma.user.findFirst({
     where: {
       userName: session.user!.email ?? "",
     },
     select: {
+      name: true,
       id: true,
+      userName: true,
     },
   });
   const userfound = await JSON.parse(JSON.stringify(userFromServer));
@@ -47,16 +47,37 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   });
   const categories = await JSON.parse(JSON.stringify(categoryFromServer));
 
+  let id = context.params?.id as string;
+  let Id = parseInt(id);
+
+  const postServer = await prisma.post.findUnique({
+    where: {
+      id: Id,
+    },
+    select: {
+      id: true,
+      title: true,
+      subTitle: true,
+      body: true,
+      tag: true,
+      user: true,
+      createdAt: true,
+      published: true,
+    },
+  });
+
+  const post = JSON.parse(JSON.stringify(postServer));
+
   await prisma.$disconnect();
   return {
     props: {
-      url,
-      categories,
+      post,
       userfound,
+      categories,
+      url,
     },
   };
 };
-
 type userData = {
   id: number;
   formName: string;
@@ -67,18 +88,19 @@ type formData = {
   value: string;
 }[];
 
-const Notes = ({
-  url,
-  categories,
+const EditNotes = ({
+  post,
   userfound,
+  categories,
+  url,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const [kundiHabari, setKundiHabari] = useState<formData>([]);
 
   const [andikoDetails, setAndikoDetails] = useState({
-    title: "",
-    subTitle: "",
-    body: "",
-    tag: "",
+    title: post.title,
+    subTitle: post.subTitle,
+    body: post.body,
+    tag: post.tag.id as string,
   });
   const [loading, setLoad] = useState(false);
 
@@ -133,10 +155,11 @@ const Notes = ({
       tagId: andikoDetails.tag,
       body: andikoDetails.body,
       userId: userfound.id,
+      id: post.id,
     };
     axios({
       method: "post",
-      url: url + "/api/addPost",
+      url: url + "/api/updatePost",
       data,
     })
       .then(function (response) {
@@ -157,7 +180,7 @@ const Notes = ({
       .catch(function (error) {
         // handle error
         console.log(error);
-        notifyError("Error has occured, try later.");
+        notifyError("Kuna kitu hakiko sawa, jaribu tena baadae.");
         setLoad(false);
       })
       .then(function () {
@@ -228,7 +251,7 @@ const Notes = ({
             </div>
             <CkEditor
               content={handleContent}
-              dataCk={""}
+              dataCk={andikoDetails.body}
               onReadyToStart={handleOnReady}
             />
           </div>
@@ -249,7 +272,7 @@ const Notes = ({
             </div>
           ) : (
             <div onClick={handleTengenezaAndiko} className={Styles.imageSelect}>
-              Tengeneza Andiko
+              Boresha Andiko
             </div>
           )}
         </div>
@@ -258,9 +281,9 @@ const Notes = ({
   );
 };
 
-export default Notes;
+export default EditNotes;
 
 //*Removing default search bar :)
-Notes.getLayout = function PageLayout(page: ReactNode) {
+EditNotes.getLayout = function PageLayout(page: ReactNode) {
   return <>{page}</>;
 };
