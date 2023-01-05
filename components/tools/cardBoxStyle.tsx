@@ -51,13 +51,11 @@ const CardBoxStyle = ({ label, id, published, link }: dataType) => {
           </IconButton>
         </Tooltip> */}
         <Link passHref href={link}>
-          <a>
-            <Tooltip title="Edit">
-              <IconButton>
-                <EditSharpIcon className={Styles.icons} />
-              </IconButton>
-            </Tooltip>
-          </a>
+          <Tooltip title="Edit">
+            <IconButton>
+              <EditSharpIcon className={Styles.icons} />
+            </IconButton>
+          </Tooltip>
         </Link>
       </div>
     </div>

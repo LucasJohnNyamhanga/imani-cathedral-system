@@ -156,7 +156,7 @@ const SignIn = ({}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
       jinsia: userDetails.jinsia,
       nambaYaSimu: userDetails.nambaYaSimu,
       nenoLaSiri: userDetails.password1,
-      image: userDetails.image,
+      image: location.length > 0 ? location : userDetails.image,
       bio: userDetails.bio,
       userName: userDetails.userName,
     };
@@ -169,11 +169,8 @@ const SignIn = ({}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
         if (user) {
           notifySuccess(response.data.message);
           setLoadingDisplay(false);
-          if (user.missing) {
-            push(`/Auth/BadoUsajili?id=${user.id}`);
-          } else {
-            signTo();
-          }
+
+          signTo();
         } else {
           notifyError(response.data.message);
           setLoadingDisplay(false);
@@ -345,11 +342,16 @@ const SignIn = ({}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
         })
         .then(
           (res) => {
+            console.log(res);
             let location = res.data;
             registration(location);
           },
           (err) => {
             //some error
+            notifyError(
+              "Kuna kitu hakijaenda sawa, mjulishe msimamizi wa mfumo"
+            );
+            setLoadingDisplay(false);
           }
         );
     }
@@ -375,7 +377,7 @@ const SignIn = ({}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
     { label: "Mwanamke", value: "Mwanamke" },
   ];
 
-  useEffect(() => {}, [step, userDetails]);
+  useEffect(() => {}, [step, userDetails, uploadData]);
 
   return (
     <div className={Styles.container}>
@@ -575,9 +577,15 @@ const SignIn = ({}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
             ) : step > 1 ? (
               <div className={Styles.buttonHolderCreate}>
                 {loadingDisplay ? (
-                  <div className={Styles.buttonSajili}>
-                    <Loader sms={"Akaunti Inatengenezwa"} />
-                  </div>
+                  uploadData < 100 ? (
+                    <div className={Styles.buttonSajili}>
+                      <Loader sms={`Akaunti Inatengenezwa - ${uploadData}%`} />
+                    </div>
+                  ) : (
+                    <div className={Styles.buttonSajili}>
+                      <Loader sms={"Malekebisho ya mwisho.."} />
+                    </div>
+                  )
                 ) : (
                   <div onClick={verfyAndSubmit} className={Styles.button}>
                     Tengeneza Akaunti

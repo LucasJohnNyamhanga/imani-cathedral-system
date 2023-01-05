@@ -7,10 +7,11 @@ import toast, { Toaster } from "react-hot-toast";
 import Loader from "../../components/tools/loader";
 import { FaUserAlt } from "react-icons/fa";
 import { FaFileSignature } from "react-icons/fa";
-import Badge from "@mui/material/Badge";
 import Link from "next/link";
 import { prisma } from "../../db/prisma";
 import { getSession } from "next-auth/react";
+import axios from "axios";
+import CardBox from "../../components/tools/cardBoxStyle";
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context);
@@ -62,6 +63,7 @@ InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const machapisho = useRef<HTMLDivElement>(null!);
   const matangazo = useRef<HTMLDivElement>(null!);
   const watumiaji = useRef<HTMLDivElement>(null!);
+  const [userList, setUserList] = useState([]);
 
   let handleNav = (value: string) => {
     setNavValue(value);
@@ -81,6 +83,7 @@ InferGetServerSidePropsType<typeof getServerSideProps>) => {
         break;
       case "watumiaji":
         watumiaji.current.classList.add(Styles.Active);
+        retriaveWatumiaji();
         setActive("watumiaji");
         break;
 
@@ -94,6 +97,50 @@ InferGetServerSidePropsType<typeof getServerSideProps>) => {
     machapisho.current.classList.remove(Styles.Active);
     matangazo.current.classList.remove(Styles.Active);
     watumiaji.current.classList.remove(Styles.Active);
+  };
+
+  let retriaveWatumiaji = () => {
+    setLoading(true);
+    axios
+      .get("/api/getWatumiaji")
+      .then(function (response) {
+        const watumiajiFromServer = JSON.parse(JSON.stringify(response.data));
+        // handle success
+        setUserList(watumiajiFromServer);
+        setLoading(false);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+        notifyError("Something went wrong.");
+        setLoading(false);
+      })
+      .then(function () {
+        // always executed
+      });
+  };
+
+  let handleUpdateWatumiaji = (published: boolean, id: number) => {
+    setLoading(true);
+    axios
+      .post("/api/updateDraftOrPublishedExam", {
+        id,
+        published: !published,
+      })
+      .then(function (response) {
+        retriaveWatumiaji();
+        let jibu: string = response.data.message;
+        notifySuccess(jibu);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+        notifyError("Error has occured, try later.");
+        setLoading(false);
+      })
+      .then(function () {
+        // always executed
+      });
   };
 
   let smoothScroll = () => {
@@ -177,6 +224,10 @@ InferGetServerSidePropsType<typeof getServerSideProps>) => {
     day7 < 10 ? "0" + day7 : day7
   }`;
 
+  function customTruncate(str: string, size: number) {
+    return str.length > size ? str.slice(0, size) + "..." : str;
+  }
+
   useEffect(() => {}, []);
 
   return (
@@ -198,9 +249,8 @@ InferGetServerSidePropsType<typeof getServerSideProps>) => {
                     onClick={(e) => handleNav(e.currentTarget.id)}
                     className={Styles.topicTittle}
                   >
-                    <Badge badgeContent={5} color="primary">
-                      <FaFileSignature size={25} />
-                    </Badge>
+                    {/* <Badge badgeContent={5} color="primary"></Badge> */}
+                    <FaFileSignature size={25} />
                     <div className={Styles.text}>Machapisho</div>
                   </div>
                   <div
@@ -209,9 +259,7 @@ InferGetServerSidePropsType<typeof getServerSideProps>) => {
                     onClick={(e) => handleNav(e.currentTarget.id)}
                     className={Styles.topicTittle}
                   >
-                    <Badge badgeContent={7} color="primary">
-                      <FaRegIdCard size={25} />
-                    </Badge>
+                    <FaRegIdCard size={25} />
                     <div className={Styles.text}>Matangazo</div>
                   </div>
                   <div className={Styles.TopicHeaderNotes}>Usimamizi</div>
@@ -305,7 +353,7 @@ InferGetServerSidePropsType<typeof getServerSideProps>) => {
                     <div className={Styles.subject}>
                       <div className={Styles.subjectHeader}>
                         <div className={Styles.subjectHeaderText}>
-                          Watumiaji Management
+                          Usimamizi Watumiaji
                         </div>
                         <Link
                           passHref
@@ -317,7 +365,23 @@ InferGetServerSidePropsType<typeof getServerSideProps>) => {
                           </div>
                         </Link>
                       </div>
-                      <div className={Styles.selectDivTopic}>list</div>
+                      <div className={Styles.subjectBody}>
+                        {userList.map(
+                          (user: {
+                            id: number;
+                            userName: string;
+                            name: string;
+                          }) => (
+                            <CardBox
+                              link={"/Admin/User/" + user.id}
+                              label={customTruncate(`${user.name}`, 24)}
+                              id={user.id}
+                              key={user.id}
+                              published={""}
+                            />
+                          )
+                        )}
+                      </div>
                     </div>
                   </div>
                 )}
