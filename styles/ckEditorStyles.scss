@@ -1,0 +1,672 @@
+/*
+ * CKEditor 5 (v34.0.0) content styles.
+ * Generated on Tue, 19 Apr 2022 12:10:00 GMT.
+ * For more information, check out https://ckeditor.com/docs/ckeditor5/latest/installation/advanced/content-styles.html
+ */
+@import "index";
+
+$ck-color-image-caption-background: hsl(0, 0%, 97%);
+$ck-color-image-caption-text: hsl(0, 0%, 20%);
+$ck-color-mention-background: hsla(341, 100%, 30%, 0.1);
+$ck-color-mention-text: hsl(341, 100%, 30%);
+$ck-color-table-caption-background: hsl(0, 0%, 97%);
+$ck-color-table-caption-text: hsl(0, 0%, 20%);
+$ck-highlight-marker-blue: hsl(201, 97%, 72%);
+$ck-highlight-marker-green: hsl(120, 93%, 68%);
+$ck-highlight-marker-pink: hsl(345, 96%, 73%);
+$ck-highlight-marker-yellow: hsl(60, 97%, 73%);
+$ck-highlight-pen-green: hsl(112, 100%, 27%);
+$ck-highlight-pen-red: hsl(0, 85%, 49%);
+$ck-image-style-spacing: 1.5em;
+$ck-inline-image-style-spacing: calc(var($ck-image-style-spacing) / 2);
+$ck-todo-list-checkmark-size: 16px;
+
+/* ckeditor5-block-quote/theme/blockquote.css */
+.ckContent blockquote {
+  overflow: hidden;
+  padding-right: 1.5em;
+  padding-left: 1.5em;
+  font-style: italic;
+  margin: 15px 30px 30px 15px;
+  border: 1px solid $ugoro;
+  font-family: $fontHeader;
+  font-weight: 500;
+  box-shadow: 6px 6px #989898, 12px 12px #6c6666;
+}
+/* ckeditor5-block-quote/theme/blockquote.css */
+.ckContent[dir="rtl"] blockquote {
+  border-left: 0;
+  border-right: solid 5px hsl(0, 0%, 80%);
+}
+/* ckeditor5-basic-styles/theme/code.css */
+.ckContent code {
+  background-color: hsla(0, 0%, 78%, 0.3);
+  padding: 0.15em;
+  border-radius: 2px;
+}
+/* ckeditor5-font/theme/fontsize.css */
+.ckContent .text-tiny {
+  font-size: 0.7em;
+}
+/* ckeditor5-font/theme/fontsize.css */
+.ckContent .text-small {
+  font-size: 0.85em;
+}
+/* ckeditor5-font/theme/fontsize.css */
+.ckContent .text-big {
+  font-size: 1.4em;
+}
+/* ckeditor5-font/theme/fontsize.css */
+.ckContent .text-huge {
+  font-size: 1.8em;
+}
+/* ckeditor5-highlight/theme/highlight.css */
+.ckContent .marker-yellow {
+  background-color: var($ck-highlight-marker-yellow);
+}
+/* ckeditor5-highlight/theme/highlight.css */
+.ckContent .marker-green {
+  background-color: var($ck-highlight-marker-green);
+}
+/* ckeditor5-highlight/theme/highlight.css */
+.ckContent .marker-pink {
+  background-color: var($ck-highlight-marker-pink);
+}
+/* ckeditor5-highlight/theme/highlight.css */
+.ckContent .marker-blue {
+  background-color: var($ck-highlight-marker-blue);
+}
+/* ckeditor5-highlight/theme/highlight.css */
+.ckContent .pen-red {
+  color: var($ck-highlight-pen-red);
+  background-color: transparent;
+}
+/* ckeditor5-highlight/theme/highlight.css */
+.ckContent .pen-green {
+  color: var($ck-highlight-pen-green);
+  background-color: transparent;
+}
+/* ckeditor5-image/theme/image.css */
+.ckContent .image {
+  display: table;
+  clear: both;
+  text-align: center;
+  margin: 0.9em auto;
+  min-width: 50px;
+}
+/* ckeditor5-image/theme/image.css */
+.ckContent .image img {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  min-width: 100%;
+}
+/* ckeditor5-image/theme/image.css */
+.ckContent .image-inline {
+  /*
+     * Normally, the .image-inline would have "display: inline-block" and "img { width: 100% }" (to follow the wrapper while resizing).;
+     * Unfortunately, together with "srcset", it gets automatically stretched up to the width of the editing root.
+     * This strange behavior does not happen with inline-flex.
+     */
+  display: inline-flex;
+  max-width: 100%;
+  align-items: flex-start;
+}
+/* ckeditor5-image/theme/image.css */
+.ckContent .image-inline picture {
+  display: flex;
+}
+/* ckeditor5-image/theme/image.css */
+.ckContent .image-inline picture,
+.ckContent .image-inline img {
+  flex-grow: 1;
+  flex-shrink: 1;
+  max-width: 100%;
+}
+/* ckeditor5-image/theme/imagecaption.css */
+.ckContent .image > figcaption {
+  display: table-caption;
+  caption-side: bottom;
+  word-break: break-word;
+  color: var($ck-color-image-caption-text);
+  background-color: var($ck-color-image-caption-background);
+  padding: 0.6em;
+  font-size: 0.75em;
+  outline-offset: -1px;
+}
+/* ckeditor5-image/theme/imagestyle.css */
+.ckContent .image-style-block-align-left,
+.ckContent .image-style-block-align-right {
+  max-width: calc(100% - var($ck-image-style-spacing));
+}
+/* ckeditor5-image/theme/imagestyle.css */
+.ckContent .image-style-align-left,
+.ckContent .image-style-align-right {
+  clear: none;
+}
+/* ckeditor5-image/theme/imagestyle.css */
+.ckContent .image-style-side {
+  float: right;
+  margin-left: var($ck-image-style-spacing);
+  max-width: 50%;
+}
+/* ckeditor5-image/theme/imagestyle.css */
+.ckContent .image-style-align-left {
+  float: left;
+  margin-right: var($ck-image-style-spacing);
+}
+/* ckeditor5-image/theme/imagestyle.css */
+.ckContent .image-style-align-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+/* ckeditor5-image/theme/imagestyle.css */
+.ckContent .image-style-align-right {
+  float: right;
+  margin-left: var($ck-image-style-spacing);
+}
+/* ckeditor5-image/theme/imagestyle.css */
+.ckContent .image-style-block-align-right {
+  margin-right: 0;
+  margin-left: auto;
+}
+/* ckeditor5-image/theme/imagestyle.css */
+.ckContent .image-style-block-align-left {
+  margin-left: 0;
+  margin-right: auto;
+}
+/* ckeditor5-image/theme/imagestyle.css */
+.ckContent p + .image-style-align-left,
+.ckContent p + .image-style-align-right,
+.ckContent p + .image-style-side {
+  margin-top: 0;
+}
+/* ckeditor5-image/theme/imagestyle.css */
+.ckContent .image-inline.image-style-align-left,
+.ckContent .image-inline.image-style-align-right {
+  margin-top: var($ck-inline-image-style-spacing);
+  margin-bottom: var($ck-inline-image-style-spacing);
+}
+/* ckeditor5-image/theme/imagestyle.css */
+.ckContent .image-inline.image-style-align-left {
+  margin-right: var($ck-inline-image-style-spacing);
+}
+/* ckeditor5-image/theme/imagestyle.css */
+.ckContent .image-inline.image-style-align-right {
+  margin-left: var($ck-inline-image-style-spacing);
+}
+/* ckeditor5-image/theme/imageresize.css */
+.ckContent .image.image_resized {
+  max-width: 100%;
+  display: block;
+  box-sizing: border-box;
+}
+/* ckeditor5-image/theme/imageresize.css */
+.ckContent .image.image_resized img {
+  width: 100%;
+}
+/* ckeditor5-image/theme/imageresize.css */
+.ckContent .image.image_resized > figcaption {
+  display: block;
+}
+/* ckeditor5-language/theme/language.css */
+.ckContent span[lang] {
+  font-style: italic;
+}
+/* ckeditor5-media-embed/theme/mediaembed.css */
+.ckContent .media {
+  clear: both;
+  margin: 0.9em 0;
+  display: block;
+  min-width: 15em;
+  width: 100%;
+  height: auto;
+}
+/* ckeditor5-list/theme/todolist.css */
+.ckContent .todo-list {
+  list-style: none;
+}
+/* ckeditor5-list/theme/todolist.css */
+.ckContent .todo-list li {
+  margin-bottom: 5px;
+}
+/* ckeditor5-list/theme/todolist.css */
+.ckContent .todo-list li .todo-list {
+  margin-top: 5px;
+}
+/* ckeditor5-list/theme/todolist.css */
+.ckContent .todo-list input {
+  -webkit-appearance: none;
+  appearance: none;
+  display: inline-block;
+  position: relative;
+  width: var($ck-todo-list-checkmark-size);
+  height: var($ck-todo-list-checkmark-size);
+  vertical-align: middle;
+  border: 0;
+  left: -25px;
+  margin-right: -15px;
+  right: 0;
+  margin-left: 0;
+}
+/* ckeditor5-list/theme/todolist.css */
+.ckContent .todo-list .todo-list__label > input::before {
+  display: block;
+  position: absolute;
+  box-sizing: border-box;
+  content: "";
+  width: 100%;
+  height: 100%;
+  border: 1px solid hsl(0, 0%, 20%);
+  border-radius: 2px;
+  transition: 250ms ease-in-out box-shadow, 250ms ease-in-out background,
+    250ms ease-in-out border;
+}
+/* ckeditor5-list/theme/todolist.css */
+.ckContent .todo-list .todo-list__label > input::after {
+  display: block;
+  position: absolute;
+  box-sizing: content-box;
+  pointer-events: none;
+  content: "";
+  left: calc(var($ck-todo-list-checkmark-size) / 3);
+  top: calc(var($ck-todo-list-checkmark-size) / 5.3);
+  width: calc(var($ck-todo-list-checkmark-size) / 5.3);
+  height: calc(var($ck-todo-list-checkmark-size) / 2.6);
+  border-style: solid;
+  border-color: transparent;
+  border-width: 0 calc(var($ck-todo-list-checkmark-size) / 8)
+    calc(var($ck-todo-list-checkmark-size) / 8) 0;
+  transform: rotate(45deg);
+}
+/* ckeditor5-list/theme/todolist.css */
+.ckContent .todo-list .todo-list__label > input[checked]::before {
+  background: hsl(126, 64%, 41%);
+  border-color: hsl(126, 64%, 41%);
+}
+/* ckeditor5-list/theme/todolist.css */
+.ckContent .todo-list .todo-list__label > input[checked]::after {
+  border-color: hsl(0, 0%, 100%);
+}
+/* ckeditor5-list/theme/todolist.css */
+.ckContent .todo-list .todo-list__label .todo-list__label__description {
+  vertical-align: middle;
+}
+/* ckeditor5-page-break/theme/pagebreak.css */
+.ckContent .page-break {
+  position: relative;
+  clear: both;
+  padding: 5px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* ckeditor5-page-break/theme/pagebreak.css */
+.ckContent .page-break::after {
+  content: "";
+  position: absolute;
+  border-bottom: 2px dashed hsl(0, 0%, 77%);
+  width: 100%;
+}
+/* ckeditor5-page-break/theme/pagebreak.css */
+.ckContent .page-break__label {
+  position: relative;
+  z-index: 1;
+  padding: 0.3em 0.6em;
+  display: block;
+  text-transform: uppercase;
+  border: 1px solid hsl(0, 0%, 77%);
+  border-radius: 2px;
+  font-family: Helvetica, Arial, Tahoma, Verdana, Sans-Serif;
+  font-size: 0.75em;
+  font-weight: bold;
+  color: hsl(0, 0%, 20%);
+  background: hsl(0, 0%, 100%);
+  box-shadow: 2px 2px 1px hsla(0, 0%, 0%, 0.15);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+/* ckeditor5-table/theme/table.css */
+.ckContent .table {
+  margin: 0.9em auto;
+  display: table;
+  overflow-x: auto;
+  width: 100% !important;
+}
+/* ckeditor5-table/theme/table.css */
+.ckContent .table table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  height: 100%;
+  width: 100% !important;
+  border: 3px solid hsl(0, 0%, 75%) !important;
+}
+/* ckeditor5-table/theme/table.css */
+.ckContent .table table td,
+.ckContent .table table th {
+  padding: 10px;
+  border: 1px solid hsl(0, 0%, 75%) !important;
+}
+/* ckeditor5-table/theme/table.css */
+.ckContent .table table th {
+  font-weight: bolder;
+  background: hsla(0, 0%, 0%, 5%);
+}
+
+.ckContent .table table tr:nth-child(even) {
+  background-color: $answerBackground;
+}
+/* ckeditor5-table/theme/table.css */
+.ckContent[dir="rtl"] .table th {
+  text-align: right;
+}
+/* ckeditor5-table/theme/table.css */
+.ckContent[dir="ltr"] .table th {
+  text-align: left;
+}
+
+.ckContent {
+  table th,
+  table td {
+    padding: 0.625em !important;
+    font-family: $fontBody !important;
+    text-align: left !important;
+  }
+
+  table th {
+    font-size: 0.85em !important;
+    letter-spacing: 0.1em !important;
+    text-transform: uppercase !important;
+    font-family: $fontHeader !important;
+  }
+}
+/* ckeditor5-table/theme/tablecaption.css */
+.ckContent .table > figcaption {
+  display: table-caption;
+  caption-side: top;
+  word-break: break-word;
+  text-align: center;
+  color: var($ck-color-table-caption-text);
+  background-color: var($ck-color-table-caption-background);
+  padding: 0.6em;
+  font-size: 0.75em;
+  outline-offset: -1px;
+}
+/* ckeditor5-code-block/theme/codeblock.css */
+
+.ckContent pre {
+  padding: 1em;
+  background: hsla(0, 0%, 78%, 0.3);
+  border: 1px solid hsl(0, 0%, 77%);
+  border-radius: 2px;
+  text-align: left;
+  direction: ltr;
+  tab-size: 4;
+  white-space: pre-wrap;
+  font-style: normal;
+  min-width: 200px;
+  border: solid 2px $lightblue;
+  box-shadow: 15px 15px 0 0 $ugoro;
+  margin-right: 15px;
+  font-family: $fontHeader;
+  font-weight: 500;
+}
+
+.ckContent pre {
+  position: relative;
+  margin: 30px auto;
+  padding: 29px 20px 20px 45px;
+  width: 100%;
+  line-height: 30px;
+  color: #6a5f49;
+  text-shadow: 0 1px 1px white;
+  background-color: #f2f6c1;
+  background-image: -webkit-radial-gradient(
+      center,
+      cover,
+      rgba(255, 255, 255, 0.7) 0%,
+      rgba(255, 255, 255, 0.1) 90%
+    ),
+    -webkit-repeating-linear-gradient(top, transparent 0%, transparent 29px, rgba(
+            239,
+            207,
+            173,
+            0.7
+          )
+          29px, rgba(239, 207, 173, 0.7) 30px);
+  background-image: -moz-radial-gradient(
+      center,
+      cover,
+      rgba(255, 255, 255, 0.7) 0%,
+      rgba(255, 255, 255, 0.1) 90%
+    ),
+    -moz-repeating-linear-gradient(top, transparent 0%, transparent 29px, rgba(
+            239,
+            207,
+            173,
+            0.7
+          )
+          29px, rgba(239, 207, 173, 0.7) 30px);
+  background-image: -o-radial-gradient(
+      center,
+      cover,
+      rgba(255, 255, 255, 0.7) 0%,
+      rgba(255, 255, 255, 0.1) 90%
+    ),
+    -o-repeating-linear-gradient(top, transparent 0%, transparent 29px, rgba(
+            239,
+            207,
+            173,
+            0.7
+          )
+          29px, rgba(239, 207, 173, 0.7) 30px);
+  border: 1px solid #c3baaa;
+  border-color: rgba(195, 186, 170, 0.9);
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.5),
+    inset 0 0 5px #d8e071, 0 0 1px rgba(0, 0, 0, 0.1), 0 2px rgba(0, 0, 0, 0.02);
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.5), inset 0 0 5px #d8e071,
+    0 0 1px rgba(0, 0, 0, 0.1), 0 2px rgba(0, 0, 0, 0.02);
+}
+
+// .ckContent pre:before,
+// .ckContent pre:after {
+// 	content: '';
+// 	position: absolute;
+// 	top: 0;
+// 	bottom: 0;
+// }
+
+.ckContent pre:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+}
+
+.ckContent pre:before {
+  z-index: 1;
+  left: 28px;
+  width: 2px;
+  border: solid #efcfad;
+  border-color: rgba(239, 207, 173, 0.9);
+  border-width: 0 1px;
+}
+
+// .ckContent pre:after {
+// 	z-index: -1;
+// 	left: 0;
+// 	right: 0;
+// 	background: rgba(242, 246, 193, 0.9);
+// 	border: 1px solid rgba(170, 157, 134, 0.7);
+// 	-webkit-transform: rotate(2deg);
+// 	-moz-transform: rotate(2deg);
+// 	-ms-transform: rotate(2deg);
+// 	-o-transform: rotate(2deg);
+// 	transform: rotate(2deg);
+// }
+/* ckeditor5-code-block/theme/codeblock.css */
+.ckContent pre code {
+  background: unset;
+  padding: 0;
+  border-radius: 0;
+}
+/* ckeditor5-horizontal-line/theme/horizontalline.css */
+.ckContent hr {
+  margin: 15px 0;
+  height: 4px;
+  background: hsl(0, 0%, 87%);
+  border: 0;
+}
+/* ckeditor5-mention/theme/mention.css */
+.ckContent .mention {
+  background: var($ck-color-mention-background);
+  color: var($ck-color-mention-text);
+}
+@media print {
+  /* ckeditor5-page-break/theme/pagebreak.css */
+  .ckContent .page-break {
+    padding: 0;
+  }
+  /* ckeditor5-page-break/theme/pagebreak.css */
+  .ckContent .page-break::after {
+    display: none;
+  }
+}
+
+$checkmarksize: 16px;
+
+.ckContent {
+  ol li {
+    padding-bottom: 5px;
+  }
+
+  ul li {
+    padding-bottom: 5px;
+  }
+
+  a {
+    color: $lightblue;
+  }
+
+  .toc {
+    padding-bottom: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    ol {
+      max-width: 100%;
+      counter-reset: my-awesome-counter;
+      list-style: none;
+      padding-left: 40px;
+      display: flex;
+      flex-direction: column;
+      margin: 2.5px 0px;
+    }
+    ol li {
+      height: 100%;
+      margin: 10px 0px;
+      counter-increment: my-awesome-counter;
+      position: relative;
+    }
+    ol li::before {
+      content: counter(my-awesome-counter);
+      color: $backGround;
+      font-size: 1.5rem;
+      font-weight: bold;
+      position: absolute;
+      --size: 32px;
+      left: calc(-1 * var(--size) - 10px);
+      line-height: var(--size);
+      width: var(--size);
+      height: var(--size);
+      top: 0;
+      transform: rotate(-10deg);
+      background: $ugoro;
+      border-radius: 50%;
+      text-align: center;
+      box-shadow: 1px 1px 0 #999;
+    }
+
+    .horizontalLine {
+      margin-top: 10px;
+      display: block;
+      height: 1px;
+      border: 0;
+      border-top: 1px solid $answerBackground;
+      margin: 1em 0;
+      padding: 0;
+    }
+  }
+
+  ul input {
+    -webkit-appearance: none;
+    appearance: none;
+    display: inline-block;
+    position: relative;
+    width: $checkmarksize;
+    height: $checkmarksize;
+    vertical-align: middle;
+    border: 0;
+    left: -25px;
+    margin-right: -15px;
+    right: 0;
+    margin-left: 0;
+    background-color: white;
+    &::before {
+      display: block;
+      position: absolute;
+      box-sizing: border-box;
+      content: "";
+      width: 100%;
+      height: 100%;
+      border: 1px solid hsl(0, 0%, 20%);
+      border-radius: 2px;
+      transition: 250ms ease-in-out box-shadow, 250ms ease-in-out background,
+        250ms ease-in-out border;
+    }
+    &::after {
+      display: block;
+      position: absolute;
+      box-sizing: content-box;
+      pointer-events: none;
+      content: "";
+      left: calc($checkmarksize / 3);
+      top: calc($checkmarksize / 5.3);
+      width: calc($checkmarksize / 5.3);
+      height: calc($checkmarksize / 2.6);
+      border-style: solid;
+      border-color: transparent;
+      border-width: 0 calc($checkmarksize / 8) calc($checkmarksize / 8) 0;
+      transform: rotate(45deg);
+    }
+    &[checked] {
+      &::before {
+        background: hsl(126, 64%, 41%);
+        border-color: hsl(126, 64%, 41%);
+      }
+      &::after {
+        border-color: hsl(0, 0%, 100%);
+      }
+    }
+  }
+
+  @media only screen and (max-width: 620px) {
+    /* Force table to not be like tables anymore */
+    table {
+      width: 100%;
+      font-size: 12px;
+      font-weight: 400;
+      padding: 0px;
+      margin: 0px;
+    }
+  }
+}
+// .ckContent {
+//   z-index: 0;
+// }

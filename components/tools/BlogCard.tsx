@@ -1,6 +1,7 @@
 import { type } from "os";
 import React from "react";
 import Styles from "../../styles/blogCard.module.scss";
+import Link from "next/link";
 
 type dataType = {
   data: {
@@ -79,6 +80,8 @@ const BlogCard = ({ data }: dataType) => {
     return str.length > size ? str.slice(0, size) + "..." : str;
   }
 
+  console.log(data);
+
   return (
     <div>
       {data.map((item, index) => (
@@ -119,7 +122,14 @@ const BlogCard = ({ data }: dataType) => {
             <h2>{item.subTitle}</h2>
             <p className={Styles.textMain}>{customTruncate(item.body, 300)}</p>
             <p className={Styles.readmore}>
-              <a href="#">Soma zaidi</a>
+              <Link
+                className={Styles.link}
+                passHref
+                href={`${item.id}`}
+                legacyBehavior
+              >
+                Soma zaidi
+              </Link>
             </p>
           </div>
         </div>

@@ -1,0 +1,301 @@
+@import "index";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: $white;
+  min-height: 70vh;
+
+  div {
+    transition: 0.2s linear;
+  }
+  .innerContainer {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    max-width: 1200px;
+
+    .leftInnercontainerBody {
+      .sticky {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+        width: 100%;
+        z-index: 9999;
+      }
+
+      .topicHeader {
+        display: flex;
+        align-items: center;
+        margin-top: 5px;
+        font-weight: 400;
+        height: 40px;
+        font-family: $fontHeader;
+        font-size: 17px;
+      }
+
+      .titleList {
+        display: flex;
+        flex-direction: column;
+        border-left: 3px solid rgba($color: $black, $alpha: 0.1);
+        margin-left: 2px;
+      }
+
+      .topicTittle {
+        margin-left: 0px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 8px;
+        padding-left: 10px;
+        font-size: 16px;
+        font-weight: 400;
+        cursor: pointer;
+        color: $black;
+        border-left: 3px solid transparent;
+        position: relative;
+        top: 0px;
+        left: -2px;
+        z-index: 99;
+      }
+
+      .topicTittle:hover {
+        transition: 0.2s linear;
+        color: $lightblue;
+      }
+
+      .Active {
+        transition: 0.2s linear;
+        color: $lightblue;
+        border-left: 3px solid $lightblue;
+        font-weight: 600;
+      }
+    }
+    .rightInnercontainerBody {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+
+      .BodyHeader {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-end;
+        height: 40px;
+        width: 100%;
+        font-family: $fontHeader;
+        font-weight: 400;
+        color: $ugoro;
+        margin-bottom: 10px;
+        font-size: 16px;
+        margin-top: 10px;
+
+        .statusBar {
+          width: fit-content;
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .download {
+          width: fit-content;
+          height: 40px;
+          background-color: $ugoro;
+          color: $white;
+          border: 2px solid transparent;
+          margin: 15px 15px;
+          padding: 0px 15px;
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          border-radius: 5px;
+          transition: 0.2s linear;
+          font-weight: 500;
+          cursor: pointer;
+        }
+
+        .download:hover {
+          background-color: $lightkahawa;
+          color: $ugoro;
+          border: 2px solid $lightblue;
+          cursor: pointer;
+        }
+      }
+      .BodyContent {
+        width: 100%;
+        font-style: normal;
+        font-family: $fontBody;
+        font-weight: 400;
+        font-size: 17px;
+        line-height: 24px;
+        margin-bottom: 30px;
+
+        h1 {
+          color: $black;
+          font-family: $fontHeader;
+          margin-top: 0px;
+          margin-bottom: 5px;
+          font-weight: 700;
+          line-height: 1.8rem;
+        }
+
+        .separator {
+          height: 5px;
+          margin-top: 10px;
+          background-color: $lightblue;
+          border-radius: 5px;
+          width: 50%;
+          margin-bottom: 10px;
+        }
+
+        h3 {
+          margin-bottom: 0px;
+          padding-bottom: 0px;
+          margin-top: 10px;
+          font-weight: 400;
+          font-family: $fontHeader;
+          text-transform: uppercase;
+          color: $ugoro;
+        }
+
+        p {
+          margin-top: 10px;
+        }
+
+        .info {
+          font-weight: 500;
+          font-family: $fontBody;
+          color: $ugoro;
+          margin: 10px 0px;
+        }
+
+        .code {
+          max-width: 300px;
+        }
+
+        .downloadCard {
+          width: fit-content;
+          height: fit-content;
+          margin-bottom: 15px;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          font-family: $fontBody;
+          font-weight: 400;
+          font-size: 18px;
+          padding: 10px;
+          font-weight: 400;
+
+          span {
+            font-weight: 500;
+            color: $ugoro;
+          }
+
+          .child2 {
+            padding: 5px 0px;
+          }
+
+          .download {
+            width: fit-content;
+            background-color: $ugoro;
+            color: $white;
+            border: 2px solid transparent;
+            padding: 5px 25px;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            border-radius: 5px;
+            transition: 0.2s linear;
+            font-weight: 500;
+            margin-top: 5px;
+          }
+
+          .download:hover {
+            background-color: $lightkahawa;
+            color: $ugoro;
+            border: 2px solid $lightblue;
+            cursor: pointer;
+          }
+        }
+      }
+
+      .downloadCenterHeader {
+        font-size: 25px;
+        font-family: $fontHeader;
+        font-weight: 500;
+        margin-bottom: 15px;
+      }
+
+      @media only screen and (max-width: 908px) {
+        .BodyHeader {
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-end;
+          width: 100%;
+          height: fit-content;
+
+          .statusBar {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            font-size: 12px;
+            padding: 0px;
+          }
+
+          .download {
+            width: 100%;
+          }
+        }
+
+        .downloadCenterHeader {
+          font-size: 18px;
+        }
+      }
+    }
+  }
+}
+
+.notFound {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  border: 2px solid red;
+}
+
+@media only screen and (max-width: 908px) {
+  .leftInnercontainerBody {
+    display: none;
+  }
+  .mobile {
+    display: flex;
+    position: sticky;
+    top: 0;
+  }
+}
+
+@media only screen and (min-width: 908px) {
+  .leftInnercontainerBody {
+    width: 100%;
+    max-width: 250px;
+    font-family: $fontBody;
+    color: $ugoro;
+    display: flex;
+    flex-direction: column;
+  }
+  .mobile {
+    display: none;
+  }
+}

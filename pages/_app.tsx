@@ -13,6 +13,7 @@ import { useProgressStore } from "../Store";
 import { NavContext } from "../components/context/StateContext";
 import { SessionProvider } from "next-auth/react";
 import { Session } from "next-auth";
+import "../styles/ckEditorStyles.scss";
 
 type Page<P = {}> = NextPage<P> & {
   // You can disable whichever you don't need
