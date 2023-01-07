@@ -159,7 +159,7 @@ const EditNotes = ({
     };
     axios({
       method: "post",
-      url: url + "/api/updatePost",
+      url: "/api/updatePost",
       data,
     })
       .then(function (response) {
