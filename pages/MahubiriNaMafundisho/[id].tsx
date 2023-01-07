@@ -89,7 +89,6 @@ const Index = ({
   }
 
   //!mambo yanaanza
-  console.log(postFound);
 
   return (
     <div className={Styles.container}>
