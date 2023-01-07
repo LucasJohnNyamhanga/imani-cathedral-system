@@ -29,12 +29,18 @@
     "next-auth": "^4.12.2",
     "next-connect": "^0.13.0",
     "npm-check": "^6.0.1",
+    "or": "^0.2.0",
+    "parameterize-js": "^1.0.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hot-toast": "^2.4.0",
     "react-icons": "^4.4.0",
+    "rehype-parse": "^8.0.4",
+    "rehype-stringify": "^9.0.3",
     "sass": "^1.54.9",
     "swiper": "^8.4.2",
+    "unified": "^10.1.2",
+    "unist-util-visit": "^4.1.1",
     "zustand": "^4.1.1"
   },
   "devDependencies": {
