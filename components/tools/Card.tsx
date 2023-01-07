@@ -20,6 +20,7 @@ const Card = () => {
         <div className={Styles.description}>
           <h1>MCH. BONIFACE SALAWA MADUHU</h1>
           <h2>Mchungaji wa Usharika</h2>
+          <div className={Styles.separator}></div>
           <p>
             &#8220;Ninakusalimu katika Jina la Bwana wetu Yesu Kristo.
             Nakukaribisha mdau wetu, msharika na usiye msharika, mtu binafsi,

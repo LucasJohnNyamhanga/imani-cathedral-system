@@ -80,8 +80,6 @@ const BlogCard = ({ data }: dataType) => {
     return str.length > size ? str.slice(0, size) + "..." : str;
   }
 
-  console.log(data);
-
   return (
     <div>
       {data.map((item, index) => (
@@ -105,7 +103,7 @@ const BlogCard = ({ data }: dataType) => {
             ></div>
             <ul className={Styles.details}>
               <li className={Styles.author}>
-                <a href="#">Posteb by: {item.writter}</a>
+                <a href="#">Imewekwa na: {item.writter}</a>
               </li>
               <li className={Styles.date}>{timeAgo(item.date)}</li>
               <li className={Styles.tags}>
@@ -125,7 +123,11 @@ const BlogCard = ({ data }: dataType) => {
               <Link
                 className={Styles.link}
                 passHref
-                href={`${item.id}`}
+                href={
+                  item.tag == "Habari Na Matukio"
+                    ? `HabariNaMatukio/${item.id}`
+                    : `MahubiriNaMafundisho/${item.id}`
+                }
                 legacyBehavior
               >
                 Soma zaidi

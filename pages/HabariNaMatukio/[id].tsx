@@ -1,7 +1,7 @@
 import { GetStaticProps, GetStaticPaths, InferGetStaticPropsType } from "next";
-import { prisma } from "../db/prisma";
+import { prisma } from "../../db/prisma";
 import React, { useEffect } from "react";
-import Styles from "../styles/postDisplay.module.scss";
+import Styles from "../../styles/postDisplay.module.scss";
 import Head from "next/head";
 import { post } from "@prisma/client";
 

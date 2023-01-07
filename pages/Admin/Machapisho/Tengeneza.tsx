@@ -136,7 +136,7 @@ const Notes = ({
     };
     axios({
       method: "post",
-      url: url + "/api/addPost",
+      url: "/api/addPost",
       data,
     })
       .then(function (response) {
