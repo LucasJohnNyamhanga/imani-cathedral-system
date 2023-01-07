@@ -43,71 +43,73 @@ export const MuiDrawer = ({
       >
         <Box p={2} width="250px" textAlign="center" role="presentation">
           <ListItemText primary={textHeader} />
-          <div className={Styles.headerDash}>Washarika</div>
+          <div className={Styles.headerDash}>Uboreshaji</div>
           <List>
             <Divider />
             <div
               onClick={() => {
                 setIsDrawerOpen(false);
-                handleClick("maombiYaliokamilika");
+                handleClick("machapisho");
               }}
             >
               <Link passHref href={``}>
-                <a>
-                  <div
-                    className={
-                      active == "maombiYaliokamilika"
-                        ? `${Styles.active} ${Styles.normal}`
-                        : `${Styles.normal}`
-                    }
-                  >
-                    {"Maombi Yaliyokamilika"}
-                  </div>
-                </a>
+                <div
+                  className={
+                    active == "machapisho"
+                      ? `${Styles.active} ${Styles.normal}`
+                      : `${Styles.normal}`
+                  }
+                >
+                  {"Machapisho"}
+                </div>
               </Link>
             </div>
+            <Divider />
+          </List>
+          <div className={Styles.headerDash}>Matangazo</div>
+          <List>
             <Divider />
             <div
               onClick={() => {
                 setIsDrawerOpen(false);
-                handleClick("maombiKasoro");
+                handleClick("matangazo");
               }}
             >
               <Link passHref href={``}>
                 <a>
                   <div
                     className={
-                      active == "maombiKasoro"
+                      active == "matangazo"
                         ? `${Styles.active} ${Styles.normal}`
                         : `${Styles.normal}`
                     }
                   >
-                    {"Mombi yenye Kasoro"}
+                    {"Matangazo"}
                   </div>
                 </a>
               </Link>
             </div>
             <Divider />
           </List>
-          <div className={Styles.headerDash}>Matoleo</div>
+          <div className={Styles.headerDash}>Usimamizi</div>
           <List>
             <Divider />
             <div
               onClick={() => {
                 setIsDrawerOpen(false);
-                handleClick("sadakaAhadi");
+                handleClick("watumiaji");
               }}
             >
               <Link passHref href={``}>
                 <a>
                   <div
                     className={
-                      active == "sadakaAhadi"
+                      active == "watumiaji"
                         ? `${Styles.active} ${Styles.normal}`
                         : `${Styles.normal}`
                     }
                   >
-                    {"Sadaka ya Ahadi"}
+                    {"Watumiaji"}
                   </div>
                 </a>
               </Link>

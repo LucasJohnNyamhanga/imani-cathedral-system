@@ -301,7 +301,7 @@ const Index = ({
           <div className={Styles.rightInnercontainerBody}>
             <div className={Styles.mobile}>
               <Drawer
-                textHeader={"Parish Worker"}
+                textHeader={"Kituo Cha Usimamizi"}
                 active={active}
                 handleClick={handleNav}
                 userData={userfound}
