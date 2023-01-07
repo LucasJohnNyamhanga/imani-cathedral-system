@@ -171,7 +171,7 @@ export const MuiDrawer = ({
           <List>
             {session ? (
               <>
-                <Link href={"/Account"}>
+                <Link href={"/Admin"}>
                   <a>
                     <div
                       onClick={() => {
