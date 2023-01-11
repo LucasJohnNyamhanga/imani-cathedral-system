@@ -22,11 +22,15 @@ function hero({ header, image }: dataHero) {
             <Image
               alt=""
               src={image}
-              objectFit={"cover"}
               placeholder="blur"
               blurDataURL={image}
-              layout="fill"
-              objectPosition={"top"}
+              fill
+              sizes={"100vw"}
+              style={{
+                objectFit: "cover",
+                objectPosition: "top",
+              }}
+              quality={100}
             />
           </div>
         </div>
