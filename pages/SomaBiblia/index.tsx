@@ -3,11 +3,12 @@ import { NavContext } from "../../components/context/StateContext";
 import axios from "axios";
 import type { InferGetStaticPropsType, GetStaticProps } from "next";
 import styles from "../../styles/bible.module.scss";
+import Link from "next/link";
 
 export const getStaticProps: GetStaticProps = async () => {
   const API_KEY = `4b99ad55013a8f3be63090fb85f7050e`;
   const url =
-    "https://api.scripture.api.bible/v1/bibles/611f8eb23aec8f13-01/books?include-chapters=true&include-chapters-and-sections=true";
+    "https://api.scripture.api.bible/v1/bibles/611f8eb23aec8f13-01/books";
   const config = {
     headers: {
       "api-key": API_KEY,
@@ -34,13 +35,6 @@ export const getStaticProps: GetStaticProps = async () => {
 type bibliaType = {
   abbreviation: string;
   bibleId: string;
-  chapters: {
-    bibleId: string;
-    bookId: string;
-    id: string;
-    number: string;
-    position: number;
-  }[];
   id: string;
   name: string;
   nameLong: string;
@@ -53,7 +47,6 @@ const SomaBiblia = ({
 
   useEffect(() => {
     setNavActive("Biblia");
-    console.log(bible);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navActive]);
 
@@ -61,9 +54,13 @@ const SomaBiblia = ({
     <div className={styles.container}>
       <div className={styles.innerContainer}>
         {bible.map((kitabu: bibliaType) => (
-          <div key={kitabu.id} className={styles.kitabu}>
-            {kitabu.name}
-          </div>
+          <Link
+            href={`/SomaBiblia/kitabu/${kitabu.id}`}
+            className={styles.kitabu}
+            key={kitabu.id}
+          >
+            {kitabu.nameLong}
+          </Link>
         ))}
       </div>
     </div>
