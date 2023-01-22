@@ -1,0 +1,44 @@
+@import "index";
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: $white;
+  min-height: 70vh;
+
+  div {
+    transition: 0.2s linear;
+  }
+  .innerContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1200px;
+    font-family: $fontHeader;
+    font-weight: 400;
+    font-size: 26px;
+    padding: 15px 0px;
+
+    .kitabu {
+      padding: 10px 25px;
+
+      &:hover {
+        color: $lightblue;
+        cursor: pointer;
+      }
+    }
+
+    @media (max-width: 640px) {
+      font-size: 22px;
+      padding-top: 0px;
+      .kitabu {
+        padding: 10px;
+      }
+    }
+  }
+}

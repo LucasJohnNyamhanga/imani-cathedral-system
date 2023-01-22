@@ -1,4 +1,5 @@
 import "../styles/globals.scss";
+import "../styles/maandiko.scss";
 import type { AppProps } from "next/app";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Navigator from "../components/layout/Nav";
