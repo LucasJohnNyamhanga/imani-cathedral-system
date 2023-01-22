@@ -101,18 +101,16 @@ export const MuiDrawer = ({
           <List>
             <Divider />
             <Link href={"/"}>
-              <a>
-                <div
-                  className={
-                    "Mwanzo" == navActive ? Styles.active : Styles.setCenter
-                  }
-                  onClick={() => {
-                    handleMenuClick("Mwanzo");
-                  }}
-                >
-                  Mwanzo
-                </div>
-              </a>
+              <div
+                className={
+                  "Mwanzo" == navActive ? Styles.active : Styles.setCenter
+                }
+                onClick={() => {
+                  handleMenuClick("Mwanzo");
+                }}
+              >
+                Mwanzo
+              </div>
             </Link>
             <Divider />
 
@@ -143,20 +141,19 @@ export const MuiDrawer = ({
 
             <Divider />
             <Link href={"/Miradi"}>
-              <a>
-                <div
-                  className={
-                    "Miradi" == navActive ? Styles.active : Styles.setCenter
-                  }
-                  onClick={() => {
-                    handleMenuClick("Miradi");
-                  }}
-                >
-                  Miradi
-                </div>
-              </a>
+              <div
+                className={
+                  "Miradi" == navActive ? Styles.active : Styles.setCenter
+                }
+                onClick={() => {
+                  handleMenuClick("Miradi");
+                }}
+              >
+                Miradi
+              </div>
             </Link>
             <Divider />
+
             <Toggle
               list={habariList}
               name={"Habari"}
@@ -165,6 +162,19 @@ export const MuiDrawer = ({
               setActiveName={handleSetActiveName}
             />
             <Divider />
+            <Link href={"/SomaBiblia"}>
+              <div
+                className={
+                  "Biblia" == navActive ? Styles.active : Styles.setCenter
+                }
+                onClick={() => {
+                  handleMenuClick("Biblia");
+                }}
+              >
+                Soma Biblia
+              </div>
+            </Link>
+            <Divider />
           </List>
           <ListItemText primary={`ACCOUNT`} />
           <Divider />
@@ -172,16 +182,14 @@ export const MuiDrawer = ({
             {session ? (
               <>
                 <Link href={"/Admin"}>
-                  <a>
-                    <div
-                      onClick={() => {
-                        handleMenuClick("");
-                      }}
-                      className={Styles.setCenter}
-                    >
-                      My Account
-                    </div>
-                  </a>
+                  <div
+                    onClick={() => {
+                      handleMenuClick("");
+                    }}
+                    className={Styles.setCenter}
+                  >
+                    My Account
+                  </div>
                 </Link>
                 <Divider />
                 <div
@@ -197,7 +205,7 @@ export const MuiDrawer = ({
               </>
             ) : (
               <>
-                <div
+                {/* <div
                   className={Styles.activeCredential}
                   onClick={() => {
                     handleJisajili();
@@ -206,7 +214,7 @@ export const MuiDrawer = ({
                 >
                   Jisajili
                 </div>
-                <Divider />
+                <Divider /> */}
                 <div
                   className={Styles.activeCredential}
                   onClick={() => {
