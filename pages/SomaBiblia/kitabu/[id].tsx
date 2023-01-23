@@ -22,7 +22,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     })
     .catch(function (error) {
       // handle error
-      console.log(error);
+      return [];
     });
 
   const vitabu = JSON.parse(JSON.stringify(data.data));
@@ -36,24 +36,30 @@ export const getStaticProps: GetStaticProps = async (context) => {
     })
     .catch(function (error) {
       // handle error
-      console.log(error);
+      return [];
     });
 
   const kitabu = JSON.parse(JSON.stringify(book.data));
 
   const urlSection = `https://api.scripture.api.bible/v1/bibles/611f8eb23aec8f13-01/books/${id}/sections`;
 
+  let checkSectionStatus = false;
+
   const section = await axios
     .get(urlSection, config)
     .then(function (response) {
+      checkSectionStatus = true;
       return response.data;
     })
     .catch(function (error) {
       // handle error
-      console.log(error);
+      return [];
     });
-
-  const sections = JSON.parse(JSON.stringify(section.data));
+  console.log(section);
+  let sections = [];
+  if (checkSectionStatus) {
+    sections = JSON.parse(JSON.stringify(section.data));
+  }
 
   return {
     props: {
@@ -83,7 +89,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     })
     .catch(function (error) {
       // handle error
-      console.log(error);
+      return [];
     });
 
   const bible = JSON.parse(JSON.stringify(data.data));
@@ -154,21 +160,30 @@ const Index = ({
               )
           )}
         </div>
-        <div>
-          <h2
-            className={styles.headerSection}
-          >{`Sehemu za ${kitabu.nameLong}`}</h2>
-        </div>
-        <div>
-          {sections.map((section: sectionData) => (
-            <div key={section.id} className={styles.section}>
-              <span>
-                {section.firstVerseOrgId.replace(section.bookId, kitabu.name)}
-              </span>
-              {`${section.title}`}
-            </div>
-          ))}
-        </div>
+        <>
+          {sections.length > 0 && (
+            <>
+              <div>
+                <h2
+                  className={styles.headerSection}
+                >{`Sehemu za ${kitabu.nameLong}`}</h2>
+              </div>
+              <div>
+                {sections.map((section: sectionData) => (
+                  <div key={section.id} className={styles.section}>
+                    <span>
+                      {section.firstVerseOrgId.replace(
+                        section.bookId,
+                        kitabu.name
+                      )}
+                    </span>
+                    {`${section.title}`}
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
+        </>
       </div>
     </div>
   );
