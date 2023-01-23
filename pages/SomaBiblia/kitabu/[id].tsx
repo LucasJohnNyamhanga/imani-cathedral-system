@@ -55,7 +55,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       // handle error
       return [];
     });
-  console.log(section);
+
   let sections = [];
   if (checkSectionStatus) {
     sections = JSON.parse(JSON.stringify(section.data));
@@ -172,10 +172,9 @@ const Index = ({
                 {sections.map((section: sectionData) => (
                   <div key={section.id} className={styles.section}>
                     <span>
-                      {section.firstVerseOrgId.replace(
-                        section.bookId,
-                        kitabu.name
-                      )}
+                      {section.firstVerseOrgId
+                        .replace(section.bookId, kitabu.name)
+                        .replace(section.bookId, kitabu.name)}
                     </span>
                     {`${section.title}`}
                   </div>
