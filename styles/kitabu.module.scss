@@ -10,6 +10,7 @@
   padding-right: 10px;
   background-color: $white;
   min-height: 70vh;
+  margin-bottom: 20px;
 
   div {
     transition: 0.2s linear;
@@ -22,8 +23,28 @@
     font-family: $fontHeader;
     font-weight: 400;
     font-size: 26px;
-    padding: 15px 0px;
-    margin-bottom: 20px;
+    padding: 10px 0px;
+
+    .spacer {
+      height: 20px;
+    }
+
+    .headerDirection {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .linker {
+      font-size: 18px;
+      cursor: pointer;
+      padding: 0px 5px;
+
+      &:hover {
+        color: $lightblue;
+      }
+    }
 
     .header {
       font-size: 36px;
@@ -43,29 +64,13 @@
       margin-bottom: 10px;
     }
 
-    .andiko {
-      font-size: 20px;
-      font-weight: 400;
-    }
-
-    .section {
-      padding: 10px 0px;
-      font-weight: 400;
-      font-size: 22px;
-
-      span {
-        font-weight: 600;
-        margin-right: 10px;
-        color: $ugoro;
-      }
-
-      &:hover {
-        color: $lightblue;
-        cursor: pointer;
-        span {
-          color: $black;
-        }
-      }
+    .headerSectionKitabu {
+      margin-top: 50px;
+      font-size: 33px;
+      font-weight: 500;
+      font-family: $fontHeader;
+      color: $ugoro;
+      margin-bottom: 10px;
     }
 
     .kitabu {
@@ -102,9 +107,45 @@
         align-items: center;
         &:hover {
           color: $white;
-          border: 2px solid $lightblue;
-          background-color: $lightblue;
+          border: 2px solid $ugoro;
+          background-color: $ugoro;
           cursor: pointer;
+        }
+      }
+
+      .boxActive {
+        width: 100%;
+        height: 60px;
+        border: 2px solid $lightblue;
+        background-color: $lightblue;
+        color: $white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+
+    .andiko {
+      font-size: 20px;
+      font-weight: 400;
+    }
+
+    .section {
+      padding: 10px 0px;
+      font-weight: 400;
+      font-size: 22px;
+
+      span {
+        font-weight: 600;
+        margin-right: 10px;
+        color: $ugoro;
+      }
+
+      &:hover {
+        color: $lightblue;
+        cursor: pointer;
+        span {
+          color: $black;
         }
       }
     }

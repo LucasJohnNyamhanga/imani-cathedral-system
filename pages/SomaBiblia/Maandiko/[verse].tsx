@@ -3,6 +3,8 @@ import axios from "axios";
 import styles from "../../../styles/kitabu.module.scss";
 import { NavContext } from "../../../components/context/StateContext";
 import { useContext, useEffect } from "react";
+import Link from "next/link";
+import { FaAngleRight } from "react-icons/fa";
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const chapterId = context.params?.verse;
@@ -35,9 +37,39 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   const andiko = await JSON.parse(JSON.stringify(data.data));
 
+  const urlpath = `https://api.scripture.api.bible/v1/bibles/611f8eb23aec8f13-01/books/${andiko.bookId}/chapters`;
+
+  const dataKitabu = await axios
+    .get(urlpath, config)
+    .then(function (response) {
+      return response.data;
+    })
+    .catch(function (error) {
+      // handle error
+      return [];
+    });
+
+  const kitabu = JSON.parse(JSON.stringify(dataKitabu.data));
+
+  const urlPath = `https://api.scripture.api.bible/v1/bibles/611f8eb23aec8f13-01/books/${andiko.bookId}`;
+
+  const book = await axios
+    .get(urlPath, config)
+    .then(function (response) {
+      return response.data;
+    })
+    .catch(function (error) {
+      // handle error
+      return [];
+    });
+
+  const kitabuDetails = JSON.parse(JSON.stringify(book.data));
+
   return {
     props: {
       andiko,
+      kitabu,
+      kitabuDetails,
     },
   };
 };
@@ -93,7 +125,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-const Index = ({ andiko }: InferGetStaticPropsType<typeof getStaticProps>) => {
+const Index = ({
+  andiko,
+  kitabu,
+  kitabuDetails,
+}: InferGetStaticPropsType<typeof getStaticProps>) => {
   //!mambo yanaanza
 
   const { navActive, setNavActive } = useContext(NavContext);
@@ -103,16 +139,75 @@ const Index = ({ andiko }: InferGetStaticPropsType<typeof getStaticProps>) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navActive]);
 
+  type kitabuData = {
+    id: string;
+    bibleId: string;
+    bookId: string;
+    number: string;
+    reference: string;
+  };
+
+  const data = kitabu.filter((chapter: kitabuData) => {
+    return chapter.id === andiko.chapterIds[0];
+  });
+  const child = data[0];
+  const { id, reference } = child;
+  console.log(kitabuDetails);
+
   return (
     <div className={styles.container}>
       <div className={styles.innerContainer}>
+        <div className={styles.headerDirection}>
+          <Link href={"/SomaBiblia"} className={styles.linker}>
+            Biblia
+          </Link>{" "}
+          <FaAngleRight size={17} />{" "}
+          <Link
+            href={`/SomaBiblia/Kitabu/${kitabuDetails.id}`}
+            className={styles.linker}
+          >
+            {kitabuDetails.name}
+          </Link>
+        </div>
         <div>
-          <h2 className={styles.header}>{`${andiko?.reference}`}</h2>
+          <h2 className={styles.header}>{`${reference}`}</h2>
         </div>
         <div
           className={styles.andiko}
           dangerouslySetInnerHTML={{ __html: andiko.content }}
         />
+        <div>
+          <h2 className={styles.header}>{`${kitabuDetails.nameLong}`}</h2>
+        </div>
+        <div className={styles.kitabu}>
+          {kitabu.map(
+            (kitabu: kitabuData, index: number) =>
+              index > 0 && (
+                <Link
+                  href={`/SomaBiblia/Maandiko/${kitabu.id}`}
+                  className={
+                    id == kitabu.id ? `${styles.boxActive}` : styles.box
+                  }
+                  key={kitabu.number}
+                >
+                  {kitabu.number}
+                </Link>
+              )
+          )}
+        </div>
+        <div className={styles.spacer}></div>
+        <div className={styles.headerDirection}>
+          <Link href={"/SomaBiblia"} className={styles.linker}>
+            Biblia
+          </Link>{" "}
+          <FaAngleRight size={17} />{" "}
+          <Link
+            href={`/SomaBiblia/Kitabu/${kitabuDetails.id}`}
+            className={styles.linker}
+          >
+            {kitabuDetails.name}
+          </Link>
+        </div>
       </div>
     </div>
   );

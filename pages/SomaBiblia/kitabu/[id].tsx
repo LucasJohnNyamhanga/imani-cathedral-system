@@ -147,6 +147,11 @@ const Index = ({
   return (
     <div className={styles.container}>
       <div className={styles.innerContainer}>
+        <div className={styles.headerDirection}>
+          <Link href={"/SomaBiblia"} className={styles.linker}>
+            Biblia
+          </Link>{" "}
+        </div>
         <div>
           <h2 className={styles.header}>{`${kitabu.nameLong}`}</h2>
         </div>
@@ -188,6 +193,12 @@ const Index = ({
             </>
           )}
         </>
+        <div className={styles.spacer}></div>
+        <div className={styles.headerDirection}>
+          <Link href={"/SomaBiblia"} className={styles.linker}>
+            Biblia
+          </Link>{" "}
+        </div>
       </div>
     </div>
   );
