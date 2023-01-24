@@ -76,14 +76,14 @@ export const getStaticPaths: GetStaticPaths = async () => {
   let listPaths: any = [];
 
   chaptersList.map((list: dataList) => {
-    list.chapters.map((chapter) => {
+    list.chapters.map((chapter, index) => {
       let id = String(chapter.id);
-
-      listPaths.push({
-        params: {
-          verse: `${id}`,
-        },
-      });
+      index > 0 &&
+        listPaths.push({
+          params: {
+            verse: `${id}`,
+          },
+        });
     });
   });
 

@@ -144,8 +144,6 @@ const Index = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navActive]);
 
-  console.log(vitabu);
-
   return (
     <div className={styles.container}>
       <div className={styles.innerContainer}>
