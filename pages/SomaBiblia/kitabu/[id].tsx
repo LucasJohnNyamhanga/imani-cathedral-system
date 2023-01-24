@@ -3,6 +3,7 @@ import axios from "axios";
 import styles from "../../../styles/kitabu.module.scss";
 import { NavContext } from "../../../components/context/StateContext";
 import { useContext, useEffect } from "react";
+import Link from "next/link";
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const id = context.params?.id;
@@ -67,7 +68,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
       kitabu,
       sections,
     },
-    revalidate: 15,
   };
 };
 
@@ -92,12 +92,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
       return [];
     });
 
-  const bible = JSON.parse(JSON.stringify(data.data));
+  const bible = await JSON.parse(JSON.stringify(data.data));
 
   type dataNote = {
     id: string;
   };
-  const paths = bible.map((kitabu: dataNote) => {
+  const paths = await bible.map((kitabu: dataNote) => {
     let id = String(kitabu.id);
     return {
       params: {
@@ -144,6 +144,8 @@ const Index = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navActive]);
 
+  console.log(vitabu);
+
   return (
     <div className={styles.container}>
       <div className={styles.innerContainer}>
@@ -154,9 +156,13 @@ const Index = ({
           {vitabu.map(
             (kitabu: kitabuData, index: number) =>
               index > 0 && (
-                <div className={styles.box} key={kitabu.number}>
+                <Link
+                  href={`/SomaBiblia/Maandiko/${kitabu.id}`}
+                  className={styles.box}
+                  key={kitabu.number}
+                >
                   {kitabu.number}
-                </div>
+                </Link>
               )
           )}
         </div>
@@ -172,9 +178,10 @@ const Index = ({
                 {sections.map((section: sectionData) => (
                   <div key={section.id} className={styles.section}>
                     <span>
-                      {section.firstVerseOrgId
-                        .replace(section.bookId, kitabu.name)
-                        .replace(section.bookId, kitabu.name)}
+                      {section.firstVerseOrgId.replace(
+                        section.bookId,
+                        kitabu.name
+                      )}
                     </span>
                     {`${section.title}`}
                   </div>

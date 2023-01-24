@@ -53,14 +53,28 @@ const SomaBiblia = ({
   return (
     <div className={styles.container}>
       <div className={styles.innerContainer}>
-        {bible.map((kitabu: bibliaType) => (
-          <Link
-            href={`/SomaBiblia/kitabu/${kitabu.id}`}
-            className={styles.kitabu}
-            key={kitabu.id}
-          >
-            {kitabu.nameLong}
-          </Link>
+        {bible.map((kitabu: bibliaType, index: number) => (
+          <div key={index}>
+            {index === 0 && (
+              <div>
+                <h2 className={styles.header}>Agano La Kale</h2>
+              </div>
+            )}
+            {index === 39 && (
+              <div>
+                <h2 className={styles.header}>Agano Jipya</h2>
+              </div>
+            )}
+            <div className={styles.kitabuHolder}>
+              <Link
+                href={`/SomaBiblia/Kitabu/${kitabu.id}`}
+                className={styles.kitabu}
+                key={kitabu.id}
+              >
+                {kitabu.nameLong}
+              </Link>
+            </div>
+          </div>
         ))}
       </div>
     </div>

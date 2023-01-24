@@ -1,9 +1,10 @@
+@import "index";
 .eb-container {
   /* HTML5 display-role reset for older browsers */
   font-size: 18px;
-  font-family: "CharisSIL", serif;
+  font-family: $fontBody;
   line-height: 1.5;
-  color: #333;
+  color: $ugoro;
 }
 
 .eb-container html,
@@ -192,6 +193,27 @@
 
 .eb-container .va:before {
   content: "(";
+}
+
+.v {
+  color: $black;
+  font-family: $fontHeader;
+  font-weight: 600;
+  font-size: 20px;
+  margin-right: 2px;
+}
+
+.s1 {
+  color: $ugoro;
+  font-weight: 500;
+  margin: 10px 0px;
+}
+
+.r {
+  margin: 5px;
+  font-size: 16px;
+  color: $ugoro;
+  font-weight: 500;
 }
 
 .eb-container .va:after {

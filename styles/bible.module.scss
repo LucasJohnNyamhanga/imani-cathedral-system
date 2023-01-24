@@ -24,8 +24,24 @@
     font-size: 26px;
     padding: 15px 0px;
 
+    .header {
+      font-size: 36px;
+      font-weight: 500;
+      font-family: $fontHeader;
+      color: $ugoro;
+      color: $ugoro;
+      margin: 10px 0px;
+    }
+
+    .kitabuHolder {
+      display: flex;
+      flex-direction: column;
+      font-size: 23px;
+    }
+
     .kitabu {
-      padding: 10px 25px;
+      padding: 0px 15px;
+      margin: 5px 0px;
 
       &:hover {
         color: $lightblue;
