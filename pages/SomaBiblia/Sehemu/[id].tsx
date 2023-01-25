@@ -1,0 +1,190 @@
+import { GetStaticProps, GetStaticPaths, InferGetStaticPropsType } from "next";
+import axios from "axios";
+import styles from "../../../styles/kitabu.module.scss";
+import { NavContext } from "../../../components/context/StateContext";
+import { useContext, useEffect } from "react";
+import Link from "next/link";
+import { FaAngleRight } from "react-icons/fa";
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  const sectionId = context.params?.id;
+  // ...
+
+  const API_KEY = `869904e0e97adf37df23e4cee5e3c5d2`;
+  const url = `https://api.scripture.api.bible/v1/bibles/611f8eb23aec8f13-01/sections/${sectionId}?content-type=html&include-notes=true&include-titles=true&include-chapter-numbers=false&include-verse-numbers=true&include-verse-spans=true`;
+  const config = {
+    headers: {
+      "api-key": API_KEY,
+    },
+  };
+
+  const data = await axios
+    .get(url, config)
+    .then(function (response) {
+      return response.data;
+    })
+    .catch(function (error) {
+      // handle error
+      return [];
+    });
+
+  const andiko = await JSON.parse(JSON.stringify(data.data));
+
+  const urlPath = `https://api.scripture.api.bible/v1/bibles/611f8eb23aec8f13-01/books/${andiko.bookId}`;
+
+  const book = await axios
+    .get(urlPath, config)
+    .then(function (response) {
+      return response.data;
+    })
+    .catch(function (error) {
+      // handle error
+      return [];
+    });
+
+  const kitabuDetails = JSON.parse(JSON.stringify(book.data));
+
+  return {
+    props: {
+      andiko,
+      kitabuDetails,
+    },
+  };
+};
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  // ...
+  const API_KEY = `869904e0e97adf37df23e4cee5e3c5d2`;
+  const config = {
+    headers: {
+      "api-key": API_KEY,
+    },
+  };
+
+  const urlpath =
+    "https://api.scripture.api.bible/v1/bibles/611f8eb23aec8f13-01/books?include-chapters=true";
+
+  type dataList = {
+    id: string;
+    chapters: {
+      id: string;
+    }[];
+  };
+
+  const dataListChapters = await axios
+    .get(urlpath, config)
+    .then(function (response) {
+      return response.data;
+    })
+    .catch(function (error) {
+      // handle error
+      return [];
+    });
+
+  const chaptersList = await JSON.parse(JSON.stringify(dataListChapters.data));
+
+  let listPaths: any = [];
+
+  const findSections = async (ChapterId: string) => {
+    const sectionsPath = `https://api.scripture.api.bible/v1/bibles/611f8eb23aec8f13-01/chapters/chapterId/sections`;
+    const dataListSection = await axios
+      .get(sectionsPath, config)
+      .then(function (response) {
+        return response.data;
+      })
+      .catch(function (error) {
+        // handle error
+        return [];
+      });
+
+    return await JSON.parse(JSON.stringify(dataListSection.data));
+  };
+
+  type dataSection = {
+    id: string;
+    bibleId: string;
+    bookId: string;
+    title: string;
+    firstVerseId: string;
+    lastVerseId: string;
+    firstVerseOrgId: string;
+    lastVerseOrgId: string;
+  };
+
+  chaptersList.map((list: dataList) => {
+    list.chapters.map((chapter, index) => {
+      findSections(chapter.id).then((data) => {
+        data.map((section: dataSection) => {
+          let id = section.id;
+          listPaths.push({
+            params: {
+              verse: `${id}`,
+            },
+          });
+        });
+      });
+    });
+  });
+
+  return {
+    paths: [...listPaths],
+    fallback: "blocking",
+  };
+};
+
+const Index = ({
+  andiko,
+  kitabuDetails,
+}: InferGetStaticPropsType<typeof getStaticProps>) => {
+  //!mambo yanaanza
+
+  const { navActive, setNavActive } = useContext(NavContext);
+
+  useEffect(() => {
+    setNavActive("Biblia");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [navActive]);
+
+  console.log(kitabuDetails);
+
+  return (
+    <div className={styles.container}>
+      <div className={styles.innerContainer}>
+        <div className={styles.headerDirection}>
+          <Link href={"/SomaBiblia"} className={styles.linker}>
+            Biblia
+          </Link>{" "}
+          <FaAngleRight size={17} />{" "}
+          <Link
+            href={`/SomaBiblia/Kitabu/${andiko.bookId}`}
+            className={styles.linker}
+          >
+            {kitabuDetails.nameLong}
+          </Link>
+        </div>
+        <div>
+          <h2 className={styles.header}>{`${andiko.title}`}</h2>
+        </div>
+        <div
+          className={styles.andiko}
+          dangerouslySetInnerHTML={{ __html: andiko.content }}
+        />
+        <div className={styles.spacer}></div>
+        <div className={styles.headerDirection}>
+          <Link href={"/SomaBiblia"} className={styles.linker}>
+            Biblia
+          </Link>{" "}
+          <FaAngleRight size={17} />{" "}
+          <Link
+            href={`/SomaBiblia/Kitabu/${andiko.bookId}`}
+            className={styles.linker}
+          >
+            {kitabuDetails.nameLong}
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Index;

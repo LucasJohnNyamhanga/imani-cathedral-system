@@ -180,13 +180,15 @@ const Index = ({
               <div>
                 {sections.map((section: sectionData) => (
                   <div key={section.id} className={styles.section}>
-                    <span>
-                      {section.firstVerseOrgId.replace(
-                        section.bookId,
-                        kitabu.name
-                      )}
-                    </span>
-                    {`${section.title}`}
+                    <Link href={`/SomaBiblia/Sehemu/${section.id}`}>
+                      <span>
+                        {section.firstVerseOrgId.replace(
+                          section.bookId,
+                          kitabu.name
+                        )}
+                      </span>
+                      {`${section.title}`}
+                    </Link>
                   </div>
                 ))}
               </div>
