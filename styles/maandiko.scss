@@ -195,27 +195,6 @@
   content: "(";
 }
 
-.v {
-  color: $black;
-  font-family: $fontHeader;
-  font-weight: 600;
-  font-size: 20px;
-  margin-right: 2px;
-}
-
-.s1 {
-  color: $ugoro;
-  font-weight: 500;
-  margin: 10px 0px;
-}
-
-.r {
-  margin: 5px;
-  font-size: 16px;
-  color: $ugoro;
-  font-weight: 500;
-}
-
 .eb-container .va:after {
   content: ")" !important;
 }
@@ -802,6 +781,32 @@
 .eb-container [class^="q"] + .s,
 .eb-container [class^="q"] + .s1 {
   margin-top: 1.5em;
+}
+
+.wj {
+  color: #cc0000;
+  font-weight: 500;
+}
+
+.v {
+  color: $black;
+  font-family: $fontHeader;
+  font-weight: 600;
+  font-size: 20px;
+  margin-right: 2px;
+}
+
+.s1 {
+  color: $ugoro;
+  font-weight: 500;
+  margin: 10px 0px;
+}
+
+.r {
+  margin: 5px;
+  font-size: 16px;
+  color: $ugoro;
+  font-weight: 500;
 }
 
 /*# sourceMappingURL=eb-scripture-style.css.map */
