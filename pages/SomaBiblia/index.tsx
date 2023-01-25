@@ -22,7 +22,7 @@ export const getStaticProps: GetStaticProps = async () => {
     })
     .catch(function (error) {
       // handle error
-      console.log(error);
+      return [];
     });
 
   const bible = JSON.parse(JSON.stringify(data.data));
