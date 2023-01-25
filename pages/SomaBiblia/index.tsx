@@ -6,7 +6,7 @@ import styles from "../../styles/bible.module.scss";
 import Link from "next/link";
 
 export const getStaticProps: GetStaticProps = async () => {
-  const API_KEY = process.env.BIBLE_API_KEY;
+  const API_KEY = process.env.NEXTBIBLE_API_KEY;
   const url =
     "https://api.scripture.api.bible/v1/bibles/611f8eb23aec8f13-01/books";
   const config = {
