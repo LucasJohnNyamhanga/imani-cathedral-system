@@ -8,7 +8,7 @@ import Link from "next/link";
 export const getStaticProps: GetStaticProps = async (context) => {
   const id = context.params?.id;
   // ...
-  const API_KEY = `869904e0e97adf37df23e4cee5e3c5d2`;
+  const API_KEY = process.env.BIBLE_API_KEY;
   const url = `https://api.scripture.api.bible/v1/bibles/611f8eb23aec8f13-01/books/${id}/chapters`;
   const config = {
     headers: {
@@ -73,7 +73,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   // ...
-  const API_KEY = `869904e0e97adf37df23e4cee5e3c5d2`;
+  const API_KEY = process.env.BIBLE_API_KEY;
   const url =
     "https://api.scripture.api.bible/v1/bibles/611f8eb23aec8f13-01/books";
   const config = {

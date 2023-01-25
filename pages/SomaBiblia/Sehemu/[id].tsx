@@ -10,7 +10,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const sectionId = context.params?.id;
   // ...
 
-  const API_KEY = `869904e0e97adf37df23e4cee5e3c5d2`;
+  const API_KEY = process.env.BIBLE_API_KEY;
   const url = `https://api.scripture.api.bible/v1/bibles/611f8eb23aec8f13-01/sections/${sectionId}?content-type=html&include-notes=true&include-titles=true&include-chapter-numbers=false&include-verse-numbers=true&include-verse-spans=true`;
   const config = {
     headers: {
@@ -44,17 +44,38 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   const kitabuDetails = JSON.parse(JSON.stringify(book.data));
 
+  const urlSection = `https://api.scripture.api.bible/v1/bibles/611f8eb23aec8f13-01/books/${andiko.bookId}/sections`;
+
+  let checkSectionStatus = false;
+
+  const section = await axios
+    .get(urlSection, config)
+    .then(function (response) {
+      checkSectionStatus = true;
+      return response.data;
+    })
+    .catch(function (error) {
+      // handle error
+      return [];
+    });
+
+  let sections = [];
+  if (checkSectionStatus) {
+    sections = JSON.parse(JSON.stringify(section.data));
+  }
+
   return {
     props: {
       andiko,
       kitabuDetails,
+      sections,
     },
   };
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
   // ...
-  const API_KEY = `869904e0e97adf37df23e4cee5e3c5d2`;
+  const API_KEY = process.env.BIBLE_API_KEY;
   const config = {
     headers: {
       "api-key": API_KEY,
@@ -135,6 +156,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 const Index = ({
   andiko,
   kitabuDetails,
+  sections,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   //!mambo yanaanza
 
@@ -145,7 +167,16 @@ const Index = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navActive]);
 
-  console.log(kitabuDetails);
+  type sectionData = {
+    id: string;
+    bibleId: string;
+    bookId: string;
+    title: string;
+    firstVerseId: string;
+    lastVerseId: string;
+    firstVerseOrgId: string;
+    lastVerseOrgId: string;
+  };
 
   return (
     <div className={styles.container}>
@@ -169,6 +200,32 @@ const Index = ({
           className={styles.andiko}
           dangerouslySetInnerHTML={{ __html: andiko.content }}
         />
+        <>
+          {sections.length > 0 && (
+            <>
+              <div>
+                <h2
+                  className={styles.headerSection}
+                >{`Sehemu za ${kitabuDetails.nameLong}`}</h2>
+              </div>
+              <div>
+                {sections.map((section: sectionData) => (
+                  <div key={section.id} className={styles.section}>
+                    <Link href={`/SomaBiblia/Sehemu/${section.id}`}>
+                      <span>
+                        {section.firstVerseOrgId.replace(
+                          section.bookId,
+                          kitabuDetails.name
+                        )}
+                      </span>
+                      {`${section.title}`}
+                    </Link>
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
+        </>
         <div className={styles.spacer}></div>
         <div className={styles.headerDirection}>
           <Link href={"/SomaBiblia"} className={styles.linker}>
