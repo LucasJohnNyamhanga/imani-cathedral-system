@@ -10,7 +10,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const sectionId = context.params?.id;
   // ...
 
-  const API_KEY = process.env.NEXTBIBLE_API_KEY;
+  const API_KEY = `91d3ca0c7cb525ce89e72a18f27ab032`;
   const url = `https://api.scripture.api.bible/v1/bibles/611f8eb23aec8f13-01/sections/${sectionId}?content-type=html&include-notes=true&include-titles=true&include-chapter-numbers=false&include-verse-numbers=true&include-verse-spans=true`;
   const config = {
     headers: {
@@ -75,7 +75,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   // ...
-  const API_KEY = process.env.NEXTBIBLE_API_KEY;
+  const API_KEY = `91d3ca0c7cb525ce89e72a18f27ab032`;
   const config = {
     headers: {
       "api-key": API_KEY,
