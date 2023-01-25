@@ -152,7 +152,6 @@ const Index = ({
   });
   const child = data[0];
   const { id, reference } = child;
-  console.log(kitabuDetails);
 
   return (
     <div className={styles.container}>
