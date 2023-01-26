@@ -17,7 +17,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   //* getting passage using chapter id
   //* `https://api.scripture.api.bible/v1/bibles/611f8eb23aec8f13-01/passages/GEN.36?content-type=html&include-notes=false&include-titles=true&include-chapter-numbers=false&include-verse-numbers=true&include-verse-spans=true&use-org-id=false`
 
-  const API_KEY = `869904e0e97adf37df23e4cee5e3c5d2`;
+  const API_KEY = `90804860592ca051f1911da5639fdf01`;
   const url = `https://api.scripture.api.bible/v1/bibles/611f8eb23aec8f13-01/passages/${chapterId}?content-type=html&include-notes=false&include-titles=true&include-chapter-numbers=false&include-verse-numbers=true&include-verse-spans=true&use-org-id=false`;
   const config = {
     headers: {
@@ -76,7 +76,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   // ...
-  const API_KEY = `869904e0e97adf37df23e4cee5e3c5d2`;
+  const API_KEY = `90804860592ca051f1911da5639fdf01`;
   const config = {
     headers: {
       "api-key": API_KEY,
