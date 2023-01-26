@@ -55,22 +55,23 @@ const SomaBiblia = ({
       <div className={styles.innerContainer}>
         {bible.map((kitabu: bibliaType, index: number) => (
           <div key={index}>
-            {index === 0 && (
-              <div>
-                <h2 className={styles.header}>Agano La Kale</h2>
-              </div>
-            )}
-            {index === 39 && (
-              <div>
-                <h2 className={styles.header}>Agano Jipya</h2>
-              </div>
-            )}
+            <div>
+              {index === 0 && (
+                <div>
+                  <h2 className={styles.header}>Agano La Kale</h2>
+                </div>
+              )}
+              {index === 39 && (
+                <div>
+                  <h2 className={styles.header}>Agano Jipya</h2>
+                </div>
+              )}
+            </div>
             <div className={styles.kitabuHolder}>
               <div className={styles.kitabu}>
                 <Link
-                  href={`/SomaBiblia/Kitabu/[id]`}
+                  href={`/SomaBiblia/Kitabu/${encodeURIComponent(kitabu.id)}`}
                   key={kitabu.id}
-                  as={`/SomaBiblia/Kitabu/${kitabu.id}`}
                 >
                   {kitabu.nameLong}
                 </Link>

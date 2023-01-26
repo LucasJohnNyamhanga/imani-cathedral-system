@@ -160,7 +160,7 @@ const Index = ({
             (kitabu: kitabuData, index: number) =>
               index > 0 && (
                 <Link
-                  href={`/SomaBiblia/Maandiko/${kitabu.id}`}
+                  href={`/SomaBiblia/Maandiko/${encodeURIComponent(kitabu.id)}`}
                   className={styles.box}
                   key={kitabu.number}
                 >
@@ -180,7 +180,11 @@ const Index = ({
               <div>
                 {sections.map((section: sectionData) => (
                   <div key={section.id} className={styles.section}>
-                    <Link href={`/SomaBiblia/Sehemu/${section.id}`}>
+                    <Link
+                      href={`/SomaBiblia/Sehemu/${encodeURIComponent(
+                        section.id
+                      )}`}
+                    >
                       <span>
                         {section.firstVerseOrgId.replace(
                           section.bookId,

@@ -220,7 +220,11 @@ const Index = ({
                         : styles.section
                     }
                   >
-                    <Link href={`/SomaBiblia/Sehemu/${section.id}`}>
+                    <Link
+                      href={`/SomaBiblia/Sehemu/${encodeURIComponent(
+                        section.id
+                      )}`}
+                    >
                       <span>
                         {section.firstVerseOrgId.replace(
                           section.bookId,
@@ -242,7 +246,7 @@ const Index = ({
           </Link>{" "}
           <FaAngleRight size={17} />{" "}
           <Link
-            href={`/SomaBiblia/Kitabu/${andiko.bookId}`}
+            href={`/SomaBiblia/Kitabu/${encodeURIComponent(andiko.bookId)}`}
             className={styles.linker}
           >
             {kitabuDetails.nameLong}

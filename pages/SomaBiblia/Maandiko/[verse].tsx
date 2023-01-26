@@ -162,7 +162,7 @@ const Index = ({
           </Link>{" "}
           <FaAngleRight size={17} />{" "}
           <Link
-            href={`/SomaBiblia/Kitabu/${kitabuDetails.id}`}
+            href={`/SomaBiblia/Kitabu/${encodeURIComponent(kitabuDetails.id)}`}
             className={styles.linker}
           >
             {kitabuDetails.name}
@@ -183,7 +183,7 @@ const Index = ({
             (kitabu: kitabuData, index: number) =>
               index > 0 && (
                 <Link
-                  href={`/SomaBiblia/Maandiko/${kitabu.id}`}
+                  href={`/SomaBiblia/Maandiko/${encodeURIComponent(kitabu.id)}`}
                   className={
                     id == kitabu.id ? `${styles.boxActive}` : styles.box
                   }
@@ -201,7 +201,7 @@ const Index = ({
           </Link>{" "}
           <FaAngleRight size={17} />{" "}
           <Link
-            href={`/SomaBiblia/Kitabu/${kitabuDetails.id}`}
+            href={`/SomaBiblia/Kitabu/${encodeURIComponent(kitabuDetails.id)}`}
             className={styles.linker}
           >
             {kitabuDetails.name}
