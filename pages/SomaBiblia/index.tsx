@@ -67,7 +67,11 @@ const SomaBiblia = ({
             )}
             <div className={styles.kitabuHolder}>
               <div className={styles.kitabu}>
-                <Link href={`/SomaBiblia/Kitabu/${kitabu.id}`} key={kitabu.id}>
+                <Link
+                  href={`/SomaBiblia/Kitabu/[id]`}
+                  key={kitabu.id}
+                  as={`/SomaBiblia/Kitabu/${kitabu.id}`}
+                >
                   {kitabu.nameLong}
                 </Link>
               </div>
