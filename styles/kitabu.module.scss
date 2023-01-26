@@ -142,11 +142,28 @@
       }
 
       &:hover {
-        color: $lightblue;
+        color: $ugoro;
         cursor: pointer;
+        font-weight: 500;
+        scale: 1.06;
+        margin-left: 45px;
+
         span {
           color: $black;
         }
+      }
+    }
+
+    .activeSection {
+      padding: 10px 0px;
+      font-weight: 400;
+      font-size: 22px;
+      color: $lightblue;
+
+      span {
+        font-weight: 600;
+        margin-right: 10px;
+        color: $lightblue;
       }
     }
   }

@@ -10,7 +10,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const sectionId = context.params?.id;
   // ...
 
-  const API_KEY = `91d3ca0c7cb525ce89e72a18f27ab032`;
+  const API_KEY = `90804860592ca051f1911da5639fdf01`;
   const url = `https://api.scripture.api.bible/v1/bibles/611f8eb23aec8f13-01/sections/${sectionId}?content-type=html&include-notes=true&include-titles=true&include-chapter-numbers=false&include-verse-numbers=true&include-verse-spans=true`;
   const config = {
     headers: {
@@ -69,13 +69,14 @@ export const getStaticProps: GetStaticProps = async (context) => {
       andiko,
       kitabuDetails,
       sections,
+      sectionId,
     },
   };
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
   // ...
-  const API_KEY = `91d3ca0c7cb525ce89e72a18f27ab032`;
+  const API_KEY = `90804860592ca051f1911da5639fdf01`;
   const config = {
     headers: {
       "api-key": API_KEY,
@@ -157,6 +158,7 @@ const Index = ({
   andiko,
   kitabuDetails,
   sections,
+  sectionId,
 }: InferGetStaticPropsType<typeof getStaticProps>) => {
   //!mambo yanaanza
 
@@ -210,7 +212,14 @@ const Index = ({
               </div>
               <div>
                 {sections.map((section: sectionData) => (
-                  <div key={section.id} className={styles.section}>
+                  <div
+                    key={section.id}
+                    className={
+                      sectionId == section.id
+                        ? styles.activeSection
+                        : styles.section
+                    }
+                  >
                     <Link href={`/SomaBiblia/Sehemu/${section.id}`}>
                       <span>
                         {section.firstVerseOrgId.replace(
