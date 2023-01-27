@@ -212,18 +212,18 @@ const Index = ({
               </div>
               <div>
                 {sections.map((section: sectionData) => (
-                  <div
+                  <Link
+                    href={`/SomaBiblia/Sehemu/${encodeURIComponent(
+                      section.id
+                    )}`}
                     key={section.id}
-                    className={
-                      sectionId == section.id
-                        ? styles.activeSection
-                        : styles.section
-                    }
                   >
-                    <Link
-                      href={`/SomaBiblia/Sehemu/${encodeURIComponent(
-                        section.id
-                      )}`}
+                    <div
+                      className={
+                        sectionId == section.id
+                          ? styles.activeSection
+                          : styles.section
+                      }
                     >
                       <span>
                         {section.firstVerseOrgId.replace(
@@ -232,8 +232,8 @@ const Index = ({
                         )}
                       </span>
                       {`${section.title}`}
-                    </Link>
-                  </div>
+                    </div>
+                  </Link>
                 ))}
               </div>
             </>
