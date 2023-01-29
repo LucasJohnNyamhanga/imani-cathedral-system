@@ -108,7 +108,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   let listPaths: any = [];
 
   const findSections = async (ChapterId: string) => {
-    const sectionsPath = `https://api.scripture.api.bible/v1/bibles/611f8eb23aec8f13-01/chapters/chapterId/sections`;
+    const sectionsPath = `https://api.scripture.api.bible/v1/bibles/611f8eb23aec8f13-01/chapters/${ChapterId}/sections`;
     const dataListSection = await axios
       .get(sectionsPath, config)
       .then(function (response) {
