@@ -10,7 +10,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const sectionId = context.params?.id;
   // ...
 
-  const API_KEY = `869904e0e97adf37df23e4cee5e3c5d2`;
+  const API_KEY = `91d3ca0c7cb525ce89e72a18f27ab032`;
   const url = `https://api.scripture.api.bible/v1/bibles/611f8eb23aec8f13-01/sections/${sectionId}?content-type=html&include-notes=true&include-titles=true&include-chapter-numbers=false&include-verse-numbers=true&include-verse-spans=true`;
   const config = {
     headers: {
@@ -76,7 +76,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   // ...
-  const API_KEY = `869904e0e97adf37df23e4cee5e3c5d2`;
+  const API_KEY = `91d3ca0c7cb525ce89e72a18f27ab032`;
   const config = {
     headers: {
       "api-key": API_KEY,
@@ -110,7 +110,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const findSections = async (bookId: string) => {
     const sectionsPath = `https://api.scripture.api.bible/v1/bibles/611f8eb23aec8f13-01/books/${bookId}/sections`;
     //api.scripture.api.bible/v1/bibles/611f8eb23aec8f13-01/books/bookId/sections
-    https: const dataListSection = await axios
+    const dataListSection = await axios
       .get(sectionsPath, config)
       .then(function (response) {
         return response.data;
