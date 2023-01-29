@@ -140,7 +140,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
         let id = section.id;
         listPaths.push({
           params: {
-            verse: `${id}`,
+            id: `${id}`,
           },
         });
       });
