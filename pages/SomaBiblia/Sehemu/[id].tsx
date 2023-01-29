@@ -84,7 +84,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 
   const urlpath =
-    "https://api.scripture.api.bible/v1/bibles/611f8eb23aec8f13-01/books?include-chapters=true";
+    "https://api.scripture.api.bible/v1/bibles/611f8eb23aec8f13-01/books";
 
   type dataList = {
     id: string;
@@ -107,9 +107,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   let listPaths: any = [];
 
-  const findSections = async (ChapterId: string) => {
-    const sectionsPath = `https://api.scripture.api.bible/v1/bibles/611f8eb23aec8f13-01/chapters/${ChapterId}/sections`;
-    const dataListSection = await axios
+  const findSections = async (bookId: string) => {
+    const sectionsPath = `https://api.scripture.api.bible/v1/bibles/611f8eb23aec8f13-01/books/${bookId}/sections`;
+    //api.scripture.api.bible/v1/bibles/611f8eb23aec8f13-01/books/bookId/sections
+    https: const dataListSection = await axios
       .get(sectionsPath, config)
       .then(function (response) {
         return response.data;
@@ -133,16 +134,14 @@ export const getStaticPaths: GetStaticPaths = async () => {
     lastVerseOrgId: string;
   };
 
-  chaptersList.map((list: dataList) => {
-    list.chapters.map((chapter, index) => {
-      findSections(chapter.id).then((data) => {
-        data.map((section: dataSection) => {
-          let id = section.id;
-          listPaths.push({
-            params: {
-              verse: `${id}`,
-            },
-          });
+  chaptersList.map((book: dataList) => {
+    findSections(book.id).then((data) => {
+      data.map((section: dataSection) => {
+        let id = section.id;
+        listPaths.push({
+          params: {
+            verse: `${id}`,
+          },
         });
       });
     });
